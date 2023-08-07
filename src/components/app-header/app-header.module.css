@@ -28,6 +28,7 @@
 
 .nav__links_type_right {
     justify-content: end;
+    
 }
 
 .nav__link {
@@ -37,12 +38,3 @@
     flex-direction: row;
     gap: 8px;
 }
-
-/* .nav__link-lk {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    flex: 1;
-    justify-content: end;
-} */
-

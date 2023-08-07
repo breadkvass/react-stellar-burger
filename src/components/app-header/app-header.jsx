@@ -22,7 +22,7 @@ function AppHeader() {
         
                 </nav>
                 <Logo alt="Логотип" style={{ alignSelf: "center" }}/>
-                <nav className="pl-5 pr-5 pt-4 pb-4 nav__links nav__links_type_right">
+                <nav className="nav__links nav__links_type_right">
                     <NavLink text='Личный кабинет' icon={ <ProfileIcon type="secondary" /> } />
                 </nav>
             </div>
