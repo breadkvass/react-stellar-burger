@@ -5,6 +5,15 @@ import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import style from "./app-header.module.css"
 
+const Navigation = (props) => {
+    let alignClass = props.side == 'left' ? style.nav__links_type_left : style.nav__links_type_right;    
+    return (
+        <nav className={style.nav__links + ' ' + alignClass}>
+            {props.children}
+        </nav>
+    )
+}
+
 const NavLink = (props) => (
     <div className={'pl-5 pr-5 pt-4 pb-4 ' + style.nav__link}>
         {props.icon}
@@ -12,22 +21,24 @@ const NavLink = (props) => (
     </div>
 )
 
+
+
 function AppHeader() {
     return (
         <header className={style.header}>
             <div className={'pt-4 pb-4 ' + style.header__content}> 
-                <nav className={style.nav__links + ' ' + style.nav__links_type_left}>
+                <Navigation side='left'>
                     <NavLink text='Конструктор' icon={ <BurgerIcon type="secondary" /> } />
                     <NavLink text='Лента заказов' icon={ <ListIcon type="secondary" /> } />
-                </nav>
-                <Logo alt="Логотип" style={{ alignSelf: "center" }}/>
-                <nav className={style.nav__links + ' ' + style.nav__links_type_right}>
+                </Navigation>
+                <Logo alt="Логотип" />
+                <Navigation side='right'>
                     <NavLink text='Личный кабинет' icon={ <ProfileIcon type="secondary" /> } />
-                </nav>
+                </Navigation>
             </div>
         </header>
     );
-  }
+}
   
-  export default AppHeader;
+export default AppHeader;
   
