@@ -9,6 +9,7 @@ import PlodiDereva from "../../images/plodi-dereva.png"
 import MinKolca from "../../images/mineral-kolca.png"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
 function BurgerComponent(props) {
     let place = '';
@@ -26,6 +27,15 @@ function BurgerComponent(props) {
     </div>
     )
 }
+
+BurgerComponent.propTypes = {
+  name: PropTypes.string,
+  type: PropTypes.string,
+  isLocked: PropTypes.bool,
+  text: PropTypes.string,
+  price: PropTypes.number,
+  thumbnail: PropTypes.string
+} 
 
 function ConstructorContainer() {
     return (
@@ -57,5 +67,13 @@ function BurgerConstructor(props) {
         </div>
     );
 }
-  
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number
+  })
+} 
+
 export default BurgerConstructor;
