@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./burger-ingredients.module.css"
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components"
+import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 
 // const Tab1 = (props) => {
@@ -118,6 +118,16 @@ const IngredientsContainer = (props) => {
     )
 }
 
+IngredientsContainer.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string,
+        image: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number
+      })
+    )
+} 
+
 function BurgerIngredients(props) {
     return (
         <div className={styles.content}>
@@ -128,4 +138,14 @@ function BurgerIngredients(props) {
     );
 }
   
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string,
+        image: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number
+      })
+    )
+} 
+
 export default BurgerIngredients;
