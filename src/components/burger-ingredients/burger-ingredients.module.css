@@ -2,6 +2,10 @@
     width: 600px;
 }
 
+.tab {
+    display: flex;
+}
+
 .list {
     list-style-type: none;
     display: flex;
@@ -20,6 +24,10 @@
     width: 272px;
 }
 
+.item__img {
+    width: 240px;
+    height: 120px;
+}
 .item__price {
     display: flex;
     flex-direction: row;

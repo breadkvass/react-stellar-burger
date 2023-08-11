@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css"
+import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { ingredientPropType } from "../../utils/prop-types"
 
 // const Tab1 = (props) => {
 //     const activeClass = props.active ? ' tab_type_current' : '';
@@ -33,7 +34,7 @@ class TabGroup extends React.Component {
 
     render() {
         return (
-            <div className="pt-5" style={{ display: 'flex' }}>
+            <div className={"pt-5 " + styles.tab}>
                 <Tab value="1" active={this.state.current === '1'} onClick={this.setCurrent.bind(this)}>
                     Булки
                 </Tab>
@@ -65,7 +66,7 @@ function IngredientsItem(props) {
     return (
         <li className={styles.item}>
         { props.count > 0 && <Counter count={props.count} size="default" extraClass="m-1" />}
-            <img className="pl-4 pr-4" src={props.data.image} alt={props.data.name} style={{width: "240px", height: "120px"}} />
+            <img className={"pl-4 pr-4 " + styles.item__img} src={props.data.image} alt={props.data.name} />
             <IngredientsPrice price={props.data.price} />
             <p className={"text text_type_main-default " + styles.name}>{props.data.name}</p>
         </li>
@@ -74,11 +75,7 @@ function IngredientsItem(props) {
 
 IngredientsItem.propTypes = {
     count: PropTypes.number,
-    data: PropTypes.shape({
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number
-      })
+    data: ingredientPropType
 }
 
 function IngredientsSection(props) {
@@ -96,12 +93,7 @@ function IngredientsSection(props) {
 
 IngredientsSection.propTypes = {
     name: PropTypes.string,
-    data: PropTypes.arrayOf(PropTypes.shape({
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number
-      })
-    )
+    data: PropTypes.arrayOf(ingredientPropType)
 } 
 
 const IngredientsContainer = (props) => {
@@ -119,13 +111,7 @@ const IngredientsContainer = (props) => {
 }
 
 IngredientsContainer.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        type: PropTypes.string,
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number
-      })
-    )
+    data: PropTypes.arrayOf(ingredientPropType)
 } 
 
 function BurgerIngredients(props) {
@@ -139,13 +125,7 @@ function BurgerIngredients(props) {
 }
   
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        type: PropTypes.string,
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number
-      })
-    )
+    data: PropTypes.arrayOf(ingredientPropType)
 } 
 
 export default BurgerIngredients;

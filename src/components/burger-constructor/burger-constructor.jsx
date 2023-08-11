@@ -1,15 +1,11 @@
+import React from "react";
 import styles from "./burger-constructor.module.css"
+import PropTypes from 'prop-types';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import KratBulka from "../../images/kratornaya-bulka.png";
-import SousGalaktika from "../../images/sous-galakticheskiy.png"
-import MyasoMollusscov from "../../images/myaso-molluscov.png"
-import PlodiDereva from "../../images/plodi-dereva.png"
-import MinKolca from "../../images/mineral-kolca.png"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { ingredientPropType } from "../../utils/prop-types";
 
 function BurgerComponent(props) {
     let place = '';
@@ -29,38 +25,32 @@ function BurgerComponent(props) {
 }
 
 BurgerComponent.propTypes = {
-  name: PropTypes.string,
   type: PropTypes.string,
   isLocked: PropTypes.bool,
-  text: PropTypes.string,
-  price: PropTypes.number,
-  thumbnail: PropTypes.string,
-  className: PropTypes.string
+  data: ingredientPropType
 } 
-
-const burger = {
-  top: '60666c42cc7b410027a1a9b1',
-  middle: [
-    '60666c42cc7b410027a1a9b9',
-    '60666c42cc7b410027a1a9b4',
-    '60666c42cc7b410027a1a9bc',
-    '60666c42cc7b410027a1a9bb',
-    '60666c42cc7b410027a1a9bb'
-  ],
-  bottom: '60666c42cc7b410027a1a9b1'
-}
-
-
-// {buns.map((item) => (<BurgerComponent data={item} />))}
 
 function findIngredientById(data, id) {
   return data.find((item) => item._id === id);
 }
 
-function ConstructorContainer(props) {
-  const top = findIngredientById(props.data, burger.top);
-  const bottom = findIngredientById(props.data, burger.bottom);
-  const middle = burger.middle.map(id => findIngredientById(props.data, id));
+class ConstructorContainer extends React.Component {
+  state = {
+    top: '60666c42cc7b410027a1a9b1',
+    middle: [
+      '60666c42cc7b410027a1a9b9',
+      '60666c42cc7b410027a1a9b4',
+      '60666c42cc7b410027a1a9bc',
+      '60666c42cc7b410027a1a9bb',
+      '60666c42cc7b410027a1a9bb'
+    ],
+    bottom: '60666c42cc7b410027a1a9b1'
+  }
+
+  render() {
+    const top = findIngredientById(this.props.data, this.state.top);
+    const bottom = findIngredientById(this.props.data, this.state.bottom);
+    const middle = this.state.middle.map(id => findIngredientById(this.props.data, id));
 
     return (
       <div className={styles.сonstructor__сontainer}>
@@ -72,6 +62,7 @@ function ConstructorContainer(props) {
       </div>
     )
   }
+}
 
 function BurgerConstructor(props) {
     return (
@@ -89,14 +80,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    _id: PropTypes.string
-  })
-)
+  data: PropTypes.arrayOf(ingredientPropType)
 } 
 
 export default BurgerConstructor;
