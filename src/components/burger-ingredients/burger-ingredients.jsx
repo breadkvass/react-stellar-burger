@@ -88,7 +88,7 @@ function IngredientsSection(props) {
                 {props.name}
             </h3>
             <div className={styles.list + " pt-6"}>
-                {props.data.map((item) => (<IngredientsItem data={item} count={1} />))}
+                {props.data.map(item => (<IngredientsItem key={item._id} data={item} count={1} />))}
             </div>
         </div>
     )
@@ -111,7 +111,7 @@ const IngredientsContainer = (props) => {
     
     return (
         <div className={"custom-scroll mt-10 " + styles.container}>
-            <IngredientsSection name="Булки" data={buns} />
+            <IngredientsSection  name="Булки" data={buns} />
             <IngredientsSection name="Соусы" data={sauces} />
             <IngredientsSection name="Начинка" data={mains} />
         </div>

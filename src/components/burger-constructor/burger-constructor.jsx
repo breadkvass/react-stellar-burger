@@ -21,9 +21,9 @@ function BurgerComponent(props) {
         place = '';
     }
     return (
-    <div className={props.class}>
-        {props.type === "undefined" && <DragIcon type="primary" />}
-        <ConstructorElement type={props.type} isLocked={props.islocked} text={props.name + place} price={props.price} thumbnail={props.img} />
+    <div className={props.className}>
+        {!props.type && <DragIcon type="primary" />}
+        <ConstructorElement type={props.type} isLocked={props.islocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
     </div>
     )
 }
@@ -34,21 +34,41 @@ BurgerComponent.propTypes = {
   isLocked: PropTypes.bool,
   text: PropTypes.string,
   price: PropTypes.number,
-  thumbnail: PropTypes.string
+  thumbnail: PropTypes.string,
+  className: PropTypes.string
 } 
 
-function ConstructorContainer() {
+const burger = {
+  top: '60666c42cc7b410027a1a9b1',
+  middle: [
+    '60666c42cc7b410027a1a9b9',
+    '60666c42cc7b410027a1a9b4',
+    '60666c42cc7b410027a1a9bc',
+    '60666c42cc7b410027a1a9bb',
+    '60666c42cc7b410027a1a9bb'
+  ],
+  bottom: '60666c42cc7b410027a1a9b1'
+}
+
+
+// {buns.map((item) => (<BurgerComponent data={item} />))}
+
+function findIngredientById(data, id) {
+  return data.find((item) => item._id === id);
+}
+
+function ConstructorContainer(props) {
+  const top = findIngredientById(props.data, burger.top);
+  const bottom = findIngredientById(props.data, burger.bottom);
+  const middle = burger.middle.map(id => findIngredientById(props.data, id));
+
     return (
       <div className={styles.сonstructor__сontainer}>
-        <BurgerComponent type="top" isLocked={true} name="Краторная булка N-200i" price={20} img={KratBulka} class="pl-8"/>
+        <BurgerComponent type="top" isLocked={true} className="pl-8" data={top}/>
         <div className={"custom-scroll " + styles.unlocked}>
-          <BurgerComponent type="undefined" isLocked={false} name="Соус традиционный галактический" price={30} img={SousGalaktika} class={styles.component}/>
-          <BurgerComponent type="undefined" isLocked={false} name="Мясо бессмертных моллюсков Protostomia" price={300} img={MyasoMollusscov} class={styles.component} />
-          <BurgerComponent type="undefined" isLocked={false} name="Плоды Фалленианского дерева" price={80} img={PlodiDereva} class={styles.component} />
-          <BurgerComponent type="undefined" isLocked={false} name="Хрустящие минеральные кольца" price={80} img={MinKolca} class={styles.component} />
-          <BurgerComponent type="undefined" isLocked={false} name="Хрустящие минеральные кольца" price={80} img={MinKolca} class={styles.component} />
+          {middle.map((item, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} data={item}/>))}
         </div>
-        <BurgerComponent type="bottom" isLocked={true} name="Краторная булка N-200i" price={20} img={KratBulka} class="pl-8"/>
+        <BurgerComponent type="bottom" isLocked={true} className="pl-8" data={bottom} />
       </div>
     )
   }
@@ -69,11 +89,14 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
     image: PropTypes.string,
     name: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    _id: PropTypes.string
   })
+)
 } 
 
 export default BurgerConstructor;
