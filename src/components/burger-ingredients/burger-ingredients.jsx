@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import styles from "./burger-ingredients.module.css"
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,47 +6,27 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../utils/prop-types"
 
-// const Tab1 = (props) => {
-//     const activeClass = props.active ? ' tab_type_current' : '';
-//     const className = 'tab pt-4 pr-10 pb-4 pl-10' + activeClass;
+function TabGroup() {
+    const [current, setCurrent] = React.useState('1');
 
-//     const handleClick = event => {
-//         props.onClick(props.value);
-//     }
+    const clickHandler = (value) => {
+        setCurrent(value);
+    };
+    
 
-//     return (
-//         <div className={className} onClick={handleClick}>
-//             <span className="text text_type_main-default">{props.children}</span>
-//         </div>
-//     )
-// }
-
-class TabGroup extends React.Component {
-    state = {
-        current: '1'
-    }
-
-    setCurrent(value) {
-        this.setState ({
-            current: value
-        })
-    }
-
-    render() {
-        return (
-            <div className={"pt-5 " + styles.tab}>
-                <Tab value="1" active={this.state.current === '1'} onClick={this.setCurrent.bind(this)}>
-                    Булки
-                </Tab>
-                <Tab value="2" active={this.state.current === '2'} onClick={this.setCurrent.bind(this)}>
-                    Соусы
-                </Tab>
-                <Tab value="3" active={this.state.current === '3'} onClick={this.setCurrent.bind(this)}>
-                    Начинки
-                </Tab>
-            </div>
-        )
-    } 
+    return (
+      <div className={"pt-5 " + styles.tab}>
+        <Tab value="1" active={current === '1'} onClick={clickHandler}>
+          Булки
+        </Tab>
+        <Tab value="2" active={current === '2'} onClick={clickHandler}>
+          Соусы
+        </Tab>
+        <Tab value="3" active={current === '3'} onClick={clickHandler}>
+          Начинки
+        </Tab>
+      </div>
+    )
 }
 
 function IngredientsPrice(props) {
@@ -103,7 +83,7 @@ const IngredientsContainer = (props) => {
     
     return (
         <div className={"custom-scroll mt-10 " + styles.container}>
-            <IngredientsSection  name="Булки" data={buns} />
+            <IngredientsSection name="Булки" data={buns} />
             <IngredientsSection name="Соусы" data={sauces} />
             <IngredientsSection name="Начинка" data={mains} />
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import styles from "./burger-constructor.module.css"
 import PropTypes from 'prop-types';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,6 +6,9 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../utils/prop-types";
+import Modal from "../modal/modal";
+import OrderDetails from '../order-details/order-details';
+
 
 function BurgerComponent(props) {
     let place = '';
@@ -65,19 +68,30 @@ class ConstructorContainer extends React.Component {
 }
 
 function BurgerConstructor(props) {
-    return (
-        <div className={styles.content + " mt-25"}>
-            <ConstructorContainer data={props.data} />
-            <div className={styles.info + " mt-10"}>
-              <div className={styles.price}>
-                <p className="text text_type_digits-medium">610</p>
-                <CurrencyIcon />
-              </div>
-              <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
-            </div>
+  const [isMounted, setMounted] = useState(false);
+
+  const clickHandler = () => {
+    setMounted(!isMounted);
+  }
+
+  return (
+    <div className={styles.content + " mt-25"}>
+      <ConstructorContainer data={props.data} />
+      <div className={styles.info + " mt-10"}>
+        <div className={styles.price}>
+          <p className="text text_type_digits-medium">610</p>
+          <CurrencyIcon />
         </div>
-    );
+        <Button onClick={clickHandler} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+        {isMounted &&
+        <Modal padding=" pt-10 pb-30 pl-10 pr-10" clickHandler={clickHandler}>
+          <OrderDetails />
+        </Modal>}
+      </div>
+    </div>
+  )
 }
+
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType)

@@ -6,7 +6,7 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/
 import style from "./app-header.module.css"
 
 const Navigation = (props) => {
-    let alignClass = props.side == 'left' ? style.nav__links_type_left : style.nav__links_type_right;    
+    let alignClass = props.side === 'left' ? style.nav__links_type_left : style.nav__links_type_right;    
     return (
         <nav className={style.nav__links + ' ' + alignClass}>
             {props.children}
