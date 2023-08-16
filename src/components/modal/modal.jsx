@@ -12,7 +12,7 @@ function Modal(props) {
             <ModalOverlay>
                 <div className={styles.modal + props.padding}>
                     <div className={styles.heading}>
-                        <h2 className={styles.title + " text text_type_main-large"}>{props.title}</h2>
+                        <h2 className={"text text_type_main-large"}>{props.title}</h2>
                         <CloseIcon onClick={props.clickHandler} type="primary" />
                     </div>
                     <div className={styles.content}>

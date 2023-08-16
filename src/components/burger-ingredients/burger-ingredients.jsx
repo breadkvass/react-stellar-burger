@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./burger-ingredients.module.css"
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../utils/prop-types"
+import { ingredientPropType } from "../../utils/prop-types";
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function TabGroup() {
-    const [current, setCurrent] = React.useState('1');
+    const [current, setCurrent] = useState('1');
 
     const clickHandler = (value) => {
         setCurrent(value);
@@ -43,12 +45,29 @@ IngredientsPrice.propTypes = {
 }
 
 function IngredientsItem(props) {
+    const [isMounted, setMounted] = useState(false);
+    
+    const clickHandler = () => {
+        setMounted(!isMounted);
+    }
+
     return (
-        <li className={styles.item}>
+        <li className={styles.item} onClick={clickHandler}>
         { props.count > 0 && <Counter count={props.count} size="default" extraClass="m-1" />}
             <img className={"pl-4 pr-4 " + styles.item__img} src={props.data.image} alt={props.data.name} />
             <IngredientsPrice price={props.data.price} />
             <p className={"text text_type_main-default " + styles.name}>{props.data.name}</p>
+            {isMounted &&
+            <Modal title="Детали ингредиента" padding=" pt-10 pb-15 pl-10 pr-10" clickHandler={clickHandler}>
+                <IngredientDetails
+                    image={props.data.image_large}
+                    name={props.data.name}
+                    calories={props.data.calories}
+                    proteins={props.data.proteins}
+                    fat={props.data.fat}
+                    carbohydrates={props.data.carbohydrates}
+                />
+            </Modal>}
         </li>
     )
 }
@@ -66,6 +85,7 @@ function IngredientsSection(props) {
             </h3>
             <div className={styles.list + " pt-6"}>
                 {props.data.map(item => (<IngredientsItem key={item._id} data={item} count={1} />))}
+                
             </div>
         </div>
     )

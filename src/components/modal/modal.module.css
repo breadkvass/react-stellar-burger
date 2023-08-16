@@ -10,6 +10,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 580px;
+    height: 64px;
 }
 
 .heading svg {
@@ -18,11 +20,10 @@
     cursor: pointer;
 }
 
-
+/* 
 .title {
-    width: 580px;
-    height: 64px;
-}
+    
+} */
 
 .content {
     width: 520px;
