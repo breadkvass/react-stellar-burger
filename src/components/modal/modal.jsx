@@ -49,4 +49,10 @@ function Modal(props) {
     );
 }
 
+Modal.propTypes = {
+    closeHandler: PropTypes.func,
+    padding: PropTypes.string,
+    title: PropTypes.string
+}
+
 export default Modal;

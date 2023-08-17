@@ -67,6 +67,10 @@ class ConstructorContainer extends React.Component {
   }
 }
 
+ConstructorContainer.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType)
+}
+
 function BurgerConstructor(props) {
   const [isShowModal, setIsShowModal] = useState(false);
 

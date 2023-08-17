@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from "./ingredient-details.module.css";
 
 function Value(props) {
@@ -7,6 +8,11 @@ function Value(props) {
             <p className="text text_type_digits-default text_color_inactive">{props.value}</p>
         </div>
     )
+}
+
+Value.propTypes = {
+    name: PropTypes.string,
+    value: PropTypes.number
 }
 
 function IngredientDetails(props) {
@@ -23,6 +29,15 @@ function IngredientDetails(props) {
         </>
     )
     
+}
+
+IngredientDetails.propTypes = {
+    name: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    image: PropTypes.string,
 }
 
 
