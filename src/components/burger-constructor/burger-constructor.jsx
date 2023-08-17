@@ -68,10 +68,15 @@ class ConstructorContainer extends React.Component {
 }
 
 function BurgerConstructor(props) {
-  const [isMounted, setMounted] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
 
-  const clickHandler = () => {
-    setMounted(!isMounted);
+  const openModal = (e) => {
+    e.stopPropagation();
+    setIsShowModal(true);
+  }
+
+  const closeModal = () => {
+    setIsShowModal(false);
   }
 
   return (
@@ -82,9 +87,9 @@ function BurgerConstructor(props) {
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon />
         </div>
-        <Button onClick={clickHandler} htmlType="button" type="primary" size="large">Оформить заказ</Button>
-        {isMounted &&
-        <Modal padding=" pt-10 pb-30 pl-10 pr-10" clickHandler={clickHandler}>
+        <Button onClick={openModal} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+        {isShowModal &&
+        <Modal padding=" pt-10 pb-30 pl-10 pr-10" closeHandler={closeModal}>
           <OrderDetails />
         </Modal>}
       </div>
