@@ -39,15 +39,15 @@ function findIngredientById(data, id) {
 
 class ConstructorContainer extends React.Component {
   state = {
-    top: '60666c42cc7b410027a1a9b1',
+    top: '643d69a5c3f7b9001cfa093c',
     middle: [
-      '60666c42cc7b410027a1a9b9',
-      '60666c42cc7b410027a1a9b4',
-      '60666c42cc7b410027a1a9bc',
-      '60666c42cc7b410027a1a9bb',
-      '60666c42cc7b410027a1a9bb'
+      '643d69a5c3f7b9001cfa0944',
+      '643d69a5c3f7b9001cfa093f',
+      '643d69a5c3f7b9001cfa0947',
+      '643d69a5c3f7b9001cfa0946',
+      '643d69a5c3f7b9001cfa0946'
     ],
-    bottom: '60666c42cc7b410027a1a9b1'
+    bottom: '643d69a5c3f7b9001cfa093c'
   }
 
   render() {

@@ -1,5 +1,4 @@
 import styles from "./ingredient-details.module.css";
-import DoneImage from "../../images/done.png";
 
 function Value(props) {
     return (
@@ -14,7 +13,7 @@ function IngredientDetails(props) {
     return (
         <>
             <img className={styles.image} src={props.image}  alt={props.name}/>
-            <p className="text text_type_main-medium pt-4">{props.name}</p>
+            <p className="text text_type_main-medium pt-4" >{props.name}</p>
             <div className={styles.nutrition + " pt-8"}>
                 <Value name="Калории, ккал" value={props.calories} />
                 <Value name="Белки, г" value={props.proteins} />
