@@ -86,7 +86,7 @@ function BurgerConstructor(props) {
   return (
     <div className={styles.content + " mt-25"}>
       <ConstructorContainer data={props.data} />
-      <div className={styles.info + " mt-10"}>
+      <div className={styles.info + " pt-10 pb-10"}>
         <div className={styles.price}>
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon />
