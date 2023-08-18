@@ -22,7 +22,7 @@ function BurgerComponent(props) {
     return (
     <div className={props.className}>
         {!props.type && <DragIcon type="primary" />}
-        <ConstructorElement type={props.type} isLocked={props.islocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
+        <ConstructorElement type={props.type} isLocked={props.isLocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
     </div>
     )
 }
