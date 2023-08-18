@@ -9,16 +9,18 @@ const Navigation = (props) => {
     let alignClass = props.side === 'left' ? style.nav__links_type_left : style.nav__links_type_right;    
     return (
         <nav className={style.nav__links + ' ' + alignClass}>
-            {props.children}
+            <ul className={style.list}>
+                {props.children}
+            </ul>
         </nav>
     )
 }
 
 const NavLink = (props) => (
-    <div className={'pl-5 pr-5 pt-4 pb-4 ' + style.nav__link}>
+    <li className={'pl-5 pr-5 pt-4 pb-4 ' + style.nav__link}>
         {props.icon}
         <p className="text text_type_main-default">{props.text}</p>
-    </div>
+    </li>
 )
 
 

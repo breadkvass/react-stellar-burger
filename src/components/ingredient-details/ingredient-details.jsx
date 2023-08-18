@@ -19,7 +19,7 @@ function IngredientDetails(props) {
     return (
         <>
             <img className={styles.image} src={props.image}  alt={props.name}/>
-            <p className="text text_type_main-medium pt-4" >{props.name}</p>
+            <p className={"text text_type_main-medium pt-4 " + styles.name}>{props.name}</p>
             <div className={styles.nutrition + " pt-8"}>
                 <Value name="Калории, ккал" value={props.calories} />
                 <Value name="Белки, г" value={props.proteins} />
