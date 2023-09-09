@@ -1,0 +1,23 @@
+.image {
+    width: 480px;
+    aspect-ratio: 2 / 1;
+}
+
+.nutrition {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.value {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    text-align: center;
+}
