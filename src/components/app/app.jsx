@@ -5,6 +5,8 @@ import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
+import { IngredientsContext } from "../../services/ingredients-context";
+
 function App() {
   const [ state, setState ] = useState({
     isLoading: true,
@@ -46,10 +48,10 @@ function App() {
         {isLoading && 'Загрузка...'}
         {hasError && 'Произошла ошибка'}
         {!isLoading && !hasError && data.length &&
-            <>
-              <BurgerIngredients data={data}/>
+            <IngredientsContext.Provider value={{data: data, isLoading: isLoading}}>
+              <BurgerIngredients />
               <BurgerConstructor data={data}/>
-            </>
+            </IngredientsContext.Provider>
           }
       </main>
     </div>

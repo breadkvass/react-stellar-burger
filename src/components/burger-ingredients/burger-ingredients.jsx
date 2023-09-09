@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from "./burger-ingredients.module.css"
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { IngredientsContext } from '../../services/ingredients-context';
 
 function TabGroup() {
     const [current, setCurrent] = useState('1');
@@ -103,16 +104,19 @@ IngredientsSection.propTypes = {
     data: PropTypes.arrayOf(ingredientPropType)
 } 
 
-const IngredientsContainer = (props) => {
-    const buns = props.data.filter((item) => item.type === 'bun');
-    const sauces = props.data.filter((item) => item.type === 'sauce').sort((a, b) => b.price - a.price);
-    const mains = props.data.filter((item) => item.type === 'main').sort((a, b) => b.price - a.price);
-    
+const IngredientsContainer = () => {
+    const {data, isLoading} = useContext(IngredientsContext);
+    const buns = !isLoading && data.filter((item) => item.type === 'bun');
+    const sauces = !isLoading && data.filter((item) => item.type === 'sauce').sort((a, b) => b.price - a.price);
+    const mains = !isLoading && data.filter((item) => item.type === 'main').sort((a, b) => b.price - a.price);
+
     return (
         <div className={"custom-scroll mt-10 " + styles.container}>
-            <IngredientsSection name="Булки" data={buns} />
-            <IngredientsSection name="Соусы" data={sauces} />
-            <IngredientsSection name="Начинка" data={mains} />
+        { !isLoading && <> 
+            <IngredientsSection name="Булки" data={buns} /> 
+            <IngredientsSection name="Соусы" data={sauces} /> 
+            <IngredientsSection name="Начинка" data={mains} /> 
+        </> } 
         </div>
     )
 }
@@ -121,12 +125,13 @@ IngredientsContainer.propTypes = {
     data: PropTypes.arrayOf(ingredientPropType)
 } 
 
-function BurgerIngredients(props) {
+function BurgerIngredients() {
+    
     return (
         <div className={styles.content}>
             <h2 className="pt-10 text text_type_main-large">Соберите бургер</h2>
             <TabGroup />
-            <IngredientsContainer data={props.data} />
+            <IngredientsContainer />
         </div>
     );
 }
