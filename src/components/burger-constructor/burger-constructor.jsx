@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from "./burger-constructor.module.css"
 import PropTypes from 'prop-types';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,7 +9,6 @@ import { ingredientPropType } from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
 import { IngredientsContext } from '../../services/ingredients-context';
-
 
 function BurgerComponent(props) {
     let place = '';
@@ -38,7 +37,7 @@ function findIngredientById(data, id) {
   return data.find((item) => item._id === id);
 }
 
-const defaultFeeling = [
+const defaultFilling = [
     '643d69a5c3f7b9001cfa0944',
     '643d69a5c3f7b9001cfa093f',
     '643d69a5c3f7b9001cfa0947',
@@ -48,26 +47,29 @@ const defaultFeeling = [
 
 const defaultBun = '643d69a5c3f7b9001cfa093c';
 
-function ConstructorContainer() {
+function ConstructorContainer(props) {
   const {data, isLoading} = useContext(IngredientsContext);
-  const [topId, setTop] = useState(defaultBun);
-  const [fillingIds, setFilling] = useState(defaultFeeling);
-  const [bottomId, setBottom] = useState(defaultBun);
+  const [top, setTop] = useState(findIngredientById(data, defaultBun));
+  const [fillings, setFilling] = useState(defaultFilling.map(id => findIngredientById(data, id)));
+  const [bottom, setBottom] = useState(findIngredientById(data, defaultBun));  
 
-  const top = findIngredientById(data, topId);
-  const bottom = findIngredientById(data, bottomId);
-  const middle = fillingIds.map(id => findIngredientById(data, id));
+  useEffect(() => {
+    const totalPrice = [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0);
+
+    props.setTotalPrice(totalPrice);
+  }, [top, fillings, bottom])
 
   return (!isLoading && 
     <div className={styles.сonstructor__сontainer}>
       <BurgerComponent type="top" isLocked={true} className="pl-8" data={top}/>
       <div className={"custom-scroll " + styles.unlocked}>
-        {middle.map((item, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} data={item}/>))}
+        {fillings.map((item, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} data={item}/>))}
       </div>
       <BurgerComponent type="bottom" isLocked={true} className="pl-8" data={bottom} />
     </div>
   )
 }
+
 
 
 ConstructorContainer.propTypes = {
@@ -76,6 +78,7 @@ ConstructorContainer.propTypes = {
 
 function BurgerConstructor() {
   const [isShowModal, setIsShowModal] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const openModal = (e) => {
     e.stopPropagation();
@@ -88,10 +91,10 @@ function BurgerConstructor() {
 
   return (
     <div className={styles.content + " mt-25"}>
-      <ConstructorContainer />
+      <ConstructorContainer setTotalPrice={setTotalPrice} />
       <div className={styles.info + " pt-10 pb-10"}>
         <div className={styles.price}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon />
         </div>
         <Button onClick={openModal} htmlType="button" type="primary" size="large">Оформить заказ</Button>

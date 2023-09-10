@@ -8,7 +8,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { IngredientsContext } from "../../services/ingredients-context";
 
 function App() {
-  const [ state, setState ] = useState({
+    const [state, setState] = useState({
     isLoading: true,
     hasError: false,
     data: []
@@ -48,11 +48,11 @@ function App() {
         {isLoading && 'Загрузка...'}
         {hasError && 'Произошла ошибка'}
         {!isLoading && !hasError && data.length &&
-            <IngredientsContext.Provider value={{data: data, isLoading: isLoading}}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </IngredientsContext.Provider>
-          }
+          <IngredientsContext.Provider value={{ data: data, isLoading: isLoading }}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </IngredientsContext.Provider>
+        }
       </main>
     </div>
   );
