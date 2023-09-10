@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from "./burger-constructor.module.css"
 import PropTypes from 'prop-types';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,6 +8,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
+import { IngredientsContext } from '../../services/ingredients-context';
 
 
 function BurgerComponent(props) {
@@ -37,41 +38,58 @@ function findIngredientById(data, id) {
   return data.find((item) => item._id === id);
 }
 
-class ConstructorContainer extends React.Component {
-  state = {
-    top: '643d69a5c3f7b9001cfa093c',
-    middle: [
-      '643d69a5c3f7b9001cfa0944',
-      '643d69a5c3f7b9001cfa093f',
-      '643d69a5c3f7b9001cfa0947',
-      '643d69a5c3f7b9001cfa0946',
-      '643d69a5c3f7b9001cfa0946'
-    ],
-    bottom: '643d69a5c3f7b9001cfa093c'
-  }
+const defaultFeeling = [
+    '643d69a5c3f7b9001cfa0944',
+    '643d69a5c3f7b9001cfa093f',
+    '643d69a5c3f7b9001cfa0947',
+    '643d69a5c3f7b9001cfa0946',
+    '643d69a5c3f7b9001cfa0946'
+]
 
-  render() {
-    const top = findIngredientById(this.props.data, this.state.top);
-    const bottom = findIngredientById(this.props.data, this.state.bottom);
-    const middle = this.state.middle.map(id => findIngredientById(this.props.data, id));
+const defaultBun = '643d69a5c3f7b9001cfa093c';
 
-    return (
-      <div className={styles.сonstructor__сontainer}>
-        <BurgerComponent type="top" isLocked={true} className="pl-8" data={top}/>
-        <div className={"custom-scroll " + styles.unlocked}>
-          {middle.map((item, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} data={item}/>))}
-        </div>
-        <BurgerComponent type="bottom" isLocked={true} className="pl-8" data={bottom} />
+function ConstructorContainer() {
+  const {data, isLoading} = useContext(IngredientsContext);
+  const [topId, setTop] = useState(defaultBun);
+  const [fillingIds, setFilling] = useState(defaultFeeling);
+  const [bottomId, setBottom] = useState(defaultBun);
+
+  const top = findIngredientById(data, topId);
+  const bottom = findIngredientById(data, bottomId);
+  const middle = fillingIds.map(id => findIngredientById(data, id));
+
+  return (!isLoading && 
+    <div className={styles.сonstructor__сontainer}>
+      <BurgerComponent type="top" isLocked={true} className="pl-8" data={top}/>
+      <div className={"custom-scroll " + styles.unlocked}>
+        {middle.map((item, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} data={item}/>))}
       </div>
-    )
-  }
+      <BurgerComponent type="bottom" isLocked={true} className="pl-8" data={bottom} />
+    </div>
+  )
 }
+
 
 ConstructorContainer.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType)
 }
 
-function BurgerConstructor(props) {
+const initialState = { price: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
+
+
+function BurgerConstructor() {
   const [isShowModal, setIsShowModal] = useState(false);
 
   const openModal = (e) => {
@@ -85,7 +103,7 @@ function BurgerConstructor(props) {
 
   return (
     <div className={styles.content + " mt-25"}>
-      <ConstructorContainer data={props.data} />
+      <ConstructorContainer />
       <div className={styles.info + " pt-10 pb-10"}>
         <div className={styles.price}>
           <p className="text text_type_digits-medium">610</p>

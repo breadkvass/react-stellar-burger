@@ -50,7 +50,7 @@ function App() {
         {!isLoading && !hasError && data.length &&
             <IngredientsContext.Provider value={{data: data, isLoading: isLoading}}>
               <BurgerIngredients />
-              <BurgerConstructor data={data}/>
+              <BurgerConstructor />
             </IngredientsContext.Provider>
           }
       </main>
