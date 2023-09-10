@@ -8,7 +8,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { IngredientsContext } from "../../services/ingredients-context";
 
 function App() {
-    const [state, setState] = useState({
+  const [state, setState] = useState({
     isLoading: true,
     hasError: false,
     data: []

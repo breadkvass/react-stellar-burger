@@ -55,7 +55,9 @@ function ConstructorContainer(props) {
 
   useEffect(() => {
     const totalPrice = [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0);
-
+    const orderItems = [top, ...fillings, bottom].map(item => item._id);
+    
+    props.setOrderItems(orderItems);
     props.setTotalPrice(totalPrice);
   }, [top, fillings, bottom])
 
@@ -79,6 +81,11 @@ ConstructorContainer.propTypes = {
 function BurgerConstructor() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [orderItems, setOrderItems] = useState([]);
+
+  
+
+  const orderNumber = 3454533;
 
   const openModal = (e) => {
     e.stopPropagation();
@@ -91,7 +98,7 @@ function BurgerConstructor() {
 
   return (
     <div className={styles.content + " mt-25"}>
-      <ConstructorContainer setTotalPrice={setTotalPrice} />
+      <ConstructorContainer setTotalPrice={setTotalPrice} setOrderItems={setOrderItems} />
       <div className={styles.info + " pt-10 pb-10"}>
         <div className={styles.price}>
           <p className="text text_type_digits-medium">{totalPrice}</p>
@@ -100,7 +107,7 @@ function BurgerConstructor() {
         <Button onClick={openModal} htmlType="button" type="primary" size="large">Оформить заказ</Button>
         {isShowModal &&
         <Modal padding=" pt-10 pb-30 pl-10 pr-10" closeHandler={closeModal}>
-          <OrderDetails />
+          <OrderDetails orderItems={orderItems} />
         </Modal>}
       </div>
     </div>
