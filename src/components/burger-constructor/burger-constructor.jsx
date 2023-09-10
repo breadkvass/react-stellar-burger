@@ -74,21 +74,6 @@ ConstructorContainer.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType)
 }
 
-const initialState = { price: 0 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-
-
-
 function BurgerConstructor() {
   const [isShowModal, setIsShowModal] = useState(false);
 
