@@ -1,0 +1,13 @@
+.сonstructor__сontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.unlocked {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height:  400px;
+    overflow-y: scroll; 
+}
