@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react';
-import styles from "./burger-constructor.module.css"
+import styles from "./burger-constructor.module.css";
 import PropTypes from 'prop-types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";

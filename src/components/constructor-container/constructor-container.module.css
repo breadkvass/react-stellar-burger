@@ -11,3 +11,10 @@
     max-height:  400px;
     overflow-y: scroll; 
 }
+
+.component {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}

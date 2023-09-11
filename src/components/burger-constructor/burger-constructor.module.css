@@ -2,13 +2,6 @@
     width: 600px;
 }
 
-.component {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-}
-
 .price {
     display: flex;
     flex-direction: row;

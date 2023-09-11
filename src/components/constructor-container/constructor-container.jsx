@@ -19,34 +19,18 @@ const defaultFilling = [
 
 const defaultBun = '643d69a5c3f7b9001cfa093c';
   
-function ConstructorContainer(props) {
+function ConstructorContainer({setOrderItems, setTotalPrice}) {
     const {data, isLoading} = useContext(IngredientsContext);
     const [top, setTop] = useState(findIngredientById(data, defaultBun));
     const [fillings, setFilling] = useState(defaultFilling.map(id => findIngredientById(data, id)));
     const [bottom, setBottom] = useState(findIngredientById(data, defaultBun));  
   
-    // const initialState = { totalPrice: 0 }
-  
-    // function reducer (state, action) {
-    //   switch (action.type) {
-    //     case "set":
-    //       return { totalPrice: [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0) };
-    //     case "reset":
-    //       return initialState;
-    //     default:
-    //       throw new Error(`Wrong type of action: ${action.type}`);
-    //   }
-    // }
-    // const [totalPrice, totalPriceDispatcher] = useReducer(reducer, initialState);
-    // // const totalPrice = [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0);
-  
-  
     useEffect(() => {
         const totalPrice = [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0);
         const orderItems = [top, ...fillings, bottom].map(item => item._id);
         
-        props.setOrderItems(orderItems);
-        props.setTotalPrice(totalPrice);
+        setOrderItems(orderItems);
+        setTotalPrice(totalPrice);
     }, [top, fillings, bottom])
 
     return (!isLoading && 
