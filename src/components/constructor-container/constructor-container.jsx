@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styles from './constructor-container.module.css';
-import PropTypes from 'prop-types';
-import { IngredientsContext } from '../../services/ingredients-context';
+
 import BurgerComponent from '../burger-component/burger-component';
-import { ingredientPropType } from "../../utils/prop-types";
+
+import { IngredientsContext } from '../../services/ingredients-context';
 
 function findIngredientById(data, id) {
     return data.find((item) => item._id === id);
@@ -42,10 +42,6 @@ function ConstructorContainer({setOrderItems, setTotalPrice}) {
         <BurgerComponent type="bottom" isLocked={true} className="pl-8" data={bottom} />
         </div>
     )
-}
-  
-ConstructorContainer.propTypes = {
-    data: PropTypes.arrayOf(ingredientPropType)
 }
 
 export default ConstructorContainer;

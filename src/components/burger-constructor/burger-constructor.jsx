@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import { useState } from 'react';
 import styles from "./burger-constructor.module.css";
-import PropTypes from 'prop-types';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../utils/prop-types";
+
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
 import ConstructorContainer from '../constructor-container/constructor-container';
+
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerConstructor() {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -39,9 +39,5 @@ function BurgerConstructor() {
     </div>
   )
 }
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType)
-} 
 
 export default BurgerConstructor;

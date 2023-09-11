@@ -12,5 +12,8 @@ const Navigation = (props) => {
     )
 }
 
-export default Navigation;
+NavLink.propTypes = {
+    side: PropTypes.string
+}
 
+export default Navigation;

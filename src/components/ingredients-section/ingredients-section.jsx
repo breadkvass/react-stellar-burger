@@ -1,7 +1,8 @@
 import styles from './ingredients-section.module.css';
-import { ingredientPropType } from "../../utils/prop-types";
-import IngredientsItem from '../ingredients-item/ingredients-item';
 import PropTypes from 'prop-types';
+
+import IngredientsItem from '../ingredients-item/ingredients-item';
+import { ingredientPropType } from "../../utils/prop-types";
 
 function IngredientsSection(props) {
     return (

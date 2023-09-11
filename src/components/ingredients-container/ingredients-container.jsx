@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
-import { ingredientPropType } from "../../utils/prop-types";
+import { useContext } from 'react';
 import styles from './ingredients-container.module.css';
+
 import IngredientsSection from '../ingredients-section/ingredients-section';
-import PropTypes from 'prop-types';
+
 import { IngredientsContext } from '../../services/ingredients-context';
 
 const IngredientsContainer = () => {
@@ -21,9 +21,5 @@ const IngredientsContainer = () => {
         </div>
     )
 }
-
-IngredientsContainer.propTypes = {
-    data: PropTypes.arrayOf(ingredientPropType)
-} 
 
 export default IngredientsContainer;

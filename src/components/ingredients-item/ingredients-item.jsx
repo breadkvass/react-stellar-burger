@@ -1,12 +1,14 @@
-import { useState, useContext } from 'react';
-import { ingredientPropType } from "../../utils/prop-types";
-import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from 'react';
 import styles from './ingredients-item.module.css';
 import PropTypes from 'prop-types';
+
 import IngredientsPrice from '../ingredients-price/ingredients-price';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ingredientPropType } from "../../utils/prop-types";
 
+
+import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 function IngredientsItem(props) {
     const [isShowModal, setIsShowModal] = useState(false);
 

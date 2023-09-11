@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
-import styles from './burger-component.module.css';
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import PropTypes from 'prop-types';
+
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import { ingredientPropType } from "../../utils/prop-types";
 
 function BurgerComponent(props) {
@@ -23,9 +23,10 @@ function BurgerComponent(props) {
 }
 
 BurgerComponent.propTypes = {
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
-  data: ingredientPropType
+    className: PropTypes.string,
+    type: PropTypes.string,
+    isLocked: PropTypes.bool,
+    data: ingredientPropType
 } 
 
 export default BurgerComponent;

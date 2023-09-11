@@ -8,4 +8,9 @@ const NavLink = (props) => (
     </li>
 )
 
+NavLink.propTypes = {
+    icon: PropTypes.element,
+    text: PropTypes.string
+}
+
 export default NavLink;

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from "./order-details.module.css";
+
 import DoneImage from "../../images/done.png";
 import Spinner from '../spinner/spinner';
 
@@ -62,5 +63,8 @@ function OrderDetails(props) {
   )
 }
 
+OrderDetails.propTypes = {
+  orderItems: PropTypes.array
+}
 
 export default OrderDetails;
