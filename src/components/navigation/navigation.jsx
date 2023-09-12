@@ -12,7 +12,7 @@ const Navigation = (props) => {
     )
 }
 
-NavLink.propTypes = {
+Navigation.propTypes = {
     side: PropTypes.string
 }
 

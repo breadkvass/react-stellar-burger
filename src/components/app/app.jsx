@@ -49,7 +49,7 @@ function App() {
         {isLoading && 'Загрузка...'}
         {hasError && 'Произошла ошибка'}
         {!isLoading && !hasError && data.length &&
-          <IngredientsContext.Provider value={{ data: data, isLoading: isLoading }}>
+          <IngredientsContext.Provider value={{ data, isLoading }}>
             <BurgerIngredients />
             <BurgerConstructor />
           </IngredientsContext.Provider>

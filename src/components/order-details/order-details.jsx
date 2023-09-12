@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from "./order-details.module.css";
 
 import DoneImage from "../../images/done.png";
@@ -64,7 +65,7 @@ function OrderDetails(props) {
 }
 
 OrderDetails.propTypes = {
-  orderItems: PropTypes.array
+  orderItems: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default OrderDetails;
