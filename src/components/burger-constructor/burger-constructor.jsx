@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import styles from "./burger-constructor.module.css"
 import PropTypes from 'prop-types';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,6 +6,9 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../utils/prop-types";
+import Modal from "../modal/modal";
+import OrderDetails from '../order-details/order-details';
+
 
 function BurgerComponent(props) {
     let place = '';
@@ -19,7 +22,7 @@ function BurgerComponent(props) {
     return (
     <div className={props.className}>
         {!props.type && <DragIcon type="primary" />}
-        <ConstructorElement type={props.type} isLocked={props.islocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
+        <ConstructorElement type={props.type} isLocked={props.isLocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
     </div>
     )
 }
@@ -36,15 +39,15 @@ function findIngredientById(data, id) {
 
 class ConstructorContainer extends React.Component {
   state = {
-    top: '60666c42cc7b410027a1a9b1',
+    top: '643d69a5c3f7b9001cfa093c',
     middle: [
-      '60666c42cc7b410027a1a9b9',
-      '60666c42cc7b410027a1a9b4',
-      '60666c42cc7b410027a1a9bc',
-      '60666c42cc7b410027a1a9bb',
-      '60666c42cc7b410027a1a9bb'
+      '643d69a5c3f7b9001cfa0944',
+      '643d69a5c3f7b9001cfa093f',
+      '643d69a5c3f7b9001cfa0947',
+      '643d69a5c3f7b9001cfa0946',
+      '643d69a5c3f7b9001cfa0946'
     ],
-    bottom: '60666c42cc7b410027a1a9b1'
+    bottom: '643d69a5c3f7b9001cfa093c'
   }
 
   render() {
@@ -64,20 +67,40 @@ class ConstructorContainer extends React.Component {
   }
 }
 
-function BurgerConstructor(props) {
-    return (
-        <div className={styles.content + " mt-25"}>
-            <ConstructorContainer data={props.data} />
-            <div className={styles.info + " mt-10"}>
-              <div className={styles.price}>
-                <p className="text text_type_digits-medium">610</p>
-                <CurrencyIcon />
-              </div>
-              <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
-            </div>
-        </div>
-    );
+ConstructorContainer.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType)
 }
+
+function BurgerConstructor(props) {
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const openModal = (e) => {
+    e.stopPropagation();
+    setIsShowModal(true);
+  }
+
+  const closeModal = () => {
+    setIsShowModal(false);
+  }
+
+  return (
+    <div className={styles.content + " mt-25"}>
+      <ConstructorContainer data={props.data} />
+      <div className={styles.info + " pt-10 pb-10"}>
+        <div className={styles.price}>
+          <p className="text text_type_digits-medium">610</p>
+          <CurrencyIcon />
+        </div>
+        <Button onClick={openModal} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+        {isShowModal &&
+        <Modal padding=" pt-10 pb-30 pl-10 pr-10" closeHandler={closeModal}>
+          <OrderDetails />
+        </Modal>}
+      </div>
+    </div>
+  )
+}
+
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType)
