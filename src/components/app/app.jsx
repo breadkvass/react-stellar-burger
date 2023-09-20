@@ -7,13 +7,17 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
 import { IngredientsContext } from "../../services/ingredients-context";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { INGREDIENTS_SET_DATA, INGREDIENTS_SET_ERROR } from '../../services/actions/ingredients';
 
 function App() {
-  const [state, setState] = useState({
-    isLoading: true,
-    hasError: false,
-    data: []
-  });
+  const dispatch = useDispatch();
+  // const [state, setState] = useState({
+  //   isLoading: true,
+  //   hasError: false,
+  //   data: []
+  // });
 
   const url = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -25,22 +29,14 @@ function App() {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .then(data => setState({
-        isLoading: false,
-        hasError: false,
-        data: data.data
-      }))
+      .then(data => dispatch({type: INGREDIENTS_SET_DATA, ingredients: data.data }))
       .catch(err => {
-        setState({
-          isLoading: false,
-          hasError: true,
-          data: []
-        });
+        dispatch({type: INGREDIENTS_SET_ERROR})
         console.log(err);
       });
   }, []);
   
-  const { data, isLoading, hasError } = state;
+  const { ingredients, isLoading, hasError } = useSelector(state => state.ingredients);
 
   return (
     <div className={styles.app}>
@@ -48,11 +44,11 @@ function App() {
       <main className={styles.main}>
         {isLoading && 'Загрузка...'}
         {hasError && 'Произошла ошибка'}
-        {!isLoading && !hasError && data.length &&
-          <IngredientsContext.Provider value={{ data, isLoading }}>
+        {!isLoading && !hasError && ingredients.length &&
+          <>
             <BurgerIngredients />
             <BurgerConstructor />
-          </IngredientsContext.Provider>
+          </>
         }
       </main>
     </div>

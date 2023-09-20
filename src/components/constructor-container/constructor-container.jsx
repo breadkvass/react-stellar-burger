@@ -3,6 +3,7 @@ import styles from './constructor-container.module.css';
 
 import BurgerComponent from '../burger-component/burger-component';
 
+import { useSelector } from 'react-redux';
 import { IngredientsContext } from '../../services/ingredients-context';
 
 function findIngredientById(data, id) {
@@ -20,10 +21,13 @@ const defaultFilling = [
 const defaultBun = '643d69a5c3f7b9001cfa093c';
   
 function ConstructorContainer({setOrderItems, setTotalPrice}) {
-    const {data, isLoading} = useContext(IngredientsContext);
-    const [top, setTop] = useState(findIngredientById(data, defaultBun));
-    const [fillings, setFilling] = useState(defaultFilling.map(id => findIngredientById(data, id)));
-    const [bottom, setBottom] = useState(findIngredientById(data, defaultBun));  
+    // const {data, isLoading} = useContext(IngredientsContext);
+    
+    const { ingredients, isLoading, hasError } = useSelector(state => state.ingredients);
+
+    const [top, setTop] = useState(findIngredientById(ingredients, defaultBun));
+    const [fillings, setFilling] = useState(defaultFilling.map(id => findIngredientById(ingredients, id)));
+    const [bottom, setBottom] = useState(findIngredientById(ingredients, defaultBun));  
   
     useEffect(() => {
         const totalPrice = [top, ...fillings, bottom].reduce((acc, item) => acc + item.price, 0);
