@@ -1,11 +1,12 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import styles from './ingredients-section.module.css';
 
-function IngredientsSection(props) {
+const IngredientsSection = React.forwardRef((props, ref) => {
     return (
-        <div>
+        <div ref={ref}>
             <h3 className="text text_type_main-medium">
                 {props.name}
             </h3>
@@ -14,7 +15,7 @@ function IngredientsSection(props) {
             </div>
         </div>
     )
-}
+});
 
 IngredientsSection.propTypes = {
     name: PropTypes.string,
