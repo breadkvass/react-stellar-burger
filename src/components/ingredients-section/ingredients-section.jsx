@@ -11,7 +11,7 @@ const IngredientsSection = React.forwardRef((props, ref) => {
                 {props.name}
             </h3>
             <div className={styles.list + " pt-6"}>
-                {props.data.map(item => (<IngredientsItem key={item._id} ingredient={item} count={1} />))}
+                {props.data.map(item => (<IngredientsItem key={item._id} ingredient={item} />))}
             </div>
         </div>
     )

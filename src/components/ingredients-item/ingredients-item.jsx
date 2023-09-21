@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modal/modal';
@@ -9,9 +9,15 @@ import { ingredientPropType } from "../../utils/prop-types";
 import { INGREDIENT_DETAILS_SET, INGREDIENT_DETAILS_RESET } from '../../services/actions/ingredient-details';
 import styles from './ingredients-item.module.css';
 
-function IngredientsItem({count = 0, ingredient}) {
+function IngredientsItem({ingredient}) {
+    const {bun, filling} = useSelector(state => state.burgerConstructor);
+    const [count, setCount] = useState(0);
     const dispatch = useDispatch();
     const [isShowModal, setIsShowModal] = useState(false);
+
+    useEffect(()=> {
+        setCount([bun, ...filling, bun].filter(id => id === ingredient._id).length);
+    }, [bun, filling])
 
     const openModal = (e) => {
         dispatch({type: INGREDIENT_DETAILS_SET, details: ingredient});

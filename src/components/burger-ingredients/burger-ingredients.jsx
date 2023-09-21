@@ -27,7 +27,6 @@ function BurgerIngredients() {
         containerRef.current.scroll({ top: offset + 1 });
     };
 
-
     const scrollHandler = event => {
         const scrollPosition = event.currentTarget.scrollTop;
         const nearest = categories.map(item => {
@@ -37,7 +36,6 @@ function BurgerIngredients() {
             .reduce((prev, current) => (prev && prev.offset > current.offset) ? prev : current);
         setCurrentTab(nearest.type);
     };
-
 
     return (
         <div className={styles.content}>
