@@ -1,42 +1,47 @@
-import { useState } from 'react';
-import styles from './ingredients-item.module.css';
-import PropTypes from 'prop-types';
-
-import IngredientsPrice from '../ingredients-price/ingredients-price';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
+import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import IngredientsPrice from '../ingredients-price/ingredients-price';
+import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
+import { INGREDIENT_DETAILS_SET, INGREDIENT_DETAILS_RESET } from '../../services/actions/ingredient-details';
+import styles from './ingredients-item.module.css';
 
-
-import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
-function IngredientsItem(props) {
+function IngredientsItem({ingredient}) {
+    const {bun, filling} = useSelector(state => state.burgerConstructor);
+    const [count, setCount] = useState(0);
+    const dispatch = useDispatch();
     const [isShowModal, setIsShowModal] = useState(false);
+    const [, dragRef] = useDrag({type: 'ingredient', item: ingredient});
+
+
+    useEffect(()=> {
+        setCount([bun, ...(filling.map(f => f.id)), bun].filter(id => id === ingredient._id).length);
+    }, [bun, filling])
 
     const openModal = (e) => {
+        dispatch({type: INGREDIENT_DETAILS_SET, details: ingredient});
         e.stopPropagation();
         setIsShowModal(true);
     }
     
     const closeModal = () => {
+        dispatch({type: INGREDIENT_DETAILS_RESET});
         setIsShowModal(false);
     }
 
     return (
         <li className={styles.item} onClick={openModal}>
-        { props.count > 0 && <Counter count={props.count} size="default" extraClass="m-1" />}
-            <img className={"pl-4 pr-4 " + styles.item__img} src={props.data.image} alt={props.data.name} />
-            <IngredientsPrice price={props.data.price} />
-            <p className={"text text_type_main-default " + styles.name}>{props.data.name}</p>
+            { count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+            <img className={"pl-4 pr-4 " + styles.item__img} src={ingredient.image} alt={ingredient.name} ref={dragRef}/>
+            <IngredientsPrice price={ingredient.price} />
+            <p className={"text text_type_main-default " + styles.name}>{ingredient.name}</p>
             {isShowModal &&
             <Modal title="Детали ингредиента" padding=" pt-10 pb-15 pl-10 pr-10" closeHandler={closeModal}>
-                <IngredientDetails
-                    image={props.data.image_large}
-                    name={props.data.name}
-                    calories={props.data.calories}
-                    proteins={props.data.proteins}
-                    fat={props.data.fat}
-                    carbohydrates={props.data.carbohydrates}
-                />
+                <IngredientDetails/>
             </Modal>}
         </li>
     )
@@ -44,7 +49,7 @@ function IngredientsItem(props) {
 
 IngredientsItem.propTypes = {
     count: PropTypes.number,
-    data: ingredientPropType
+    ingredient: ingredientPropType.isRequired
 }
 
 export default IngredientsItem;

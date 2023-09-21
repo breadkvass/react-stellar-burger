@@ -1,5 +1,5 @@
-import styles from './nav-link.module.css';
 import PropTypes from 'prop-types';
+import styles from './nav-link.module.css';
 
 const NavLink = (props) => (
     <li className={'pl-5 pr-5 pt-4 pb-4 ' + styles.nav__link}>

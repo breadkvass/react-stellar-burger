@@ -1,5 +1,5 @@
-import styles from './ingredient-value.module.css';
 import PropTypes from 'prop-types';
+import styles from './ingredient-value.module.css';
 
 function IngredientValue(props) {
     return (
