@@ -19,7 +19,7 @@ function BurgerConstructor() {
       const totalPrice = orderItems.map(id => ingredients.find((item) => item._id === id)).reduce((acc, item) => acc + item.price, 0);
       setTotalPrice(totalPrice);
     }
-  }, [isLoading, bun, filling])
+  }, [isLoading, ingredients, bun, filling])
 
   const openModal = (e) => {
     e.stopPropagation();
