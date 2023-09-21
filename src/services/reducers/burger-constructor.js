@@ -3,6 +3,8 @@ import {
     CONSTRUCTOR_REMOVE_INGREDIENT,
     CONSTRUCTOR_ADD_INGREDIENT,
     CONSTRUCTOR_MOVE_INGREDIENT,
+    CONSTRUCTOR_SET_DRAGGING_INDEX,
+    CONSTRUCTOR_RESET_DRAGGING_INDEX,
   } from '../actions/burger-constructor';
 
   const initialState = {
@@ -13,7 +15,8 @@ import {
         '643d69a5c3f7b9001cfa0947',
         '643d69a5c3f7b9001cfa0946',
         '643d69a5c3f7b9001cfa0946'
-    ]
+    ],
+    draggingIndex: -1
   };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -44,7 +47,20 @@ export const constructorReducer = (state = initialState, action) => {
             newFilling.splice(action.to, 0, moved)
             return {
                 ...state,
-                filling: [...newFilling]
+                filling: [...newFilling],
+                draggingIndex: action.to
+            };
+        }
+        case CONSTRUCTOR_SET_DRAGGING_INDEX: {
+            return {
+                ...state,
+                draggingIndex: action.index
+            };
+        }
+        case CONSTRUCTOR_RESET_DRAGGING_INDEX: {
+            return {
+                ...state,
+                draggingIndex: -1
             };
         }
         default: {
