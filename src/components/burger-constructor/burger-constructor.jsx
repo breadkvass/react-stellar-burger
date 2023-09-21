@@ -15,7 +15,7 @@ function BurgerConstructor() {
 
   useEffect(() => {
     if (!isLoading) {
-      const orderItems = [bun, ...filling, bun];
+      const orderItems = [bun, ...(filling.map(f => f.id)), bun];
       const totalPrice = orderItems.map(id => ingredients.find((item) => item._id === id)).reduce((acc, item) => acc + item.price, 0);
       setTotalPrice(totalPrice);
     }

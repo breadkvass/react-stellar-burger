@@ -10,7 +10,7 @@ function OrderDetails() {
   const { bun, filling } = useSelector(state => state.burgerConstructor);
 
   useEffect(() => {
-    dispatch(postOrder([bun, ...filling, bun]));
+    dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun]));
   }, []);
 
   const { orderDetails, isLoading } = useSelector(state => state.orderDetails);

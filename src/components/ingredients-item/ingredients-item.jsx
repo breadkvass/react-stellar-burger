@@ -19,7 +19,7 @@ function IngredientsItem({ingredient}) {
 
 
     useEffect(()=> {
-        setCount([bun, ...filling, bun].filter(id => id === ingredient._id).length);
+        setCount([bun, ...(filling.map(f => f.id)), bun].filter(id => id === ingredient._id).length);
     }, [bun, filling])
 
     const openModal = (e) => {

@@ -31,7 +31,7 @@ function ConstructorContainer() {
         <div className={styles.сonstructor__сontainer} ref={dropTarget} style={{border: '1px solid', borderColor}}>
             <BurgerComponent type="top" isLocked={true} className="pl-8" ingredientId={bun} />
             <div className={"custom-scroll " + styles.unlocked}>
-                {filling.map((id, i) => (<DraggableBurgerComponent key={i} isLocked={false} className={styles.component} ingredientId={id} index={i} />))}
+                {filling.map((item, i) => (<DraggableBurgerComponent key={item.key} isLocked={false} className={styles.component} ingredientId={item.id} index={i} />))}
             </div>
             <BurgerComponent type="bottom" isLocked={true} className="pl-8" ingredientId={bun} />
         </div>

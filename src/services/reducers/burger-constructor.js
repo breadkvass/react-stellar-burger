@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import {
     CONSTRUCTOR_SET_BUN,
     CONSTRUCTOR_REMOVE_INGREDIENT,
@@ -5,19 +6,24 @@ import {
     CONSTRUCTOR_MOVE_INGREDIENT,
     CONSTRUCTOR_SET_DRAGGING_INDEX,
     CONSTRUCTOR_RESET_DRAGGING_INDEX,
-  } from '../actions/burger-constructor';
+} from '../actions/burger-constructor';
 
-  const initialState = {
+const filling = (ingredientId) => ({
+    id: ingredientId,
+    key: uuid()
+})
+
+const initialState = {
     bun: '643d69a5c3f7b9001cfa093c',
     filling: [
-        '643d69a5c3f7b9001cfa0944',
-        '643d69a5c3f7b9001cfa093f',
-        '643d69a5c3f7b9001cfa0947',
-        '643d69a5c3f7b9001cfa0946',
-        '643d69a5c3f7b9001cfa0946'
+        filling('643d69a5c3f7b9001cfa0944'),
+        filling('643d69a5c3f7b9001cfa093f'),
+        filling('643d69a5c3f7b9001cfa0947'),
+        filling('643d69a5c3f7b9001cfa0946'),
+        filling('643d69a5c3f7b9001cfa0946')
     ],
     draggingIndex: -1
-  };
+};
 
 export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -38,7 +44,7 @@ export const constructorReducer = (state = initialState, action) => {
         case CONSTRUCTOR_ADD_INGREDIENT: {
             return {
                 ...state,
-                filling: [...state.filling, action.ingredientId]
+                filling: [...state.filling, filling(action.ingredientId)]
             };
         }
         case CONSTRUCTOR_MOVE_INGREDIENT: {
@@ -69,4 +75,3 @@ export const constructorReducer = (state = initialState, action) => {
     }
 };
 
- 
