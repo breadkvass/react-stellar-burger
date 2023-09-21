@@ -2,41 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../spinner/spinner';
 import DoneImage from "../../images/done.png";
-import { 
-  ORDER_DETAILS_SET_LOADING, 
-  ORDER_DETAILS_SET_DATA, 
-  ORDER_DETAILS_SET_ERROR 
-} from '../../services/actions/order-details';
+import { postOrder } from '../../services/actions/order-details';
 import styles from "./order-details.module.css";
-
-const url = 'https://norma.nomoreparties.space/api/orders';
 
 function OrderDetails() {
   const dispatch = useDispatch();
   const { bun, filling } = useSelector(state => state.burgerConstructor);
 
   useEffect(() => {
-    dispatch({ type: ORDER_DETAILS_SET_LOADING });
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients: [bun, ...filling, bun],
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(data => dispatch({ type: ORDER_DETAILS_SET_DATA, orderDetails: data }))
-      .catch(err => {
-        dispatch({ type: ORDER_DETAILS_SET_ERROR });
-        console.log(err);
-      });
+    dispatch(postOrder([bun, ...filling, bun]));
   }, []);
 
   const { orderDetails, isLoading } = useSelector(state => state.orderDetails);
@@ -46,7 +20,6 @@ function OrderDetails() {
       <>
         <p className="text text_type_main-medium pt-8">отправляем заказ</p>
         <Spinner />
-
       </> :
       <>
         <p className={styles.order + " text text_type_digits-large"}>{orderDetails?.order?.number || ''}</p>
