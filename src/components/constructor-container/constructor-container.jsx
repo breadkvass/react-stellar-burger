@@ -9,7 +9,7 @@ function ConstructorContainer() {
         <div className={styles.сonstructor__сontainer}>
         <BurgerComponent type="top" isLocked={true} className="pl-8" ingredientId={bun}/>
         <div className={"custom-scroll " + styles.unlocked}>
-            {filling.map((id, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} ingredientId={id}/>))}
+            {filling.map((id, i) => (<BurgerComponent key={i} isLocked={false} className={styles.component} ingredientId={id} index={i}/>))}
         </div>
         <BurgerComponent type="bottom" isLocked={true} className="pl-8" ingredientId={bun} />
         </div>

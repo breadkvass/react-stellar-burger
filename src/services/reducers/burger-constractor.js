@@ -1,7 +1,7 @@
 import {
     CONSTRUCTOR_SET_BUN,
-    CONSTRUCTOR_DELETE_INGREDIENTS,
-    CONSTRUCTOR_ADD_INGREDIENTS
+    CONSTRUCTOR_REMOVE_INGREDIENT,
+    CONSTRUCTOR_ADD_INGREDIENT
   } from '../actions/burger-constractor';
 
   const initialState = {
@@ -23,12 +23,14 @@ export const constructorReducer = (state = initialState, action) => {
                 bun: action.bun
             };
         }
-        // case CONSTRUCTOR_DELETE_INGREDIENTS: {
-        //     return {
-        //         ...state,
-        //         filling: [...state.filling].filter(item => item.id !== action.id)
-        //     };
-        // }
+        case CONSTRUCTOR_REMOVE_INGREDIENT: {
+            const newFilling = [...state.filling];
+            newFilling.splice(action.index, 1);
+            return {
+                ...state,
+                filling: newFilling
+            };
+        }
         // case CONSTRUCTOR_ADD_INGREDIENTS: {
         //     // return {
         //     //     ...state,
