@@ -20,7 +20,7 @@ export const constructorReducer = (state = initialState, action) => {
         case CONSTRUCTOR_SET_BUN: {
             return {
                 ...state,
-                bun: action.bun
+                bun: action.ingredientId
             };
         }
         case CONSTRUCTOR_REMOVE_INGREDIENT: {
@@ -31,12 +31,12 @@ export const constructorReducer = (state = initialState, action) => {
                 filling: newFilling
             };
         }
-        // case CONSTRUCTOR_ADD_INGREDIENTS: {
-        //     // return {
-        //     //     ...state,
-        //     //     filling: [...state.filling][[...state.items].length + 1] == action.id
-        //     // };
-        // }
+        case CONSTRUCTOR_ADD_INGREDIENT: {
+            return {
+                ...state,
+                filling: [...state.filling, action.ingredientId]
+            };
+        }
         default: {
             return state;
         }

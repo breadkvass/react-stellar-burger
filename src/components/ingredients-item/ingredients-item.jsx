@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -14,6 +15,8 @@ function IngredientsItem({ingredient}) {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch();
     const [isShowModal, setIsShowModal] = useState(false);
+    const [, dragRef] = useDrag({type: 'ingredient', item: ingredient});
+
 
     useEffect(()=> {
         setCount([bun, ...filling, bun].filter(id => id === ingredient._id).length);
@@ -32,8 +35,8 @@ function IngredientsItem({ingredient}) {
 
     return (
         <li className={styles.item} onClick={openModal}>
-        { count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-            <img className={"pl-4 pr-4 " + styles.item__img} src={ingredient.image} alt={ingredient.name} />
+            { count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+            <img className={"pl-4 pr-4 " + styles.item__img} src={ingredient.image} alt={ingredient.name} ref={dragRef}/>
             <IngredientsPrice price={ingredient.price} />
             <p className={"text text_type_main-default " + styles.name}>{ingredient.name}</p>
             {isShowModal &&
