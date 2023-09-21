@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import BurgerComponent, {DraggableBurgerComponent} from '../burger-component/burger-component';
-import { CONSTRUCTOR_SET_BUN, CONSTRUCTOR_ADD_INGREDIENT } from '../../services/actions/burger-constractor';
+import { CONSTRUCTOR_SET_BUN, CONSTRUCTOR_ADD_INGREDIENT } from '../../services/actions/burger-constructor';
 import styles from './constructor-container.module.css';
 
 function ConstructorContainer() {

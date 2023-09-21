@@ -3,7 +3,7 @@ import {
     CONSTRUCTOR_REMOVE_INGREDIENT,
     CONSTRUCTOR_ADD_INGREDIENT,
     CONSTRUCTOR_MOVE_INGREDIENT,
-  } from '../actions/burger-constractor';
+  } from '../actions/burger-constructor';
 
   const initialState = {
     bun: '643d69a5c3f7b9001cfa093c',

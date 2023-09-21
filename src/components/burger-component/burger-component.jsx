@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { CONSTRUCTOR_REMOVE_INGREDIENT, CONSTRUCTOR_MOVE_INGREDIENT } from '../../services/actions/burger-constractor';
+import { CONSTRUCTOR_REMOVE_INGREDIENT, CONSTRUCTOR_MOVE_INGREDIENT } from '../../services/actions/burger-constructor';
 
 const BurgerComponent = React.forwardRef((props, dragRef) => {
     const dispatch = useDispatch();
