@@ -1,31 +1,22 @@
-import PropTypes from 'prop-types';
-import styles from "./ingredient-details.module.css";
+import { useSelector } from 'react-redux';
 import IngredientValue from '../ingredient-value/ingredient-value';
+import styles from "./ingredient-details.module.css";
 
-function IngredientDetails(props) {
+function IngredientDetails() {
+    const details = useSelector(state => state.ingredientDetails);
     return (
         <>
-            <img className={styles.image} src={props.image}  alt={props.name}/>
-            <p className={"text text_type_main-medium pt-4 " + styles.name}>{props.name}</p>
+            <img className={styles.image} src={details.image}  alt={details.name}/>
+            <p className={"text text_type_main-medium pt-4 " + styles.name}>{details.name}</p>
             <div className={styles.nutrition + " pt-8"}>
-                <IngredientValue name="Калории, ккал" value={props.calories} />
-                <IngredientValue name="Белки, г" value={props.proteins} />
-                <IngredientValue name="Жиры, г" value={props.fat} />
-                <IngredientValue name="Углеводы, г" value={props.carbohydrates} />
+                <IngredientValue name="Калории, ккал" value={details.calories} />
+                <IngredientValue name="Белки, г" value={details.proteins} />
+                <IngredientValue name="Жиры, г" value={details.fat} />
+                <IngredientValue name="Углеводы, г" value={details.carbohydrates} />
             </div>
         </>
     )
     
 }
-
-IngredientDetails.propTypes = {
-    name: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    image: PropTypes.string,
-}
-
 
 export default IngredientDetails;

@@ -1,13 +1,8 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import IngredientsSection from '../ingredients-section/ingredients-section';
 import styles from './ingredients-container.module.css';
 
-import IngredientsSection from '../ingredients-section/ingredients-section';
-
-import { useSelector } from 'react-redux';
-import { IngredientsContext } from '../../services/ingredients-context';
-
 const IngredientsContainer = () => {
-    // const {data, isLoading} = useContext(IngredientsContext);
     const { ingredients, isLoading, hasError } = useSelector(state => state.ingredients);
     const buns = !isLoading && ingredients.filter((item) => item.type === 'bun');
     const sauces = !isLoading && ingredients.filter((item) => item.type === 'sauce').sort((a, b) => b.price - a.price);

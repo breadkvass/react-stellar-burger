@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import styles from './tab-group.module.css';
-
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './tab-group.module.css';
 
 function TabGroup() {
     const [current, setCurrent] = useState('1');

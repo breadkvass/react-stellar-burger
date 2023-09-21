@@ -7,7 +7,7 @@ const initialState = {
     isLoading: true,
     hasError: false,
     ingredients: []
-  };
+};
 
 export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -29,6 +29,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         return state;
       }
     }
-  };
+};
 
  

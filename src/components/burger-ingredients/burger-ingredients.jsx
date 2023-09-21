@@ -1,9 +1,8 @@
-import { useState, useContext } from 'react';
-import styles from "./burger-ingredients.module.css";
 import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
 import TabGroup from '../tab-group/tab-group';
 import IngredientsContainer from '../ingredients-container/ingredients-container';
+import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {
     

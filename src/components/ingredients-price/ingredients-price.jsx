@@ -1,7 +1,6 @@
-import styles from './ingredients-price.module.css';
 import PropTypes from 'prop-types';
-
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import styles from './ingredients-price.module.css';
 
 function IngredientsPrice(props) {
     return (

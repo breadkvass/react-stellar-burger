@@ -1,8 +1,7 @@
-import styles from './ingredients-section.module.css';
 import PropTypes from 'prop-types';
-
-import IngredientsItem from '../ingredients-item/ingredients-item';
 import { ingredientPropType } from "../../utils/prop-types";
+import IngredientsItem from '../ingredients-item/ingredients-item';
+import styles from './ingredients-section.module.css';
 
 function IngredientsSection(props) {
     return (
@@ -11,8 +10,7 @@ function IngredientsSection(props) {
                 {props.name}
             </h3>
             <div className={styles.list + " pt-6"}>
-                {props.data.map(item => (<IngredientsItem key={item._id} data={item} count={1} />))}
-                
+                {props.data.map(item => (<IngredientsItem key={item._id} ingredient={item} count={1} />))}
             </div>
         </div>
     )

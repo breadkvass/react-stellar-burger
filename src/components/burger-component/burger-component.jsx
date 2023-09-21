@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-
+import { useSelector } from 'react-redux';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientPropType } from "../../utils/prop-types";
-
 function BurgerComponent(props) {
+    const { ingredients, isLoading } = useSelector(state => state.ingredients);
+    const ingredient = !isLoading && ingredients.find((item) => item._id === props.ingredientId);
+    
     let place = '';
     if (props.type === 'top') {
         place = ' (верх)';
@@ -14,10 +15,10 @@ function BurgerComponent(props) {
     } else {
         place = '';
     }
-    return (
+    return (!isLoading &&
         <div className={props.className}>
             {!props.type && <DragIcon type="primary" />}
-            <ConstructorElement type={props.type} isLocked={props.isLocked} text={props.data.name + place} price={props.data.price} thumbnail={props.data.image} />
+            <ConstructorElement type={props.type} isLocked={props.isLocked} text={ingredient.name + place} price={ingredient.price} thumbnail={ingredient.image} />
         </div>
     )
 }
@@ -26,7 +27,7 @@ BurgerComponent.propTypes = {
     className: PropTypes.string,
     type: PropTypes.string,
     isLocked: PropTypes.bool,
-    data: ingredientPropType
+    ingredientId: PropTypes.string.isRequired
 } 
 
 export default BurgerComponent;
