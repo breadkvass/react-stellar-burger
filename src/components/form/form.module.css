@@ -5,6 +5,7 @@
     margin-right: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .title {
@@ -15,4 +16,8 @@
 .addActions {
     margin-top: 80px;
     gap: 16px;
+}
+
+.form button {
+    width: min-content;
 }
