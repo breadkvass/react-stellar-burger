@@ -5,3 +5,8 @@
     flex-direction: row;
     gap: 8px;
 }
+
+.link {
+    text-decoration: none;
+    
+}

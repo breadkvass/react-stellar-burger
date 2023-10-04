@@ -11,13 +11,15 @@ function AppHeader() {
         <header className={style.header}>
             <div className={'pt-4 pb-4 ' + style.header__content}> 
                 <Navigation side='left'>
-                    <NavLink text='Конструктор' icon={ <BurgerIcon type="secondary" /> } />
-                    <NavLink text='Лента заказов' icon={ <ListIcon type="secondary" /> } />
+                    <NavLink text='Конструктор' icon={BurgerIcon} />
+                    <NavLink text='Лента заказов' icon={ListIcon} />
                 </Navigation>
                 <Logo alt="Логотип" />
-                <Navigation side='right'>
-                    <NavLink text='Личный кабинет' icon={ <ProfileIcon type="secondary" /> } />
-                </Navigation>
+                
+                    <Navigation side='right'>
+                        <NavLink link='/login' text='Личный кабинет' icon={ProfileIcon} />
+                    </Navigation>
+                
             </div>
         </header>
     );
