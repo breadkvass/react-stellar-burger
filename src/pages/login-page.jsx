@@ -1,9 +1,9 @@
 import React from 'react';
-import Form from '../components/form/form';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
-import styles from './login-page.module.css';
+import Inputs from '../components/inputs/inputs';
 
 function LoginPage() {
     const [values, setValues] = React.useState({name: '', email: '' });
@@ -25,7 +25,7 @@ function LoginPage() {
             </>
         }
     >
-        <div className={styles.inputs}>
+        <Inputs>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -50,7 +50,8 @@ function LoginPage() {
                     size={'default'}
                     extraClass="ml-1"
                 />
-                </div>
+                </Inputs>
+
     </Form>
     </MainLayout>
     )

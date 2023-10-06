@@ -1,5 +1,5 @@
-import styles from './form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './form.module.css';
 
 function Form({title, children, button, addActions}) {
     return(

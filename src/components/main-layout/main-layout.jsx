@@ -1,5 +1,5 @@
-import styles from "./main-layout.module.css";
 import AppHeader from "../app-header/app-header";
+import styles from "./main-layout.module.css";
 
 function MainLayout({ children }) {
     return (
