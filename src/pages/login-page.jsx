@@ -13,49 +13,48 @@ function LoginPage() {
         };
       };
     const inputRef = React.useRef(null);
+    
     return (
         <MainLayout>
-    <Form
-        title='Вход'
-        button='Войти'
-        addActions={
-            <>
-                <AddAction text='Вы — новый пользователь?' button='Зарегистрироваться' link='/register'/>
-                <AddAction text='Забыли пароль?' button='Восстановить пароль'/>
-            </>
-        }
-    >
-        <Inputs>
-                <Input
-                    type={'text'}
-                    placeholder={'Имя'}
-                    onChange={getHandler('name')}
-                    value={values.name}
-                    name={'Имя'}
-                    error={false}
-                    ref={inputRef}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="ml-1"
-                />
-                <Input
-                    type={'email'}
-                    placeholder={'E-mail'}
-                    onChange={getHandler('email')}
-                    value={values.email}
-                    name={'E-mail'}
-                    error={false}
-                    ref={inputRef}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="ml-1"
-                />
+            <Form
+                title='Вход'
+                button='Войти'
+                addActions={
+                    <>
+                        <AddAction text='Вы — новый пользователь?' button='Зарегистрироваться' link='/register'/>
+                        <AddAction text='Забыли пароль?' button='Восстановить пароль' link='/forgot-password'/>
+                    </>
+                }
+            >
+                <Inputs>
+                    <Input
+                        type={'text'}
+                        placeholder={'Имя'}
+                        onChange={getHandler('name')}
+                        value={values.name}
+                        name={'Имя'}
+                        error={false}
+                        ref={inputRef}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="ml-1"
+                    />
+                    <Input
+                        type={'email'}
+                        placeholder={'E-mail'}
+                        onChange={getHandler('email')}
+                        value={values.email}
+                        name={'E-mail'}
+                        error={false}
+                        ref={inputRef}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="ml-1"
+                    />
                 </Inputs>
-
-    </Form>
-    </MainLayout>
+            </Form>
+        </MainLayout>
     )
-    
 }
 
 export default LoginPage;
