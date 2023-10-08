@@ -17,7 +17,7 @@ function AppHeader() {
                 <Logo alt="Логотип" />
                 
                     <Navigation side='right'>
-                        <NavLink link='/login' text='Личный кабинет' icon={ProfileIcon} />
+                        <NavLink link='/profile' text='Личный кабинет' icon={ProfileIcon} />
                     </Navigation>
                 
             </div>
