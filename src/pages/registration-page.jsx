@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
@@ -6,15 +6,14 @@ import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
 
 function RegistrationPage() {
-    const [values, setValues] = React.useState({name: '', email: '', password:'' });
+    const [values, setValues] = useState({name: '', email: '', password:'' });
     const getHandler = (name) => {
         return (event) => {
           setValues({ ...values, [name]: event.target.value });
         };
-      };
-    const inputRef = React.useRef(null);
+    };
 
-    const [passwordShown, setPasswordShown] = React.useState(false);
+    const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
       };
@@ -38,7 +37,6 @@ function RegistrationPage() {
                         value={values.name}
                         name={'Имя'}
                         error={false}
-                        ref={inputRef}
                         errorText={'Ошибка'}
                         size={'default'}
                         extraClass="ml-1"
@@ -50,7 +48,6 @@ function RegistrationPage() {
                         value={values.email}
                         name={'E-mail'}
                         error={false}
-                        ref={inputRef}
                         errorText={'Ошибка'}
                         size={'default'}
                         extraClass="ml-1"
@@ -63,7 +60,6 @@ function RegistrationPage() {
                         icon={passwordShown ? 'HideIcon' : 'ShowIcon'}
                         name={'Имя'}
                         error={false}
-                        ref={inputRef}
                         onIconClick={togglePassword}
                         errorText={'Ошибка'}
                         size={'default'}
