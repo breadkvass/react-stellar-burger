@@ -1,0 +1,9 @@
+.left {
+    width: 320px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 80px;
+}
