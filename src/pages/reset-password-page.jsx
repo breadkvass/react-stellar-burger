@@ -8,7 +8,11 @@ import Inputs from '../components/inputs/inputs';
 function ResetPasswordPage() {
     const [ passwordValue, setPasswordValue ] = useState('');
     const [ codeValue, setCodeValue ] = useState('');
+
     const [passwordShown, setPasswordShown] = useState(false);
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+      };
 
     return (
         <MainLayout>
@@ -30,7 +34,7 @@ function ResetPasswordPage() {
                         icon={passwordShown ? 'HideIcon' : 'ShowIcon'}
                         name={'Имя'}
                         error={false}
-                        onIconClick={(e) => setPasswordShown(!passwordShown)}
+                        onIconClick={togglePassword}
                         errorText={'Ошибка'}
                         size={'default'}
                         extraClass="ml-1"
