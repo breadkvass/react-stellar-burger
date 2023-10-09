@@ -1,4 +1,3 @@
-
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const fetchGetIngredients = () => {
@@ -15,4 +14,16 @@ export const fetchPostOrder = (ingredients) => {
           ingredients: ingredients,
         })
     });
+}
+
+export const fetchPostPassword = (email) => {
+  return fetch(`${BASE_URL}/password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+      })
+  });
 }
