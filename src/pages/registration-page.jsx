@@ -6,12 +6,9 @@ import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
 
 function RegistrationPage() {
-    const [values, setValues] = useState({name: '', email: '', password:'' });
-    const getHandler = (name) => {
-        return (event) => {
-          setValues({ ...values, [name]: event.target.value });
-        };
-    };
+    const [ nameValue, setNameValue ] = useState('');
+    const [ emailValue, setEmailValue ] = useState('');
+    const [ passwordValue, setPasswordValue ] = useState('');
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => {
@@ -33,8 +30,8 @@ function RegistrationPage() {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={getHandler('name')}
-                        value={values.name}
+                        onChange={(e) => setNameValue(e.target.value)}
+                        value={nameValue}
                         name={'Имя'}
                         error={false}
                         errorText={'Ошибка'}
@@ -44,8 +41,8 @@ function RegistrationPage() {
                     <Input
                         type={'email'}
                         placeholder={'E-mail'}
-                        onChange={getHandler('email')}
-                        value={values.email}
+                        onChange={(e) => setEmailValue(e.target.value)}
+                        value={emailValue}
                         name={'E-mail'}
                         error={false}
                         errorText={'Ошибка'}
@@ -55,8 +52,8 @@ function RegistrationPage() {
                     <Input
                         type={passwordShown ? 'text' : 'password'}
                         placeholder={'Пароль'}
-                        onChange={getHandler('password')}
-                        value={values.password}
+                        onChange={(e) => setPasswordValue(e.target.value)}
+                        value={passwordValue}
                         icon={passwordShown ? 'HideIcon' : 'ShowIcon'}
                         name={'Имя'}
                         error={false}
