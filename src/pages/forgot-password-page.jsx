@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Inputs from '../components/inputs/inputs';
 import Form from '../components/form/form';
@@ -6,13 +6,7 @@ import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 
 function ForgotPasswordPage() {
-    const [values, setValues] = React.useState({email: '' });
-    const getHandler = (name) => {
-        return (event) => {
-          setValues({ ...values, [name]: event.target.value });
-        };
-      };
-    const inputRef = React.useRef(null);
+    const [ emailValue, setEmailValue ] = useState('');
 
     return (
         <MainLayout>
@@ -29,11 +23,10 @@ function ForgotPasswordPage() {
                     <Input
                         type={'email'}
                         placeholder={'Укажите E-mail'}
-                        onChange={getHandler('email')}
-                        value={values.email}
+                        onChange={(e) => setEmailValue(e.target.value)}
+                        value={emailValue}
                         name={'E-mail'}
                         error={false}
-                        ref={inputRef}
                         errorText={'Ошибка'}
                         size={'default'}
                         extraClass="ml-1"
