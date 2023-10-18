@@ -3,16 +3,14 @@ import styles from './form.module.css';
 
 function Form({title, children, button, addActions}) {
     return(
-        <>
-        <div className={styles.form}>
+        <form className={styles.form}>
             <h4 className={styles.title + ' text text_type_main-medium'}>{title}</h4>
             {children}
-            <Button htmlType="button" type="primary" size="medium">{button}</Button>
-        </div>
-        <div className={styles.addActions}>
-            {addActions}
-        </div>
-        </>
+            <Button htmlType="submit" type="primary" size="medium">{button}</Button>
+            <div className={styles.addActions}>
+                {addActions}
+            </div>
+        </form>
     )
 }
 
