@@ -10,16 +10,26 @@ function RegistrationPage() {
     const [ emailValue, setEmailValue ] = useState('');
     const [ passwordValue, setPasswordValue ] = useState('');
 
-    const [passwordShown, setPasswordShown] = useState(false);
-    const togglePassword = () => {
-        setPasswordShown(!passwordShown);
-      };
+    const [passwordShown, setPasswordShown] = useState(true);
 
     return (
         <MainLayout>
             <Form
                 title='Регистрация'
                 button='Зарегистрироваться'
+                // handleSubmit={(e) => {
+                //     e.preventDefault();
+                //     if (emailValue && passwordValue) {
+                //       if (state.user.email === emailValue && state.user.password === passwordValue) {
+                //         dispatch({type: LOGIN_SUCCESS});
+                //         navigate('/')
+                //       } else {
+                //         alert("Credentials did not match");
+                //       }
+                //     } else {
+                //       alert("Wrong Credentials");
+                //     }
+                // }}
                 addActions={
                     <>
                         <AddAction text='Уже зарегистрированы?' button='Войти' link='/login'/>
@@ -50,14 +60,14 @@ function RegistrationPage() {
                         extraClass="ml-1"
                     />
                     <Input
-                        type={passwordShown ? 'text' : 'password'}
+                        type={passwordShown ? 'password' : 'text'}
                         placeholder={'Пароль'}
                         onChange={(e) => setPasswordValue(e.target.value)}
                         value={passwordValue}
                         icon={passwordShown ? 'HideIcon' : 'ShowIcon'}
                         name={'Имя'}
                         error={false}
-                        onIconClick={togglePassword}
+                        onIconClick={() => setPasswordShown(!passwordShown)}
                         errorText={'Ошибка'}
                         size={'default'}
                         extraClass="ml-1"

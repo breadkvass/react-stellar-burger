@@ -4,7 +4,8 @@ const initialState = {
     isAuth: false,
     user: {
         email:'',
-        password:''
+        password:'',
+        name: '',
     }
 };
 

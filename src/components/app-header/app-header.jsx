@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -7,19 +8,19 @@ import NavLink from "../nav-link/nav-link";
 import style from "./app-header.module.css";
 
 function AppHeader() {
+    const isAuth = useSelector(state => state.auth.isAuth);
+
     return (
         <header className={style.header}>
             <div className={'pt-4 pb-4 ' + style.header__content}> 
                 <Navigation side='left'>
                     <NavLink text='Конструктор' icon={BurgerIcon} />
-                    <NavLink text='Лента заказов' icon={ListIcon} />
+                    <NavLink text='Лента заказов' icon={ListIcon} link={isAuth ? '/orders' : '/login'}/>
                 </Navigation>
                 <Logo alt="Логотип" />
-                
-                    <Navigation side='right'>
-                        <NavLink link='/profile' text='Личный кабинет' icon={ProfileIcon} />
-                    </Navigation>
-                
+                <Navigation side='right'>
+                    <NavLink link={isAuth ? '/profile' : '/login'} text='Личный кабинет' icon={ProfileIcon} />
+                </Navigation>
             </div>
         </header>
     );

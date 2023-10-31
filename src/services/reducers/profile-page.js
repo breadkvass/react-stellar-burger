@@ -9,15 +9,15 @@ import {
 
 const initialState = {
     name: {
-        value: 'Анастасия',
+        value: '',
         disabled: true
     },
     email: {
-        value: 'breadkvass@gmail.com',
+        value: '',
         disabled: true
     },
     password: {
-        value: 'password',
+        value: '',
         disabled: true
     },
 };
@@ -83,4 +83,3 @@ export const profileInputsReducer = (state = initialState, action) => {
         }
     }
 };
-
