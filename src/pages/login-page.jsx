@@ -7,7 +7,8 @@ import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
-import { fetchPostLogin } from '../services/auth';
+// import { fetchPostLogin } from '../utils/api';
+import { login } from '../utils/api';
 
 function LoginPage() {
     const dispatch = useDispatch();
@@ -27,16 +28,13 @@ function LoginPage() {
                 button='Войти'
                 handleSubmit={(e) => {
                     e.preventDefault();
-                    fetchPostLogin({email: emailValue, password: passwordValue})
-                    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-                    .then(data => {
-                        dispatch(loginSuccess());
-                        navigate('/');
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        alert('Неверный e-mail и/или пароль')
-                    });
+                    dispatch(login(
+                        {email: emailValue, password: passwordValue},
+                        () => {
+                            navigate('/profile');
+                        },
+                        () => {console.log('onFailureCallback')}
+                    ));
                 }}
                 addActions={
                     <>

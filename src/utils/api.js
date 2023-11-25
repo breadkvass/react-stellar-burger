@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   setData as setDataIngredients,
   setError as setErrorIngredients,
@@ -8,6 +9,8 @@ import {
   setLoading as setLoadingOrderDetails,
   setError as setErrorOrderDetails
 } from '../slices/orderDetails';
+
+import { loginSuccess } from '../slices/auth';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
@@ -53,4 +56,46 @@ export const postOrder = (ingredients) => {
                 console.log(err);
             });
     }
+}
+
+export const fetchPostLogin = ({email, password}) => {
+  return fetch(`${BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          email: email, 
+          password: password
+      })
+  });
+}
+
+export const login = (user, onSuccessCallback, onFailureCallback) => {
+    return (dispatch) => {
+        fetchPostLogin(user)
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+            .then(data => {
+              dispatch(loginSuccess(data.user));
+              onSuccessCallback();
+            })
+            .catch(err => {
+                console.log(err);
+                onFailureCallback();
+            });
+  }
+}
+
+export const fetchPostRegister = ({email, password, name}) => {
+  return fetch(`${BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          email: email, 
+          password: password,
+          name: name
+      })
+  });
 }

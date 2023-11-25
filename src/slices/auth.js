@@ -11,12 +11,14 @@ const { actions, reducer } = createSlice({
         }
     },
     reducers: {
-        loginSuccess: (state) => {
+        loginSuccess: (state, action) => {
             state.isAuth = true;
+            state.user = action.payload;
         },
-        logoutSuccess: (state, action) => {
+        logoutSuccess: state => {
             state.isAuth = false;
-        },
+            state.user = null;
+        }
     }
 })
 
