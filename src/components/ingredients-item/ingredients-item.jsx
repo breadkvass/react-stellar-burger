@@ -23,9 +23,8 @@ function IngredientsItem({ingredient}) {
     }, [bun, filling])
 
     const openModal = (e) => {
-        console.log('openModal', ingredient);
-        dispatch(setDetails(ingredient));
         e.stopPropagation();
+        dispatch(setDetails(ingredient));
         setIsShowModal(true);
     }
     
