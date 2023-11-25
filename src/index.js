@@ -4,7 +4,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import App from "./components/app/app";
-import { rootReducer } from "./services/reducers/index";
+import { rootReducer } from './slices/index';
 import "./index.css";
 
 const middleware = getDefaultMiddleware({

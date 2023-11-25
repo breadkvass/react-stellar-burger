@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../spinner/spinner';
 import DoneImage from "../../images/done.png";
-import { postOrder } from '../../services/actions/order-details';
+import { postOrder } from '../../utils/api';
 import styles from "./order-details.module.css";
 
 function OrderDetails() {
@@ -13,7 +13,7 @@ function OrderDetails() {
     dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun]));
   }, []);
 
-  const { orderDetails, isLoading } = useSelector(state => state.orderDetails);
+  const { isLoading, orderDetails } = useSelector(state => state.orderDetails);
 
   return (
     isLoading ?

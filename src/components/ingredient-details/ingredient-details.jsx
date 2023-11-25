@@ -4,6 +4,7 @@ import styles from "./ingredient-details.module.css";
 
 function IngredientDetails() {
     const details = useSelector(state => state.ingredientDetails);
+    console.log('ingredienDetails', details);
     return (
         <>
             <img className={styles.image} src={details.image}  alt={details.name}/>

@@ -1,13 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-    PROFILE_NAME_SET,
-    PROFILE_NAME_TOGGLE_DISABLED,
-    PROFILE_EMAIL_SET,
-    PROFILE_EMAIL_TOGGLE_DISABLED,
-    PROFILE_PASSWORD_SET,
-    PROFILE_PASSWORD_TOGGLE_DISABLED
-} from '../services/actions/profile-page';
+import { setName, toggleNameDisabled, setEmail, toggleEmailDisabled, setPassword, togglePasswordDisabled } from '../slices/profileInputs';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import LeftColumnLink from '../components/left-column-link/left-column-link';
@@ -37,13 +30,13 @@ function ProfilePage() {
                         <Input 
                             type={'text'}
                             placeholder={'Имя'}
-                            onChange={(e) => dispatch({type: PROFILE_NAME_SET, value: e.target.value})}
+                            onChange={(e) => dispatch(setName(e.target.value))}
                             value={name.value}
                             name={'Имя'}
                             disabled={name.disabled}
                             error={false}
                             icon={'EditIcon'}
-                            onIconClick={() => dispatch({type: PROFILE_NAME_TOGGLE_DISABLED})}
+                            onIconClick={() => dispatch(toggleNameDisabled())}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="ml-1"
@@ -51,13 +44,13 @@ function ProfilePage() {
                         <Input 
                             type={'email'}
                             placeholder={'E-mail'}
-                            onChange={(e) => dispatch({type: PROFILE_EMAIL_SET, value: e.target.value})}
+                            onChange={(e) => dispatch(setEmail(e.target.value))}
                             value={email.value}
                             name={'E-mail'}
                             disabled={email.disabled}
                             error={false}
                             icon={'EditIcon'}
-                            onIconClick={() => dispatch({type: PROFILE_EMAIL_TOGGLE_DISABLED})}
+                            onIconClick={() => dispatch(toggleEmailDisabled())}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="ml-1"
@@ -65,12 +58,12 @@ function ProfilePage() {
                         <Input
                             type={'password'}
                             placeholder={'Пароль'}
-                            onChange={(e) => dispatch({type: PROFILE_PASSWORD_SET, value: e.target.value})}
+                            onChange={(e) => dispatch(setPassword(e.target.value))}
                             value={password.value}
                             name={'Пароль'}
                             disabled={password.disabled}
                             icon={'EditIcon'}
-                            onIconClick={() => dispatch({type: PROFILE_PASSWORD_TOGGLE_DISABLED})}
+                            onIconClick={() => dispatch(togglePasswordDisabled())}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}

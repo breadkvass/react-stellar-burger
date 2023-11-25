@@ -7,7 +7,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import IngredientsPrice from '../ingredients-price/ingredients-price';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
-import { INGREDIENT_DETAILS_SET, INGREDIENT_DETAILS_RESET } from '../../services/actions/ingredient-details';
+import { setDetails, resetDetails } from '../../slices/ingredientDetails';
 import styles from './ingredients-item.module.css';
 
 function IngredientsItem({ingredient}) {
@@ -23,13 +23,14 @@ function IngredientsItem({ingredient}) {
     }, [bun, filling])
 
     const openModal = (e) => {
-        dispatch({type: INGREDIENT_DETAILS_SET, details: ingredient});
+        console.log('openModal', ingredient);
+        dispatch(setDetails(ingredient));
         e.stopPropagation();
         setIsShowModal(true);
     }
     
     const closeModal = () => {
-        dispatch({type: INGREDIENT_DETAILS_RESET});
+        dispatch(resetDetails());
         setIsShowModal(false);
     }
 

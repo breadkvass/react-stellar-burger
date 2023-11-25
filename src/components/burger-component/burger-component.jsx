@@ -4,12 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-    CONSTRUCTOR_REMOVE_INGREDIENT,
-    CONSTRUCTOR_MOVE_INGREDIENT,
-    CONSTRUCTOR_SET_DRAGGING_INDEX,
-    CONSTRUCTOR_RESET_DRAGGING_INDEX
-} from '../../services/actions/burger-constructor';
+import { removeIngredient, moveIngredient, resetDraggingIndex, setDraggingIndex } from '../../slices/burgerConstructor';
 
 const BurgerComponent = React.forwardRef((props, dragRef) => {
     const dispatch = useDispatch();
@@ -27,7 +22,7 @@ const BurgerComponent = React.forwardRef((props, dragRef) => {
     }
 
     const deleteHandler = () => {
-        dispatch({ type: CONSTRUCTOR_REMOVE_INGREDIENT, index: props.index });
+        dispatch(removeIngredient(props.index));
     }
 
     const opacity = draggingIndex === props.index ? 0 : 1
@@ -65,7 +60,7 @@ export const DraggableBurgerComponent = (props) => {
         type: 'filling',
         item: { index: props.index },
         end: () => {
-            dispatch({ type: CONSTRUCTOR_RESET_DRAGGING_INDEX });
+            dispatch(resetDraggingIndex());
         },
     });
 
@@ -84,7 +79,7 @@ export const DraggableBurgerComponent = (props) => {
             const dragIndex = item.index;
             const hoverIndex = props.index;
 
-            dispatch({ type: CONSTRUCTOR_SET_DRAGGING_INDEX, index: item.index });
+            dispatch(setDraggingIndex(item.index));
 
             if (dragIndex === hoverIndex) {
                 return;
@@ -106,7 +101,7 @@ export const DraggableBurgerComponent = (props) => {
                 return
             }
 
-            dispatch({ type: CONSTRUCTOR_MOVE_INGREDIENT, from: dragIndex, to: hoverIndex });
+            dispatch(moveIngredient({from: dragIndex, to: hoverIndex}));
             
             item.index = hoverIndex;
         },

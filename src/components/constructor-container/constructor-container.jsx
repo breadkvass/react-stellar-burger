@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import BurgerComponent, {DraggableBurgerComponent} from '../burger-component/burger-component';
-import { CONSTRUCTOR_SET_BUN, CONSTRUCTOR_ADD_INGREDIENT } from '../../services/actions/burger-constructor';
+import { setBun, addIngredient } from '../../slices/burgerConstructor';
 import styles from './constructor-container.module.css';
 
 function ConstructorContainer() {
@@ -19,9 +19,9 @@ function ConstructorContainer() {
 
     const dropHandler = (ingredient) => {
         if (ingredient.type === 'bun') {
-            dispatch({type: CONSTRUCTOR_SET_BUN, ingredientId: ingredient._id});
+            dispatch(setBun(ingredient._id));
         } else {
-            dispatch({type: CONSTRUCTOR_ADD_INGREDIENT, ingredientId: ingredient._id});
+            dispatch(addIngredient(ingredient._id));
         }
     };
     

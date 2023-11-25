@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { LOGIN_SUCCESS } from '../services/actions/auth';
+import { loginSuccess, logoutSuccess } from '../slices/auth';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
@@ -30,7 +30,7 @@ function LoginPage() {
                     fetchPostLogin({email: emailValue, password: passwordValue})
                     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
                     .then(data => {
-                        dispatch({ type: LOGIN_SUCCESS});
+                        dispatch(loginSuccess());
                         navigate('/');
                     })
                     .catch(err => {
