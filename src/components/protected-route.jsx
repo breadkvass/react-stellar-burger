@@ -1,13 +1,45 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { updateToken } from "../utils/api";
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+export const ProtectedOnlyUnAuth = ({ component }) => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(store => store.auth.isAuth);
+  const location = useLocation();
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (isAuth === false && refreshToken) {
+    dispatch(updateToken(refreshToken)) 
+    return <Navigate to="/profile" state={{from: location} } />;
+  } else if (isAuth === true) {
+    return <Navigate to="/profile" state={{from: location} } />;
+  } else {
+    return component;
+  }
+}
+
+export const ProtectedOnlyAuth = ({ component }) => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(store => store.auth.isAuth);
+  const location = useLocation();
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (isAuth === true) {
+    return component;
+  } else if (isAuth === false && refreshToken) {
+    dispatch(updateToken(refreshToken));
+    return component;
+  }  else {
+    return <Navigate to="/login" state={{from: location} } />;
+  }
+
+}
+
+// const Protected = ({ onlyUnAuth = false, component }) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
-  const isAuth = useSelector(store => store.auth.isAuth);
-  const user = useSelector(store => store.auth.user);
-  const location = useLocation();
+  // const isAuth = useSelector(store => store.auth.isAuth);
+  // const user = useSelector(store => store.auth.user);
+  // const location = useLocation();
 
 //   if (!isAuth) {
 //     // Запрос еще выполняется
@@ -23,16 +55,16 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 //     return <Navigate to={from} />;
 //   }
 
-  if (!onlyUnAuth && !user) {
-    return <Navigate to="/login" state={{ from: location }} />;
-  }
+  // if (!onlyUnAuth && !user) {
+  //   return <Navigate to="/login" state={{ from: location }} />;
+  // }
 
   // !onlyUnAuth && user Пользователь авторизован и роут для авторизованного пользователя
 
-  return component;
-};
+//   return component;
+// };
 
-export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
-  <Protected onlyUnAuth={true} component={component} />
-);
+// export const OnlyAuth = Protected;
+// export const OnlyUnAuth = ({ component }) => (
+//   <Protected onlyUnAuth={true} component={component} />
+// );
