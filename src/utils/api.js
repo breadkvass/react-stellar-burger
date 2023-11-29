@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import {
   setData as setDataIngredients,
   setError as setErrorIngredients,
@@ -58,12 +57,17 @@ export const postOrder = (ingredients) => {
     }
 }
 
-export const fetchPostLogin = ({email, password}) => {
-  return fetch(`${BASE_URL}/auth/login`, {
+export const fetchPostLogin = async ({email, password}) => {
+  return await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json'
       },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
       body: JSON.stringify({
           email: email, 
           password: password
@@ -77,6 +81,7 @@ export const login = (user, onSuccessCallback, onFailureCallback) => {
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
             .then(data => {
               dispatch(loginSuccess(data.user));
+              localStorage.setItem('refreshToken', data.refreshToken);
               onSuccessCallback();
             })
             .catch(err => {
@@ -98,4 +103,53 @@ export const fetchPostRegister = ({email, password, name}) => {
           name: name
       })
   });
+}
+
+export const fetchPostRefreshToken = (token) => {
+  return fetch(`${BASE_URL}/auth/token`, {
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          token: token
+      })
+  });
+}
+
+export const updateToken = (token) => {
+  return (dispatch) => {
+    console.log('update token', token);
+    fetchPostRefreshToken(token)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(data => {
+        localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch(getUser(data.accessToken));
+      })
+      .catch(err => {
+          console.log(err);
+      });
+  }
+}
+
+export const fetchGetUser = (token) => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'GET',
+      headers: {
+        'Authorization': token
+      },
+  });
+}
+
+export const getUser = (token) => {
+  return (dispatch) => {
+    fetchGetUser(token)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(data => {
+        dispatch(loginSuccess(data.user));
+      })
+      .catch(err => {
+          console.log(err);
+      });
+  }
 }
