@@ -6,7 +6,6 @@ const { actions, reducer } = createSlice({
         isAuth: false,
         user: {
             email:'',
-            password:'',
             name: '',
         }
     },
@@ -18,9 +17,15 @@ const { actions, reducer } = createSlice({
         logoutSuccess: state => {
             state.isAuth = false;
             state.user = null;
+        },
+        setName: (state, action) => {
+            state.user.name = action.payload;
+        },
+        setEmail: (state, action) => {
+            state.user.email = action.payload;
         }
     }
 })
 
-export const { loginSuccess, logoutSuccess } = actions;
+export const { loginSuccess, logoutSuccess, setName, setEmail, setPassword } = actions;
 export default reducer;

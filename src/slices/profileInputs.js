@@ -3,40 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 const { actions, reducer } = createSlice({
     name: 'reducer',
     initialState: {
-        name: {
-            value: '',
-            disabled: true
-        },
-        email: {
-            value: '',
-            disabled: true
-        },
-        password: {
-            value: '',
-            disabled: true
-        },
+        nameInputDisabled: true,
+        emailInputDisabled: true,
+        passwordInputDisabled: true
     },
     reducers: {
-        setName: (state, action) => {
-            state.name.value = action.payload;
-        },
         toggleNameDisabled: state => {
-            state.name.disabled = !state.name.disabled;
-        },
-        setEmail: (state, action) => {
-            state.email.value = action.payload;
+            state.nameInputDisabled = !state.nameInputDisabled;
         },
         toggleEmailDisabled: state => {
-            state.email.disabled = !state.email.disabled;
-        },
-        setPassword: (state, action) => {
-            state.password.value = action.payload;
+            state.emailInputDisabled = !state.emailInputDisabled;
         },
         togglePasswordDisabled: state => {
-            state.password.disabled = !state.password.disabled;
+            state.passwordInputDisabled = !state.passwordInputDisabled;
         }
     }
 })
 
-export const { setName, toggleNameDisabled, setEmail, toggleEmailDisabled, setPassword, togglePasswordDisabled } = actions;
+export const { toggleNameDisabled, toggleEmailDisabled, togglePasswordDisabled } = actions;
 export default reducer;

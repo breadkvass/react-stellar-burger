@@ -1,16 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { setName, toggleNameDisabled, setEmail, toggleEmailDisabled, setPassword, togglePasswordDisabled } from '../slices/profileInputs';
+import { toggleNameDisabled, toggleEmailDisabled, togglePasswordDisabled } from '../slices/profileInputs';
+import { setName, setEmail } from '../slices/auth';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import LeftColumnLink from '../components/left-column-link/left-column-link';
 import Inputs from '../components/inputs/inputs';
 import styles from './profile-page.module.css';
+import { useState } from 'react';
 
 
 function ProfilePage() {
     const dispatch = useDispatch();
-    const {name, email, password} = useSelector(state => state.profileInputs);
+    const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
+    const { name, email } = useSelector(state => state.auth.user);
+    const { password, setPassword } = useState('');
 
     return (
         <MainLayout>
@@ -31,9 +35,9 @@ function ProfilePage() {
                             type={'text'}
                             placeholder={'Имя'}
                             onChange={(e) => dispatch(setName(e.target.value))}
-                            value={name.value}
+                            value={name}
                             name={'Имя'}
-                            disabled={name.disabled}
+                            disabled={nameInputDisabled}
                             error={false}
                             icon={'EditIcon'}
                             onIconClick={() => dispatch(toggleNameDisabled())}
@@ -45,9 +49,9 @@ function ProfilePage() {
                             type={'email'}
                             placeholder={'E-mail'}
                             onChange={(e) => dispatch(setEmail(e.target.value))}
-                            value={email.value}
+                            value={email}
                             name={'E-mail'}
-                            disabled={email.disabled}
+                            disabled={emailInputDisabled}
                             error={false}
                             icon={'EditIcon'}
                             onIconClick={() => dispatch(toggleEmailDisabled())}
@@ -58,10 +62,10 @@ function ProfilePage() {
                         <Input
                             type={'password'}
                             placeholder={'Пароль'}
-                            onChange={(e) => dispatch(setPassword(e.target.value))}
-                            value={password.value}
+                            onChange={() =>{}}
+                            value={''}
                             name={'Пароль'}
-                            disabled={password.disabled}
+                            disabled={passwordInputDisabled}
                             icon={'EditIcon'}
                             onIconClick={() => dispatch(togglePasswordDisabled())}
                             error={false}
