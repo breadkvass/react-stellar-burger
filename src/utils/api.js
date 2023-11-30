@@ -11,7 +11,8 @@ import {
 
 import {
   loginSuccess,
-  logoutSuccess
+  logoutSuccess,
+  setAccessToken
 } from '../slices/auth';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
@@ -78,18 +79,18 @@ export const fetchPostLogin = async ({email, password}) => {
   });
 }
 
-export const login = (user, onSuccessCallback, onFailureCallback) => {
+export const login = (user, onSuccessCallback) => {
   return (dispatch) => {
     fetchPostLogin(user)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
         dispatch(loginSuccess(data.user));
         localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch(setAccessToken(data.accessToken));
         onSuccessCallback();
       })
       .catch(err => {
           console.log(err);
-          onFailureCallback();
       });
   }
 }
@@ -120,7 +121,7 @@ export const logout = (token) => {
   }
 }
 
-export const fetchPostRegister = ({email, password, name}) => {
+export const fetchPostRegister = (email, password, name) => {
   return fetch(`${BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -132,6 +133,22 @@ export const fetchPostRegister = ({email, password, name}) => {
           name: name
       })
   });
+}
+
+export const register = (email, password, name, onSuccessCallback) => {
+  return (dispatch) => {
+    fetchPostRegister(email, password, name)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(data => {
+        dispatch(loginSuccess(data.user));
+        localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch(setAccessToken(data.accessToken));
+        onSuccessCallback();
+      })
+      .catch(err => {
+          console.log(err);
+      });
+  }
 }
 
 export const fetchPostRefreshToken = (token) => {
@@ -224,6 +241,30 @@ export const newPassword = (password, token, onSuccessCallback) => {
     fetchPostNewPassword(password, token)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(() => { onSuccessCallback(); })
+      .catch(err => {
+          console.log(err);
+      });
+  }
+}
+
+export const fetchPatchUpdateUser = (name, email, token) => {
+  return fetch(`${BASE_URL}/user`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': token
+    },
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
+  });
+}
+
+export const updateUser = (name, email, token) => {
+  return (dispatch) => {
+    fetchPatchUpdateUser(name, email, token)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(data => { dispatch(loginSuccess(data.user)) })
       .catch(err => {
           console.log(err);
       });

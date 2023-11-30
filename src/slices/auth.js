@@ -7,7 +7,8 @@ const { actions, reducer } = createSlice({
         user: {
             email:'',
             name: '',
-        }
+        },
+        accessToken: ''
     },
     reducers: {
         loginSuccess: (state, action) => {
@@ -19,6 +20,9 @@ const { actions, reducer } = createSlice({
             state.user.email = '';
             state.user.name = '';
         },
+        setAccessToken: (state, action) => {
+            state.accessToken = action.payload;
+        },
         setName: (state, action) => {
             state.user.name = action.payload;
         },
@@ -28,5 +32,5 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { loginSuccess, logoutSuccess, setName, setEmail } = actions;
+export const { loginSuccess, logoutSuccess, setAccessToken, setName, setEmail } = actions;
 export default reducer;
