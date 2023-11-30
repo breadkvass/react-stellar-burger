@@ -2,12 +2,10 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { loginSuccess, logoutSuccess } from '../slices/auth';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
-// import { fetchPostLogin } from '../utils/api';
 import { login } from '../utils/api';
 
 function LoginPage() {
@@ -32,8 +30,7 @@ function LoginPage() {
                         {email: emailValue, password: passwordValue},
                         () => {
                             navigate('/profile');
-                        },
-                        () => {console.log('onFailureCallback')}
+                        }
                     ));
                 }}
                 addActions={
