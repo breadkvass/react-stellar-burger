@@ -14,12 +14,12 @@ function AppHeader() {
         <header className={style.header}>
             <div className={'pt-4 pb-4 ' + style.header__content}> 
                 <Navigation side='left'>
-                    <NavLink text='Конструктор' icon={BurgerIcon} />
-                    <NavLink text='Лента заказов' icon={ListIcon} link={isAuth ? '/orders' : '/login'}/>
+                    <NavLink text='Конструктор' icon={BurgerIcon} link={'/'} />
+                    <NavLink text='Лента заказов' icon={ListIcon} link={'/orders'}/>
                 </Navigation>
                 <Logo alt="Логотип" />
                 <Navigation side='right'>
-                    <NavLink link={isAuth ? '/profile' : '/login'} text='Личный кабинет' icon={ProfileIcon} />
+                    <NavLink text='Личный кабинет' icon={ProfileIcon} link={'/profile'} />
                 </Navigation>
             </div>
         </header>
