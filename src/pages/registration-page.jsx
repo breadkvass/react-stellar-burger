@@ -4,8 +4,13 @@ import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../utils/api';
 
 function RegistrationPage() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [ nameValue, setNameValue ] = useState('');
     const [ emailValue, setEmailValue ] = useState('');
     const [ passwordValue, setPasswordValue ] = useState('');
@@ -17,19 +22,15 @@ function RegistrationPage() {
             <Form
                 title='Регистрация'
                 button='Зарегистрироваться'
-                // handleSubmit={(e) => {
-                //     e.preventDefault();
-                //     if (emailValue && passwordValue) {
-                //       if (state.user.email === emailValue && state.user.password === passwordValue) {
-                //         dispatch({type: LOGIN_SUCCESS});
-                //         navigate('/')
-                //       } else {
-                //         alert("Credentials did not match");
-                //       }
-                //     } else {
-                //       alert("Wrong Credentials");
-                //     }
-                // }}
+                handleSubmit={(e) => {
+                    e.preventDefault();
+                    dispatch(register(
+                        emailValue,
+                        passwordValue,
+                        nameValue,
+                        () => { navigate('/profile') }
+                    ));
+                }}
                 addActions={
                     <>
                         <AddAction text='Уже зарегистрированы?' button='Войти' link='/login'/>
