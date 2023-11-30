@@ -27,7 +27,7 @@ export const ProtectedOnlyAuth = ({ component }) => {
   } else if (isAuth === false && refreshToken) {
     dispatch(updateToken(refreshToken));
     return component;
-  }  else {
+  } else if (isAuth === false && !refreshToken) {
     return <Navigate to="/login" state={{from: location} } />;
   }
 

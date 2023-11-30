@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ProtectedOnlyAuth component={<MainPage />} />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<ProtectedOnlyUnAuth component={<LoginPage />} />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
