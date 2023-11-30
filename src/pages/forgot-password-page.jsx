@@ -4,15 +4,29 @@ import Inputs from '../components/inputs/inputs';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
+import { resetPassword } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function ForgotPasswordPage() {
     const [ emailValue, setEmailValue ] = useState('');
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     return (
         <MainLayout>
             <Form
                 title='Восстановление пароля'
                 button='Восстановить'
+                handleSubmit={(e) => {
+                    e.preventDefault();
+                    dispatch(resetPassword(
+                        emailValue,
+                        () => {
+                            navigate('/reset-password');
+                        }
+                    ));
+                }}
                 addActions={
                     <>
                         <AddAction text='Вспомнили пароль?' button='Войти' link='/login'/>

@@ -182,3 +182,50 @@ export const getUser = (token) => {
       });
   }
 }
+
+export const fetchPostResetPassword = (email) => {
+  return fetch(`${BASE_URL}/password-reset`, {
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+  });
+}
+
+export const resetPassword = (email, onSuccessCallback) => {
+  return (dispatch) => {
+    fetchPostResetPassword(email)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(() => { onSuccessCallback(); })
+      .catch(err => {
+          console.log(err);
+      });
+  }
+}
+
+export const fetchPostNewPassword = (password, token) => {
+  return fetch(`${BASE_URL}/password-reset/reset`, {
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        password: password,
+        token: token
+      })
+  });
+}
+
+export const newPassword = (password, token, onSuccessCallback) => {
+  return (dispatch) => {
+    fetchPostNewPassword(password, token)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(() => { onSuccessCallback(); })
+      .catch(err => {
+          console.log(err);
+      });
+  }
+}
