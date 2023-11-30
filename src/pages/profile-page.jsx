@@ -8,13 +8,23 @@ import LeftColumnLink from '../components/left-column-link/left-column-link';
 import Inputs from '../components/inputs/inputs';
 import styles from './profile-page.module.css';
 import { useState } from 'react';
+import { logout } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 function ProfilePage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
     const { name, email } = useSelector(state => state.auth.user);
     const { password, setPassword } = useState('');
+
+    const refreshToken = localStorage.getItem('refreshToken')
+    const logoutHandler = () => {
+        dispatch(logout(refreshToken));
+    }
 
     return (
         <MainLayout>
@@ -23,7 +33,15 @@ function ProfilePage() {
                     <nav className={styles.nav}>
                         <LeftColumnLink link='/profile' text='Профиль'/>
                         <LeftColumnLink link='/' text='История'/>
-                        <LeftColumnLink link='/' text='Выход'/>
+                        <Button
+                            className={styles.button + ' text text_type_main-medium text_color_inactive'}
+                            onClick={() => logoutHandler()}
+                            htmlType="button"
+                            type="secondary"
+                            size="large"
+                        >
+                            Выход
+                        </Button>
                     </nav>
                     <p className='text text_type_main-default text_color_inactive'>
                         В этом разделе вы можете изменить свои персональные данные

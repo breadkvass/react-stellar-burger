@@ -9,7 +9,10 @@ import {
   setError as setErrorOrderDetails
 } from '../slices/orderDetails';
 
-import { loginSuccess } from '../slices/auth';
+import {
+  loginSuccess,
+  logoutSuccess
+} from '../slices/auth';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
@@ -76,18 +79,44 @@ export const fetchPostLogin = async ({email, password}) => {
 }
 
 export const login = (user, onSuccessCallback, onFailureCallback) => {
-    return (dispatch) => {
-        fetchPostLogin(user)
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-            .then(data => {
-              dispatch(loginSuccess(data.user));
-              localStorage.setItem('refreshToken', data.refreshToken);
-              onSuccessCallback();
-            })
-            .catch(err => {
-                console.log(err);
-                onFailureCallback();
-            });
+  return (dispatch) => {
+    fetchPostLogin(user)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(data => {
+        dispatch(loginSuccess(data.user));
+        localStorage.setItem('refreshToken', data.refreshToken);
+        onSuccessCallback();
+      })
+      .catch(err => {
+          console.log(err);
+          onFailureCallback();
+      });
+  }
+}
+
+export const fetchPostLogout = (token) => {
+  return fetch(`${BASE_URL}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        token: token
+    })
+});
+}
+
+export const logout = (token) => {
+  return (dispatch) => {
+    fetchPostLogout(token)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(() => {
+        localStorage.removeItem('refreshToken');
+        dispatch(logoutSuccess());
+      })
+      .catch(err => {
+          console.log(err);
+      });
   }
 }
 
@@ -119,10 +148,10 @@ export const fetchPostRefreshToken = (token) => {
 
 export const updateToken = (token) => {
   return (dispatch) => {
-    console.log('update token', token);
     fetchPostRefreshToken(token)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
+        localStorage.removeItem('refreshToken');
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch(getUser(data.accessToken));
       })
