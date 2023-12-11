@@ -8,12 +8,16 @@ const { actions, reducer } = createSlice({
             email:'',
             name: '',
         },
-        accessToken: ''
+        accessToken: '',
+        expireInAccToken: ''
     },
     reducers: {
         loginSuccess: (state, action) => {
             state.isAuth = true;
-            state.user = action.payload;
+            state.user = action.payload.user;
+            state.accessToken = action.payload.accessToken;
+            const now = new Date();
+            state.expireInAccToken = now.setMinutes(now.getMinutes() + 20);
         },
         logoutSuccess: state => {
             state.isAuth = false;
@@ -22,6 +26,8 @@ const { actions, reducer } = createSlice({
         },
         setAccessToken: (state, action) => {
             state.accessToken = action.payload;
+            const now = new Date();
+            state.expireInAccToken = now.setMinutes(now.getMinutes() + 20);
         },
         setName: (state, action) => {
             state.user.name = action.payload;

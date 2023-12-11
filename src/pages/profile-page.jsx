@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { logout } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { updateUser, updateToken } from '../utils/api';
 
 
 function ProfilePage() {
@@ -19,11 +20,25 @@ function ProfilePage() {
 
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
     const { name, email } = useSelector(state => state.auth.user);
+    const { accessToken } = useSelector(state => state.auth);
+    const { expireInAccToken } = useSelector(state => state.auth.expireInAccToken);
     const { password, setPassword } = useState('');
 
     const refreshToken = localStorage.getItem('refreshToken')
+
     const logoutHandler = () => {
         dispatch(logout(refreshToken));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (expireInAccToken - new Date() < 0) {
+            dispatch(updateToken(refreshToken));
+            dispatch(updateUser(name, email, accessToken));
+        } else {
+            dispatch(updateUser(name, email, accessToken));
+        }
+        
     }
 
     return (
@@ -48,7 +63,7 @@ function ProfilePage() {
                     </p>
                 </div>
                 <div className={styles.right}>
-                    <Inputs>
+                    <form className={styles.form} onSubmit={handleSubmit}>
                         <Input 
                             type={'text'}
                             placeholder={'Имя'}
@@ -91,7 +106,16 @@ function ProfilePage() {
                             size={'default'}
                             extraClass="ml-1"
                         />
-                    </Inputs>
+                        <div className={styles.edit__buttons}>
+                            <Button htmlType="button" type="secondary" size="medium">
+                                Отмена
+                            </Button>
+                            <Button htmlType="submit" type="primary" size="medium">
+                                Сохранить
+                            </Button>
+                        </div>
+                    </form>
+                    
                 </div>
             </TwoColumns>
         </MainLayout>

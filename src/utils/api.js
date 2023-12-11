@@ -12,7 +12,8 @@ import {
 import {
   loginSuccess,
   logoutSuccess,
-  setAccessToken
+  setAccessToken,
+  setName
 } from '../slices/auth';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
@@ -84,7 +85,7 @@ export const login = (user, onSuccessCallback) => {
     fetchPostLogin(user)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
-        dispatch(loginSuccess(data.user));
+        dispatch(loginSuccess(data));
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch(setAccessToken(data.accessToken));
         onSuccessCallback();
@@ -140,9 +141,8 @@ export const register = (email, password, name, onSuccessCallback) => {
     fetchPostRegister(email, password, name)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
-        dispatch(loginSuccess(data.user));
+        dispatch(loginSuccess(data));
         localStorage.setItem('refreshToken', data.refreshToken);
-        dispatch(setAccessToken(data.accessToken));
         onSuccessCallback();
       })
       .catch(err => {
@@ -171,6 +171,7 @@ export const updateToken = (token) => {
         localStorage.removeItem('refreshToken');
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch(getUser(data.accessToken));
+        dispatch(setAccessToken(data.accessToken));
       })
       .catch(err => {
           console.log(err);
@@ -192,7 +193,7 @@ export const getUser = (token) => {
     fetchGetUser(token)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
-        dispatch(loginSuccess(data.user));
+        dispatch(loginSuccess(data));
       })
       .catch(err => {
           console.log(err);
@@ -248,10 +249,11 @@ export const newPassword = (password, token, onSuccessCallback) => {
 }
 
 export const fetchPatchUpdateUser = (name, email, token) => {
-  return fetch(`${BASE_URL}/user`, {
+  return fetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
-      'Authorization': token
+      'Authorization': token,
+      'Content-Type': 'application/json'
     },
       body: JSON.stringify({
         name: name,
@@ -264,7 +266,9 @@ export const updateUser = (name, email, token) => {
   return (dispatch) => {
     fetchPatchUpdateUser(name, email, token)
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .then(data => { dispatch(loginSuccess(data.user)) })
+      .then(data => {
+        getUser(token);
+       })
       .catch(err => {
           console.log(err);
       });

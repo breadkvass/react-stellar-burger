@@ -7,8 +7,9 @@ export const ProtectedOnlyUnAuth = ({ component }) => {
   const isAuth = useSelector(store => store.auth.isAuth);
   const location = useLocation();
   const refreshToken = localStorage.getItem('refreshToken');
+  
   if (isAuth === false && refreshToken) {
-    dispatch(updateToken(refreshToken)) 
+    dispatch(updateToken(refreshToken))
     return <Navigate to="/profile" state={{from: location} } />;
   } else if (isAuth === true) {
     return <Navigate to="/profile" state={{from: location} } />;
