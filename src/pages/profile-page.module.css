@@ -8,6 +8,12 @@
     padding-bottom: 80px;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 24px;
+}
 .button {
     text-decoration: none;
     line-height: 64px;
@@ -17,4 +23,11 @@
     border: 0;
     text-align: left;
     cursor: pointer;
+}
+
+.edit__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: end;
 }
