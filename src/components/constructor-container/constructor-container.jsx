@@ -7,6 +7,7 @@ import styles from './constructor-container.module.css';
 function ConstructorContainer() {
     const dispatch = useDispatch();
     const { bun, filling } = useSelector(state => state.burgerConstructor);
+    console.log('начинка', filling)
     const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(ingredient) {
@@ -25,7 +26,7 @@ function ConstructorContainer() {
         }
     };
     
-    const borderColor = isHover ? 'lightgreen' : 'transparent';
+    const borderColor = isHover ? 'white' : 'transparent';
 
     return (
         <div className={styles.сonstructor__сontainer} ref={dropTarget} style={{border: '1px solid', borderColor}}>
