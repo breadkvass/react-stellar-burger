@@ -12,11 +12,13 @@ import {
 import {
   loginSuccess,
   logoutSuccess,
-  setAccessToken,
-  setName
+  setAccessToken
 } from '../slices/auth';
+import { setEmailUpd, setNameUpd } from '../slices/profileInputs';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+const checkRes = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 const fetchGetIngredients = () => {
     return fetch(`${BASE_URL}/ingredients`);
@@ -27,7 +29,7 @@ export const getIngredients = () => {
       dispatch(setLoadingIngredients());
   
       fetchGetIngredients()
-          .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+          .then(checkRes)
           .then(data => dispatch(setDataIngredients(data.data)))
           .catch(err => {
               dispatch(setErrorIngredients());
@@ -51,9 +53,8 @@ const fetchPostOrder = (ingredients) => {
 export const postOrder = (ingredients) => {
     return (dispatch) => {
         dispatch(setLoadingOrderDetails());
-
         fetchPostOrder(ingredients)
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+            .then(checkRes)
             .then(data => dispatch(setDataOrderDetails(data)))
             .catch(err => {
                 dispatch(setErrorOrderDetails);
@@ -83,9 +84,11 @@ export const fetchPostLogin = async ({email, password}) => {
 export const login = (user, onSuccessCallback) => {
   return (dispatch) => {
     fetchPostLogin(user)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(data => {
         dispatch(loginSuccess(data));
+        dispatch(setNameUpd(data.user.name));
+        dispatch(setEmailUpd(data.user.email));
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch(setAccessToken(data.accessToken));
         onSuccessCallback();
@@ -111,7 +114,7 @@ export const fetchPostLogout = (token) => {
 export const logout = (token) => {
   return (dispatch) => {
     fetchPostLogout(token)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(() => {
         localStorage.removeItem('refreshToken');
         dispatch(logoutSuccess());
@@ -139,10 +142,13 @@ export const fetchPostRegister = (email, password, name) => {
 export const register = (email, password, name, onSuccessCallback) => {
   return (dispatch) => {
     fetchPostRegister(email, password, name)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(data => {
         dispatch(loginSuccess(data));
+        dispatch(setNameUpd(data.user.name));
+        dispatch(setEmailUpd(data.user.email));
         localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch(setAccessToken(data.accessToken));
         onSuccessCallback();
       })
       .catch(err => {
@@ -166,7 +172,7 @@ export const fetchPostRefreshToken = (token) => {
 export const updateToken = (token) => {
   return (dispatch) => {
     fetchPostRefreshToken(token)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(data => {
         localStorage.removeItem('refreshToken');
         localStorage.setItem('refreshToken', data.refreshToken);
@@ -191,9 +197,11 @@ export const fetchGetUser = (token) => {
 export const getUser = (token) => {
   return (dispatch) => {
     fetchGetUser(token)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(data => {
         dispatch(loginSuccess(data));
+        dispatch(setNameUpd(data.user.name));
+        dispatch(setEmailUpd(data.user.email));
       })
       .catch(err => {
           console.log(err);
@@ -216,7 +224,7 @@ export const fetchPostResetPassword = (email) => {
 export const resetPassword = (email, onSuccessCallback) => {
   return (dispatch) => {
     fetchPostResetPassword(email)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(() => { onSuccessCallback(); })
       .catch(err => {
           console.log(err);
@@ -240,7 +248,7 @@ export const fetchPostNewPassword = (password, token) => {
 export const newPassword = (password, token, onSuccessCallback) => {
   return (dispatch) => {
     fetchPostNewPassword(password, token)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(() => { onSuccessCallback(); })
       .catch(err => {
           console.log(err);
@@ -265,9 +273,9 @@ export const fetchPatchUpdateUser = (name, email, token) => {
 export const updateUser = (name, email, token) => {
   return (dispatch) => {
     fetchPatchUpdateUser(name, email, token)
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(checkRes)
       .then(data => {
-        getUser(token);
+        dispatch(getUser(token));
        })
       .catch(err => {
           console.log(err);
