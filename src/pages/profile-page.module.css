@@ -23,6 +23,7 @@
     border: 0;
     text-align: left;
     cursor: pointer;
+    height: 64px;
 }
 
 .edit__buttons {

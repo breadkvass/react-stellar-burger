@@ -1,17 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { toggleNameDisabled, toggleEmailDisabled, togglePasswordDisabled } from '../slices/profileInputs';
-import { setName, setEmail } from '../slices/auth';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd, setEmailUpd } from '../slices/profileInputs';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import LeftColumnLink from '../components/left-column-link/left-column-link';
-import Inputs from '../components/inputs/inputs';
-import styles from './profile-page.module.css';
-import { useState } from 'react';
 import { logout } from '../utils/api';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { updateUser, updateToken } from '../utils/api';
+import { updateUser, updateToken, getUser } from '../utils/api';
+import styles from './profile-page.module.css';
 
 
 function ProfilePage() {
@@ -19,26 +16,36 @@ function ProfilePage() {
     const navigate = useNavigate();
 
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
+    const { nameUpd, emailUpd } = useSelector(state => state.profileInputs.userUpd);
     const { name, email } = useSelector(state => state.auth.user);
-    const { accessToken } = useSelector(state => state.auth);
-    const { expireInAccToken } = useSelector(state => state.auth.expireInAccToken);
-    const { password, setPassword } = useState('');
+    const { accessToken, expireInAccToken } = useSelector(state => state.auth);
 
     const refreshToken = localStorage.getItem('refreshToken')
 
     const logoutHandler = () => {
         dispatch(logout(refreshToken));
+        navigate('/login');
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (expireInAccToken - new Date() < 0) {
-            dispatch(updateToken(refreshToken));
-            dispatch(updateUser(name, email, accessToken));
+        const now = new Date().getTime();
+        if (expireInAccToken > now) {
+            
+            dispatch(updateUser(nameUpd, emailUpd, accessToken));
+            dispatch(setInputsDisabled());
         } else {
-            dispatch(updateUser(name, email, accessToken));
+            dispatch(updateToken(refreshToken));
+            dispatch(updateUser(nameUpd, emailUpd, accessToken));
+            dispatch(setInputsDisabled());
         }
-        
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        dispatch(setNameUpd(name));
+        dispatch(setEmailUpd(email));
+        dispatch(setInputsDisabled());
     }
 
     return (
@@ -63,12 +70,12 @@ function ProfilePage() {
                     </p>
                 </div>
                 <div className={styles.right}>
-                    <form className={styles.form} onSubmit={handleSubmit}>
+                    <form className={styles.form + ' form-profile'} onSubmit={handleSubmit}>
                         <Input 
                             type={'text'}
                             placeholder={'Имя'}
-                            onChange={(e) => dispatch(setName(e.target.value))}
-                            value={name}
+                            onChange={(e) => {dispatch(setNameUpd(e.target.value))}}
+                            value={nameUpd}
                             name={'Имя'}
                             disabled={nameInputDisabled}
                             error={false}
@@ -81,8 +88,8 @@ function ProfilePage() {
                         <Input 
                             type={'email'}
                             placeholder={'E-mail'}
-                            onChange={(e) => dispatch(setEmail(e.target.value))}
-                            value={email}
+                            onChange={(e) => {dispatch(setEmailUpd(e.target.value))}}
+                            value={emailUpd}
                             name={'E-mail'}
                             disabled={emailInputDisabled}
                             error={false}
@@ -96,26 +103,27 @@ function ProfilePage() {
                             type={'password'}
                             placeholder={'Пароль'}
                             onChange={() =>{}}
-                            value={''}
+                            value={'password'}
                             name={'Пароль'}
                             disabled={passwordInputDisabled}
                             icon={'EditIcon'}
-                            onIconClick={() => dispatch(togglePasswordDisabled())}
+                            onIconClick={() => {}}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="ml-1"
                         />
-                        <div className={styles.edit__buttons}>
-                            <Button htmlType="button" type="secondary" size="medium">
-                                Отмена
-                            </Button>
-                            <Button htmlType="submit" type="primary" size="medium">
-                                Сохранить
-                            </Button>
-                        </div>
+                        { name !== nameUpd || email !== emailUpd ?
+                            <div className={styles.edit__buttons}>
+                                <Button htmlType="button" type="secondary" size="medium" onClick={handleReset}>
+                                    Отмена
+                                </Button>
+                                <Button htmlType="submit" type="primary" size="medium">
+                                    Сохранить
+                                </Button>
+                             </div>
+                        : null }
                     </form>
-                    
                 </div>
             </TwoColumns>
         </MainLayout>
