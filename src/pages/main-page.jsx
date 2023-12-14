@@ -10,11 +10,6 @@ import styles from "./main-page.module.css";
 
 function MainPage() {
   const { isLoading, hasError, ingredients } = useSelector(state => state.ingredients);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, []);
 
   return (
     <MainLayout>
