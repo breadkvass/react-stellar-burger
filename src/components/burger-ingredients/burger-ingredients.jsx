@@ -38,8 +38,8 @@ function BurgerIngredients() {
     };
 
     return (
-        <div className={styles.content}>
-            <h2 className="pt-10 text text_type_main-large">Соберите бургер</h2>
+        <div className={styles.content + ' pt-10'}>
+            <h2 className="text text_type_main-large">Соберите бургер</h2>
             <TabGroup categories={categories} current={currentTab} onTabClick={tabClickHandler} />
             <IngredientsContainer categories={categories} onScroll={scrollHandler} ref={containerRef} />
         </div>
