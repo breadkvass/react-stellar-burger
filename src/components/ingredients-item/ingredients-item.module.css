@@ -5,6 +5,8 @@
     align-items: center;
     position: relative;
     width: 272px;
+    text-decoration: none;
+    color: #F2F2F3;
 }
 
 .item__img {
