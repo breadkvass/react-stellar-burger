@@ -12,7 +12,8 @@ import RegistrationPage from '../../pages/registration-page';
 import ForgotPasswordPage from '../../pages/forgot-password-page';
 import ResetPasswordPage from '../../pages/reset-password-page';
 import ProfilePage from '../../pages/profile-page';
-import Orders from '../../pages/orders';
+import FeedPage from "../../pages/feed-page";
+import ProfileOrdersPage from '../../pages/profile-orders-page';
 import IngredientPage from "../ingredient-page/ingredient-page";
 import Modal from "../modal/modal";
 import { ProtectedOnlyAuth, ProtectedOnlyUnAuth } from '../protected-route';
@@ -32,12 +33,13 @@ function App() {
     <>
       <Routes location={background || location}>
         <Route path="/" element={<MainPage />} />
+        <Route path="/feed" element={<FeedPage />} />
         <Route path="/login" element={<ProtectedOnlyUnAuth component={<LoginPage />} />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/register" element={<ProtectedOnlyUnAuth component={<RegistrationPage />} />} />
+        <Route path="/forgot-password" element={<ProtectedOnlyUnAuth component={<ForgotPasswordPage />} />} />
+        <Route path="/reset-password" element={<ProtectedOnlyUnAuth component={<ResetPasswordPage />} />} />
         <Route path="/profile" element={<ProtectedOnlyAuth component={<ProfilePage />} />} />
-        <Route path="/orders" element={<ProtectedOnlyAuth component={<Orders />} />} />
+        <Route path="/profile/orders" element={<ProtectedOnlyAuth component={<ProfileOrdersPage />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage page={true} />} />
       </Routes>
       {background && 
