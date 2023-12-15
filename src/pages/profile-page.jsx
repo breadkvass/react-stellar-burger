@@ -20,7 +20,7 @@ function ProfilePage() {
     const { name, email } = useSelector(state => state.auth.user);
     const { accessToken, expireInAccToken } = useSelector(state => state.auth);
 
-    const refreshToken = localStorage.getItem('refreshToken')
+    const refreshToken = localStorage.getItem('refreshToken');
 
     const logoutHandler = () => {
         dispatch(logout(refreshToken));
@@ -54,7 +54,7 @@ function ProfilePage() {
                 <div className={styles.left}>
                     <nav className={styles.nav}>
                         <LeftColumnLink link='/profile' text='Профиль'/>
-                        <LeftColumnLink link='/' text='История'/>
+                        <LeftColumnLink link='/profile/orders' text='История'/>
                         <Button
                             className={styles.button + ' text text_type_main-medium text_color_inactive'}
                             onClick={() => logoutHandler()}
