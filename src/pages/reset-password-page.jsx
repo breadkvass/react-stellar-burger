@@ -1,24 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
 import { newPassword } from '../utils/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { cancelResetPassword } from '../slices/profileInputs';
 
 function ResetPasswordPage() {
     const [ passwordValue, setPasswordValue ] = useState('');
     const [ codeValue, setCodeValue ] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { resetPassword } = useSelector(state => state.profileInputs);
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
       };
-
+    
+    useEffect(() => {
+        if (!resetPassword) {
+            navigate('/forgot-password');
+        }
+    }, [resetPassword])
+    
     return (
         <MainLayout>
             <Form
@@ -29,7 +37,10 @@ function ResetPasswordPage() {
                     dispatch(newPassword(
                         passwordValue,
                         codeValue,
-                        () => {navigate('/login')}
+                        () => {
+                            navigate('/login');
+                            dispatch(cancelResetPassword());
+                        }
                     ));
                 }}
                 addActions={

@@ -9,7 +9,8 @@ const { actions, reducer } = createSlice({
         userUpd: {
             nameUpd: '',
             emailUpd: ''
-        }
+        },
+        resetPassword: false,
     },
     reducers: {
         toggleNameDisabled: state => {
@@ -32,8 +33,14 @@ const { actions, reducer } = createSlice({
         setEmailUpd: (state, action) => {
             state.userUpd.emailUpd = action.payload;
         },
+        setResetPassword: state => {
+            state.resetPassword = true;
+        },
+        cancelResetPassword: state => {
+            state.resetPassword = false;
+        },
     }
 })
 
-export const { toggleNameDisabled, toggleEmailDisabled, togglePasswordDisabled, setInputsDisabled, setNameUpd, setEmailUpd } = actions;
+export const { toggleNameDisabled, toggleEmailDisabled, togglePasswordDisabled, setInputsDisabled, setNameUpd, setEmailUpd, setResetPassword, cancelResetPassword } = actions;
 export default reducer;

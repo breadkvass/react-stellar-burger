@@ -7,6 +7,7 @@ import MainLayout from '../components/main-layout/main-layout';
 import { resetPassword } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setResetPassword } from '../slices/profileInputs';
 
 function ForgotPasswordPage() {
     const [ emailValue, setEmailValue ] = useState('');
@@ -23,6 +24,7 @@ function ForgotPasswordPage() {
                     dispatch(resetPassword(
                         emailValue,
                         () => {
+                            dispatch(setResetPassword());
                             navigate('/reset-password');
                         }
                     ));
