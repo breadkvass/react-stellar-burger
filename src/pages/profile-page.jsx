@@ -1,20 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd, setEmailUpd } from '../slices/profileInputs';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
-import LeftColumnLink from '../components/left-column-link/left-column-link';
 import ProfileLeftColumn from '../components/profile-left-column/profile-left-column';
-import { logout } from '../utils/api';
 import { updateUser, updateToken } from '../utils/api';
 import styles from './profile-page.module.css';
 
 
 function ProfilePage() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
     const { nameUpd, emailUpd } = useSelector(state => state.profileInputs.userUpd);
@@ -22,11 +18,6 @@ function ProfilePage() {
     const { accessToken, expireInAccToken } = useSelector(state => state.auth);
 
     const refreshToken = localStorage.getItem('refreshToken');
-
-    const logoutHandler = () => {
-        dispatch(logout(refreshToken));
-        navigate('/login');
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
