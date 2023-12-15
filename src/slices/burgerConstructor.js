@@ -29,12 +29,14 @@ const { actions, reducer } = createSlice({
             state.filling = newFilling;
         },
         addIngredient: (state, action) => {
-            state.filling = filling(action.payload);
+            const newFilling = state.filling;
+            newFilling.push(filling(action.payload));
+            state.filling = newFilling;
         },
         moveIngredient: (state, action) => {
             const newFilling = state.filling;
-            const moved = newFilling.splice(action.payload, 1)[0];
-            newFilling.splice(action.payload, 0, moved);
+            const moved = newFilling.splice(action.payload.from, 1)[0];
+            newFilling.splice(action.payload.to, 0, moved);
             state.filling = newFilling;
             state.draggingIndex = action.payload;
         },
