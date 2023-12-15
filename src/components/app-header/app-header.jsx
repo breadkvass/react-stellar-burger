@@ -15,7 +15,7 @@ function AppHeader() {
             <div className={'pt-4 pb-4 ' + style.header__content}> 
                 <Navigation side='left'>
                     <NavLink text='Конструктор' icon={BurgerIcon} link={'/'} />
-                    <NavLink text='Лента заказов' icon={ListIcon} link={'/orders'}/>
+                    <NavLink text='Лента заказов' icon={ListIcon} link={'/feed'}/>
                 </Navigation>
                 <Logo alt="Логотип" />
                 <Navigation side='right'>
