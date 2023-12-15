@@ -6,6 +6,7 @@ import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd,
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import LeftColumnLink from '../components/left-column-link/left-column-link';
+import ProfileLeftColumn from '../components/profile-left-column/profile-left-column';
 import { logout } from '../utils/api';
 import { updateUser, updateToken } from '../utils/api';
 import styles from './profile-page.module.css';
@@ -51,24 +52,11 @@ function ProfilePage() {
     return (
         <MainLayout>
             <TwoColumns>
-                <div className={styles.left}>
-                    <nav className={styles.nav}>
-                        <LeftColumnLink link='/profile' text='Профиль'/>
-                        <LeftColumnLink link='/profile/orders' text='История'/>
-                        <Button
-                            className={styles.button + ' text text_type_main-medium text_color_inactive'}
-                            onClick={() => logoutHandler()}
-                            htmlType="button"
-                            type="secondary"
-                            size="large"
-                        >
-                            Выход
-                        </Button>
-                    </nav>
+                <ProfileLeftColumn>
                     <p className='text text_type_main-default text_color_inactive'>
                         В этом разделе вы можете изменить свои персональные данные
                     </p>
-                </div>
+                </ProfileLeftColumn>
                 <div className={styles.right}>
                     <form className={styles.form + ' form-profile'} onSubmit={handleSubmit}>
                         <Input 
