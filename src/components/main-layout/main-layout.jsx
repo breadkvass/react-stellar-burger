@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import AppHeader from "../app-header/app-header";
 import styles from "./main-layout.module.css";
 
@@ -9,5 +10,9 @@ function MainLayout({ children }) {
         </div>
     )
 }
+
+MainLayout.propTypes = {
+    children: PropTypes.node,
+} 
 
 export default MainLayout;

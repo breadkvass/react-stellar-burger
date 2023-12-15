@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { forwardRef, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
+import PropTypes from 'prop-types';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { removeIngredient, moveIngredient, resetDraggingIndex, setDraggingIndex } from '../../slices/burgerConstructor';
 
-const BurgerComponent = React.forwardRef((props, dragRef) => {
+const BurgerComponent = forwardRef((props, dragRef) => {
     const dispatch = useDispatch();
     const { ingredients, isLoading } = useSelector(state => state.ingredients);
     const { draggingIndex } = useSelector(state => state.burgerConstructor);
@@ -53,7 +53,7 @@ BurgerComponent.propTypes = {
 export default BurgerComponent;
 
 export const DraggableBurgerComponent = (props) => {
-    const ref = React.useRef(null);
+    const ref = useRef(null);
     const dispatch = useDispatch();
 
     const [, drag] = useDrag({
@@ -112,4 +112,8 @@ export const DraggableBurgerComponent = (props) => {
     return (
         <BurgerComponent {...props} handlerId={handlerId} ref={ref} />
     );
+}
+
+DraggableBurgerComponent.propTypes = {
+    index: PropTypes.number
 }

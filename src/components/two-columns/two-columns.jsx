@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './two-columns.module.css';
 
 function TwoColumns({children}) {
@@ -6,6 +7,10 @@ function TwoColumns({children}) {
             {children}
         </div>
     )
+}
+
+TwoColumns.propTypes = {
+    children: PropTypes.array,
 }
 
 export default TwoColumns;

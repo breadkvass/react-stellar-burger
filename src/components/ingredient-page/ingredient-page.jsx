@@ -1,16 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import IngredientValue from '../ingredient-value/ingredient-value';
-import styles from "./ingredient-page.module.css";
+import PropTypes from 'prop-types';
 import MainLayout from '../main-layout/main-layout';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import styles from "./ingredient-page.module.css";
 
 function IngredientPage({page}) {
-    // const details = useSelector(state => state.ingredientDetails.details);
     let { id } = useParams();
     const { ingredients } = useSelector(state => state.ingredients);
-    
-    console.log('IngredientDetails', ingredients);
     const details = ingredients.find(ingredient => ingredient._id === id);
 
     if (!details) return null;
@@ -41,7 +38,10 @@ function IngredientPage({page}) {
             />
         </>
     )
-    
+}
+
+IngredientPage.propTypes = {
+    page: PropTypes.bool,
 }
 
 export default IngredientPage;

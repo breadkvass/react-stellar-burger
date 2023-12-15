@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
@@ -16,9 +16,7 @@ function LoginPage() {
     const [ passwordValue, setPasswordValue ] = useState('');
 
     const [ passwordShown, setPasswordShown ] = useState(true);
-
     
-
     return (
         <MainLayout>
             <Form

@@ -1,6 +1,7 @@
+import { NavLink as Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './add-action.module.css';
-import { NavLink as Link } from 'react-router-dom';
 
 function AddAction({text, button, link}) {
     return (
@@ -11,6 +12,12 @@ function AddAction({text, button, link}) {
             </Link>
         </div>
     )
+}
+
+AddAction.propTypes = {
+    text: PropTypes.string,
+    button: PropTypes.string,
+    link: PropTypes.string,
 }
 
 export default AddAction;

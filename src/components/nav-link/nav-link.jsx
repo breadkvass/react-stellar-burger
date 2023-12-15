@@ -23,6 +23,7 @@ const NavLink = (props) => {
 )}
 
 NavLink.propTypes = {
+    link: PropTypes.string,
     icon: PropTypes.func,
     text: PropTypes.string
 }

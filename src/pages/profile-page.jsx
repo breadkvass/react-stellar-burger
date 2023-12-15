@@ -7,7 +7,7 @@ import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import LeftColumnLink from '../components/left-column-link/left-column-link';
 import { logout } from '../utils/api';
-import { updateUser, updateToken, getUser } from '../utils/api';
+import { updateUser, updateToken } from '../utils/api';
 import styles from './profile-page.module.css';
 
 

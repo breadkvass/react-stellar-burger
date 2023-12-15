@@ -1,13 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
-import BurgerComponent, {DraggableBurgerComponent} from '../burger-component/burger-component';
+import BurgerComponent, { DraggableBurgerComponent } from '../burger-component/burger-component';
 import { setBun, addIngredient } from '../../slices/burgerConstructor';
 import styles from './constructor-container.module.css';
 
 function ConstructorContainer() {
     const dispatch = useDispatch();
     const { bun, filling } = useSelector(state => state.burgerConstructor);
-    console.log('начинка', filling)
     const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(ingredient) {

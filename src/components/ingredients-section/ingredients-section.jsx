@@ -1,10 +1,10 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import styles from './ingredients-section.module.css';
 
-const IngredientsSection = React.forwardRef((props, ref) => {
+const IngredientsSection = forwardRef((props, ref) => {
     return (
         <div ref={ref}>
             <h3 className="text text_type_main-medium">

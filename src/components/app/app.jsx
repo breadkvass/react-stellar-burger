@@ -24,11 +24,13 @@ function App() {
   const dispatch = useDispatch();
   let background = location.state && location.state.background;
   const navigate = useNavigate();
+  
   const closeModal = () => {
     navigate('/');
   }
 
   useEffect(() => dispatch(getIngredients()), []);
+  
   return (
     <>
       <Routes location={background || location}>

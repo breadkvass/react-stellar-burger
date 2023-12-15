@@ -1,9 +1,10 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 import IngredientsSection from '../ingredients-section/ingredients-section';
 import styles from './ingredients-container.module.css';
 
-const IngredientsContainer = React.forwardRef(({ categories, onScroll }, ref) => {
+const IngredientsContainer = forwardRef(({ categories, onScroll }, ref) => {
     const { ingredients, isLoading } = useSelector(state => state.ingredients);
 
     const getItems = (type) => {
@@ -24,6 +25,11 @@ const IngredientsContainer = React.forwardRef(({ categories, onScroll }, ref) =>
             }
         </div>
     )
-});
+})
+
+IngredientsContainer.propTypes = {
+    categories: PropTypes.array,
+    onScroll: PropTypes.func,
+}
 
 export default IngredientsContainer;

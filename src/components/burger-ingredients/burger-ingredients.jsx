@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropType } from "../../utils/prop-types";
+import { useState, createRef } from 'react';
 import TabGroup from '../tab-group/tab-group';
 import IngredientsContainer from '../ingredients-container/ingredients-container';
 import styles from "./burger-ingredients.module.css";
@@ -8,7 +6,7 @@ import styles from "./burger-ingredients.module.css";
 const category = (type, name) => ({
     type: type,
     name: name,
-    ref: React.createRef()
+    ref: createRef()
 })
 
 const categories = [
@@ -19,7 +17,7 @@ const categories = [
 
 function BurgerIngredients() {
     const [currentTab, setCurrentTab] = useState(categories[0].type);
-    const containerRef = React.createRef();
+    const containerRef = createRef();
 
     const tabClickHandler = (value) => {
         setCurrentTab(value);
@@ -44,10 +42,6 @@ function BurgerIngredients() {
             <IngredientsContainer categories={categories} onScroll={scrollHandler} ref={containerRef} />
         </div>
     );
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientPropType)
 }
 
 export default BurgerIngredients;

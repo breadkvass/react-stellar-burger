@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
 import styles from './left-column-link.module.css';
 
@@ -14,5 +15,10 @@ function LeftColumnLink(props) {
         </NavLink>
     )
 }
+
+LeftColumnLink.propTypes = {
+    link: PropTypes.string,
+    text: PropTypes.string,
+} 
 
 export default LeftColumnLink;

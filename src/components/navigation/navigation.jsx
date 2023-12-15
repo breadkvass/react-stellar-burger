@@ -1,5 +1,5 @@
-import styles from './navigation.module.css';
 import PropTypes from 'prop-types';
+import styles from './navigation.module.css';
 
 const Navigation = (props) => {
     let alignClass = props.side === 'left' ? styles.nav__links_type_left : styles.nav__links_type_right;    
@@ -13,7 +13,8 @@ const Navigation = (props) => {
 }
 
 Navigation.propTypes = {
-    side: PropTypes.string
+    side: PropTypes.string,
+    children: PropTypes.node,
 }
 
 export default Navigation;

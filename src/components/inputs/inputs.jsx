@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './inputs.module.css';
 
 function Inputs({children}) {
@@ -6,6 +7,10 @@ function Inputs({children}) {
             {children}
         </div>
     )
+}
+
+Inputs.propTypes = {
+    children: PropTypes.array,
 }
 
 export default Inputs;
