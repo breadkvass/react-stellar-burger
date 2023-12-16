@@ -1,12 +1,12 @@
 import {
-  setData as setDataIngredients,
-  setError as setErrorIngredients,
-  setLoading as setLoadingIngredients
+  setDataIngredients,
+  setErrorIngredients,
+  setLoadingIngredients
 } from '../slices/ingredients';
 import {
-  setData as setDataOrderDetails,
-  setLoading as setLoadingOrderDetails,
-  setError as setErrorOrderDetails
+  setDataOrderDetails,
+  setLoadingOrderDetails,
+  setErrorOrderDetails
 } from '../slices/orderDetails';
 
 import {
