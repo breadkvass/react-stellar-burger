@@ -14,7 +14,7 @@ function ResetPasswordPage() {
     const [ codeValue, setCodeValue ] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { resetPassword } = useSelector(state => state.profileInputs);
+    const resetPassword = useSelector(state => state.profileInputs.resetPassword);
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => {
