@@ -8,15 +8,15 @@ const { actions, reducer } = createSlice({
         ingredients: []
     },
     reducers: {
-        setLoading: (state) => {
+        setLoadingIngredients: (state) => {
             state.isLoading = true;
         },
-        setData: (state, action) => {
+        setDataIngredients: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
             state.ingredients = action.payload;
         },
-        setError: (state) => {
+        setErrorIngredients: (state) => {
             state.isLoading = false;
             state.hasError = true;
             state.ingredients = [];
@@ -24,5 +24,5 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { setLoading, setData, setError } = actions;
+export const { setLoadingIngredients, setDataIngredients, setErrorIngredients } = actions;
 export default reducer;

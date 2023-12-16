@@ -8,15 +8,15 @@ const { actions, reducer } = createSlice({
         orderDetails: []
     },
     reducers: {
-        setLoading: (state) => {
+        setLoadingOrderDetails: (state) => {
             state.isLoading = true;
         },
-        setData: (state, action) => {
+        setDataOrderDetails: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
             state.orderDetails = action.payload;
         },
-        setError: (state) => {
+        setErrorOrderDetails: (state) => {
             state.isLoading = false;
             state.hasError = true;
             state.orderDetails = [];
@@ -24,5 +24,5 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { setLoading, setData, setError } = actions;
+export const { setLoadingOrderDetails, setDataOrderDetails, setErrorOrderDetails } = actions;
 export default reducer;
