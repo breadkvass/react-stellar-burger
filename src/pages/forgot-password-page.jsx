@@ -29,11 +29,7 @@ function ForgotPasswordPage() {
                         }
                     ));
                 }}
-                addActions={
-                    <>
-                        <AddAction text='Вспомнили пароль?' button='Войти' link='/login'/>
-                    </>
-                }
+                addActions={<AddAction text='Вспомнили пароль?' button='Войти' link='/login'/>}
             >
                 <Inputs>
                     <Input
