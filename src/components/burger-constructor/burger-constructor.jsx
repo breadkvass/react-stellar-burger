@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorContainer from '../constructor-container/constructor-container';
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
+import { postOrder } from '../../utils/api';
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
@@ -12,6 +13,8 @@ function BurgerConstructor() {
   const [totalPrice, setTotalPrice] = useState(0);
   const { bun, filling } = useSelector(state => state.burgerConstructor);
   const { ingredients, isLoading } = useSelector(state => state.ingredients);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLoading) {
@@ -23,6 +26,7 @@ function BurgerConstructor() {
 
   const openModal = (e) => {
     e.stopPropagation();
+    dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun]));
     setIsShowModal(true);
   }
 
