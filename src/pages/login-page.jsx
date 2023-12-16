@@ -17,20 +17,22 @@ function LoginPage() {
 
     const [ passwordShown, setPasswordShown ] = useState(true);
     
+    function submit(e) {
+        e.preventDefault();
+        dispatch(login(
+            {email: emailValue, password: passwordValue},
+            () => {
+                navigate('/profile');
+            }
+        ));
+    }
+
     return (
         <MainLayout>
             <Form
                 title='Вход'
                 button='Войти'
-                handleSubmit={(e) => {
-                    e.preventDefault();
-                    dispatch(login(
-                        {email: emailValue, password: passwordValue},
-                        () => {
-                            navigate('/profile');
-                        }
-                    ));
-                }}
+                handleSubmit={(e) => submit(e)}
                 addActions={
                     <>
                         <AddAction text='Вы — новый пользователь?' button='Зарегистрироваться' link='/register'/>
