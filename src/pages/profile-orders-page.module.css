@@ -1,0 +1,21 @@
+.left {
+    width: 320px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 80px;
+}
+
+.button {
+    text-decoration: none;
+    line-height: 64px;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    height: 64px;
+}

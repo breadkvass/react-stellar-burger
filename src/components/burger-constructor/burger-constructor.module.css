@@ -2,27 +2,6 @@
     width: 600px;
 }
 
-.сonstructor__сontainer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.unlocked {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-height:  400px;
-    overflow-y: scroll; 
-}
-
-.component {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-}
-
 .price {
     display: flex;
     flex-direction: row;
