@@ -194,9 +194,20 @@ export const fetchGetUser = (token) => {
   });
 }
 
+export const fetchGetUserWithRefresh = async (token) => {
+  try {
+    return await fetchGetUser(token);
+  } catch (error) {
+    if (error.message === 'jwt expired') {
+      updateToken(token);
+    }
+    return fetchGetUser(token);
+  }
+}
+
 export const getUser = (token) => {
   return (dispatch) => {
-    fetchGetUser(token)
+    fetchGetUserWithRefresh(token)
       .then(checkRes)
       .then(data => {
         dispatch(loginSuccess(data));
@@ -270,13 +281,22 @@ export const fetchPatchUpdateUser = (name, email, token) => {
   });
 }
 
+export const fetchPatchUpdateUserRefresh = async (name, email, token) => {
+  try {
+    return await fetchPatchUpdateUser(name, email, token);
+  } catch (error) {
+    if (error.message === 'jwt expired') {
+      updateToken(token);
+    }
+    return fetchPatchUpdateUser(name, email, token);
+  }
+}
+
 export const updateUser = (name, email, token) => {
   return (dispatch) => {
-    fetchPatchUpdateUser(name, email, token)
+    fetchPatchUpdateUserRefresh(name, email, token)
       .then(checkRes)
-      .then(data => {
-        dispatch(getUser(token));
-       })
+      .then(() => {dispatch(getUser(token))})
       .catch(err => {
           console.log(err);
       });
