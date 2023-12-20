@@ -1,23 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import App from "./components/app/app";
 import { rootReducer } from './slices/index';
 import "./index.css";
-
-const middleware = getDefaultMiddleware({
-  immutableCheck: false,
-  serializableCheck: false,
-  thunk: true,
-});
+import { feedWSStart, feedWSStop, setFeed, setFeedSocketStatus } from "./slices/feed";
+import { ordersWSStart, ordersWSStop, setOrders, setOrdersSocketStatus } from "./slices/profile-orders";
+import { socketMiddleware } from "./utils/socketMiddleware";
 
 export const store = configureStore({
- reducer: rootReducer,
- middleware,
- devTools: process.env.NODE_ENV !== 'production',
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(
+      socketMiddleware({
+        onStart: feedWSStart,
+        onStop: feedWSStop,
+        onOpen: setFeedSocketStatus,
+        onMessage: setFeed,
+        onClose: setFeedSocketStatus,
+        onError: setFeedSocketStatus,
+      }),
+      socketMiddleware({
+        onStart: ordersWSStart,
+        onStop: ordersWSStop,
+        onOpen: setOrdersSocketStatus,
+        onMessage: setOrders,
+        onClose: setOrdersSocketStatus,
+        onError: setOrdersSocketStatus,
+      }),
+    ),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 ReactDOM.render(
