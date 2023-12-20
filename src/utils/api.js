@@ -12,9 +12,15 @@ import {
 import {
   loginSuccess,
   logoutSuccess,
-  setAccessToken
+  expireAccessToken
 } from '../slices/auth';
 import { setEmailUpd, setNameUpd } from '../slices/profileInputs';
+
+// import {
+//   setLoadingOrders,
+//   setDataOrders,
+//   setErrorOrders
+// } from '../slices/profile-orders';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
@@ -63,6 +69,23 @@ export const postOrder = (ingredients) => {
     }
 }
 
+// const fetchGetOrders = () => {
+//   return fetch('wss://norma.nomoreparties.space/orders/all')
+// }
+
+// export const getOrders = () => {
+//   return (dispatch) => {
+//     dispatch(setLoadingOrders());
+//     fetchGetOrders()
+//       .then(checkRes)
+//       .then(data => dispatch(setDataOrders(data)))
+//       .catch(err => {
+//           dispatch(setErrorOrders());
+//           console.log(err);
+//       });
+//   }
+// }
+
 export const fetchPostLogin = async ({email, password}) => {
   return await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
@@ -90,7 +113,8 @@ export const login = (user, onSuccessCallback) => {
         dispatch(setNameUpd(data.user.name));
         dispatch(setEmailUpd(data.user.email));
         localStorage.setItem('refreshToken', data.refreshToken);
-        dispatch(setAccessToken(data.accessToken));
+        localStorage.setItem('accessToken', data.accessToken);
+        dispatch(expireAccessToken());
         onSuccessCallback();
       })
       .catch(err => {
@@ -148,7 +172,8 @@ export const register = (email, password, name, onSuccessCallback) => {
         dispatch(setNameUpd(data.user.name));
         dispatch(setEmailUpd(data.user.email));
         localStorage.setItem('refreshToken', data.refreshToken);
-        dispatch(setAccessToken(data.accessToken));
+        localStorage.setItem('accessToken', data.accessToken);
+        dispatch(expireAccessToken());
         onSuccessCallback();
       })
       .catch(err => {
@@ -177,7 +202,8 @@ export const updateToken = (token) => {
         localStorage.removeItem('refreshToken');
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch(getUser(data.accessToken));
-        dispatch(setAccessToken(data.accessToken));
+        localStorage.setItem('accessToken', data.accessToken);
+        dispatch(expireAccessToken());
       })
       .catch(err => {
           console.log(err);

@@ -8,7 +8,7 @@ const { actions, reducer } = createSlice({
             email:'',
             name: '',
         },
-        accessToken: '',
+        // accessToken: '',
         expireInAccToken: ''
     },
     reducers: {
@@ -21,8 +21,7 @@ const { actions, reducer } = createSlice({
             state.user.email = '';
             state.user.name = '';
         },
-        setAccessToken: (state, action) => {
-            state.accessToken = action.payload;
+        expireAccessToken:  state => {
             const now = new Date();
             state.expireInAccToken = now.setMinutes(now.getMinutes() + 20);
         },
@@ -32,5 +31,5 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { loginSuccess, logoutSuccess, setAccessToken, setUser } = actions;
+export const { loginSuccess, logoutSuccess, expireAccessToken, setUser } = actions;
 export default reducer;
