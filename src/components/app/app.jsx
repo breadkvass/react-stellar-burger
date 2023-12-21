@@ -26,7 +26,7 @@ function App() {
   const navigate = useNavigate();
   
   const closeModal = () => {
-    navigate('/');
+    navigate(-1);
   }
 
   useEffect(() => dispatch(getIngredients()), []);
