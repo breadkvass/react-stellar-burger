@@ -47,7 +47,7 @@ export const socketMiddleware = wsConfig => store => {
             socket.onmessage = e => {
                 let data = JSON.parse(e.data);
                 
-                if (data.message === 'jwt expired') {
+                if (data.message === 'Invalid or missing token') {
                     fetchPostRefreshToken()
                         .then((res) => {
                             localStorage.setItem("refreshToken", res.refreshToken);
