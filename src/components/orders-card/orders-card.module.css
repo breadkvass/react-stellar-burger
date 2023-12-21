@@ -22,18 +22,35 @@
     padding: 0;
 }
 
+.ingredient {
+    list-style: none;
+    position: relative;
+    width: 64px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100px;
+    border: 2px solid #801AB2;
+    background: var(--interface-bg, #131316);
+    background-position: center;
+    background-size: cover;
+}
+
 .ingredient:not(:first-child) {
     margin-left: -16px;
 }
 
-.img {
-    border-radius: 100px;
+.ingredient:last-child {
+    position: relative;
+    overflow: hidden;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    line-height: 64px !important;
     width: 64px;
-    aspect-ratio: 1 / 1;
-    display: block;
-    border: 2px solid var(--button-normal, #801AB2);
-    background: var(--interface-bg, #131316);
-    object-fit: cover;
+    text-align: center;
 }
 
 .price {
