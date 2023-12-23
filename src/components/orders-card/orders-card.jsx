@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './orders-card.module.css';
 
 function OrdersCard({order}) {
+    const location = useLocation();
     const ingredients = useSelector(state => state.ingredients.ingredients);
     const getIngredientsById = (ingredients, id) => {
         return ingredients.find(ingredient => ingredient._id === id);
@@ -13,7 +15,12 @@ function OrdersCard({order}) {
     const orderPrice = orderIngredients.map(item => item.price).reduce((a, b) => a + b);
 
     return (
-        <div className={styles.order}>
+        <Link
+            to={`/feed/${order.number}`}
+            state={{ background: location }} 
+            className={styles.order}
+        >
+            {/* <div className={styles.order}> */}
             <div className={styles.info}>
                 <p className='text text_type_digits-default'>{'#' + order.number}</p>
                 <FormattedDate date={new Date(order.createdAt)} className='text text_type_main-default text_color_inactive'/>
@@ -39,7 +46,9 @@ function OrdersCard({order}) {
                     <CurrencyIcon />
                 </div>
             </div>
-        </div>
+        {/* </div> */}
+        </Link>
+        
     )
 }
 

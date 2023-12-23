@@ -14,10 +14,12 @@ import ResetPasswordPage from '../../pages/reset-password-page';
 import ProfilePage from '../../pages/profile-page';
 import FeedPage from "../../pages/feed-page";
 import ProfileOrdersPage from '../../pages/profile-orders-page';
-import IngredientPage from "../ingredient-page/ingredient-page";
+import IngredientPage from "../../pages/ingredient-page";
 import Modal from "../modal/modal";
+import { FEED_WS_CONNECTION_START } from '../../slices/actions';
 import { ProtectedOnlyAuth, ProtectedOnlyUnAuth } from '../protected-route';
 import { getIngredients } from "../../utils/api";
+import OrderPage from "../../pages/order-page";
 
 function App() {
   let location = useLocation();
@@ -29,13 +31,22 @@ function App() {
     navigate(-1);
   }
 
-  useEffect(() => dispatch(getIngredients()), []);
+  useEffect(() => {
+    dispatch({
+        type: FEED_WS_CONNECTION_START,
+        payload: 'wss://norma.nomoreparties.space/orders/all'
+    });
+  }, []);
+
+  useEffect(() => 
+    dispatch(getIngredients()), []);
   
   return (
     <>
       <Routes location={background || location}>
         <Route path="/" element={<MainPage />} />
         <Route path="/feed" element={<FeedPage />} />
+        <Route path="/feed/:id" element={<OrderPage page={true} />} />
         <Route path="/login" element={<ProtectedOnlyUnAuth component={<LoginPage />} />} />
         <Route path="/register" element={<ProtectedOnlyUnAuth component={<RegistrationPage />} />} />
         <Route path="/forgot-password" element={<ProtectedOnlyUnAuth component={<ForgotPasswordPage />} />} />
@@ -48,7 +59,12 @@ function App() {
         <Routes>
           <Route path="/ingredients/:id" element={
             <Modal title="Детали ингредиента" padding=" pt-10 pb-15 pl-10 pr-10" closeHandler={closeModal}>
-              <IngredientPage page={false}/>
+              <IngredientPage page={false} />
+            </Modal>
+          } />
+          <Route path="/feed/:id" element={
+            <Modal padding=" pt-5 pb-5 pl-10 pr-10" closeHandler={closeModal}>
+              <OrderPage page={false} />
             </Modal>
           } /> 
         </Routes>
