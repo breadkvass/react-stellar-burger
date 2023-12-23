@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
-import MainLayout from '../main-layout/main-layout';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import MainLayout from '../components/main-layout/main-layout';
+import IngredientDetails from '../components/ingredient-details/ingredient-details';
 import styles from "./ingredient-page.module.css";
 
 function IngredientPage({page}) {
