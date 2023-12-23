@@ -15,6 +15,7 @@ import {
   expireAccessToken
 } from '../slices/auth';
 import { setEmailUpd, setNameUpd } from '../slices/profileInputs';
+import { setDataOrder, setErrorOrder, setLoadingOrder } from '../slices/order';
 
 // import {
 //   setLoadingOrders,
@@ -326,5 +327,23 @@ export const updateUser = (name, email, token) => {
       .catch(err => {
           console.log(err);
       });
+  }
+}
+
+export const fetchGetOrder = (number) => {
+  return fetch(`${BASE_URL}/orders/${number}`);
+}
+
+export const getOrder = (number) => {
+  return (dispatch) => {
+    dispatch(setLoadingOrder());
+
+    fetchGetOrder(number)
+        .then(checkRes)
+        .then(data => dispatch(setDataOrder(data.orders)))
+        .catch(err => {
+            dispatch(setErrorOrder());
+            console.log(err);
+        });
   }
 }

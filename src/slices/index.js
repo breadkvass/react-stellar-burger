@@ -7,6 +7,7 @@ import { default as profileInputsReducer } from './profileInputs';
 import { default as ordersReducer } from './profile-orders';
 import { default as authReducer } from './auth';
 import { default as feedReducer } from './feed';
+import { default as orderReducer } from './order';
 
 export const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
@@ -17,4 +18,5 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   orders: ordersReducer,
   feed: feedReducer,
+  order: orderReducer
 });
