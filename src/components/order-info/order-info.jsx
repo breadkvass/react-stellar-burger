@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-info.module.css';
-import { useEffect } from 'react';
 
 function OrderInfo({order, style}) {
     const ingredients = useSelector(state => state.ingredients.ingredients);
@@ -12,7 +11,6 @@ function OrderInfo({order, style}) {
     const orderIngredients = order.ingredients.map(item => getIngredientsById(ingredients, item));
     const orderIngredientsUnique = Array.from(new Set(orderIngredients.map(item => item._id))).map(item => getIngredientsById(ingredients, item));
     const orderPrice = orderIngredients.map(item => item.price).reduce((a, b) => a + b);
-    console.log(orderPrice);
 
     const ingredientCounter = (id) => {
         let count = 0;
@@ -24,13 +22,25 @@ function OrderInfo({order, style}) {
         return count;
     }
 
-    let status = 'Готово';
+    let status = null;
+    let color = null;
+
+    if (order.status == 'done') {
+        status = 'Выполнен';
+        color = '#00CCCC';
+    } else if (order.status == 'pending') {
+        status = 'Готовится';
+        color = 'white';
+    } else if (order.status == 'created') {
+        status = 'Создан';
+        color = 'white';
+    }
 
     return (
         <div className={styles.content}>
             <p className={styles.number + ' text text_type_digits-default'}>{'#'+ order.number}</p>
             <p className={'text text_type_main-medium'}>{order.name}</p>
-            <p className={styles.status + ' text text_type_main-default'}>{status}</p>
+            <p className={styles.status + ' text text_type_main-default'} style={{ color }} >{status}</p>
             <p className={styles.list + ' text text_type_main-medium'}>Состав:</p>
             <ul className={styles.ingredients + ' custom-scroll'}>
                 {orderIngredientsUnique.map(item => (
