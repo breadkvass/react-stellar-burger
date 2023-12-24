@@ -14,6 +14,7 @@ function BurgerConstructor() {
   const { bun, filling } = useSelector(state => state.burgerConstructor);
   const { ingredients, isLoading } = useSelector(state => state.ingredients);
   const accessToken = localStorage.getItem('accessToken');
+  const isAuth = useSelector(state => state.auth.isAuth);
 
   const dispatch = useDispatch();
 
@@ -43,11 +44,7 @@ function BurgerConstructor() {
           <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon />
         </div>
-        <Button onClick={openModal} htmlType="button" type="primary" size="large">Оформить заказ</Button>
-        {isShowModal &&
-          <Modal padding=" pt-10 pb-30 pl-10 pr-10" closeHandler={closeModal}>
-            <OrderDetails />
-          </Modal>}
+        <Button onClick={openModal} disabled={!isAuth ? true : false} htmlType="button" type="primary" size="large">Оформить заказ</Button>
       </div>
     </div>
   )

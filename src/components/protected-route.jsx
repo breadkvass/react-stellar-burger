@@ -32,3 +32,16 @@ export const ProtectedOnlyAuth = ({ component }) => {
     return <Navigate to="/login" state={{from: location} } />;
   }
 }
+
+export const Protected = ({ component }) => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(store => store.auth.isAuth);
+  const location = useLocation();
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (isAuth === false && refreshToken) {
+    dispatch(updateToken(refreshToken));
+    return component;
+  } else {
+    return component;
+  }
+}
