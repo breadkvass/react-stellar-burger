@@ -10,7 +10,7 @@ function TwoColumns({children}) {
 }
 
 TwoColumns.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.node,
 }
 
 export default TwoColumns;

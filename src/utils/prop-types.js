@@ -19,6 +19,6 @@ export const orderPropType = PropTypes.shape({
   _id: PropTypes.string,
   status: PropTypes.string,
   ingredients: PropTypes.array,
-  createdAt: PropTypes.instanceOf(Date),
+  createdAt: PropTypes.string,
   number: PropTypes.number,
 });

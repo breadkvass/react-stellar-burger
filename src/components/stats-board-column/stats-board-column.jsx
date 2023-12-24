@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './stats-board-column.module.css';
 
 function StatsBoardColumn({title, numbers, color}) {
@@ -10,5 +11,12 @@ function StatsBoardColumn({title, numbers, color}) {
         </div>
     )
 }
+
+StatsBoardColumn.propTypes = {
+    title: PropTypes.string,
+    numbers: PropTypes.array,
+    color: PropTypes.string,
+}
+
 
 export default StatsBoardColumn;

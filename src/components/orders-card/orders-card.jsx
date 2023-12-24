@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { orderPropType } from '../../utils/prop-types';
 import { v4 as uuid } from 'uuid';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -48,6 +49,10 @@ function OrdersCard({order}) {
         </Link>
         
     )
+}
+
+OrdersCard.propTypes = {
+    order: orderPropType.isRequired
 }
 
 export default OrdersCard;

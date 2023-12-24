@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './completed.module.css';
 
 function Completed({text, number}) {
@@ -7,6 +8,11 @@ function Completed({text, number}) {
             <p className={styles.number + ' text text_type_digits-large'}>{number}</p>
         </div>
     )
+}
+
+Completed.propTypes = {
+    text: PropTypes.string,
+    number: PropTypes.string,
 }
 
 export default Completed;
