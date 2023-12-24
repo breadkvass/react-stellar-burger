@@ -1,5 +1,4 @@
 .columns {
-    padding-top: 120px;
     display: flex;
     flex-direction: row;
     gap: 60px;

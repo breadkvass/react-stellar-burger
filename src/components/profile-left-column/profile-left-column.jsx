@@ -32,9 +32,6 @@ function ProfileLeftColumn({children}) {
                 </Button>
             </nav>
             {children}
-            {/* <p className='text text_type_main-default text_color_inactive'>
-                В этом разделе вы можете изменить свои персональные данные
-            </p> */}
         </div>
     )
 }

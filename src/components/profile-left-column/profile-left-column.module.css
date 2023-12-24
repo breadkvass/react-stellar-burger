@@ -1,5 +1,6 @@
 .left {
-    width: 320px;
+    padding-top: 120px;
+    width: 320px !important;
 }
 
 .nav {

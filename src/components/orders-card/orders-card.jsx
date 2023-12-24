@@ -20,7 +20,6 @@ function OrdersCard({order}) {
             state={{ background: location }} 
             className={styles.order}
         >
-            {/* <div className={styles.order}> */}
             <div className={styles.info}>
                 <p className='text text_type_digits-default'>{'#' + order.number}</p>
                 <FormattedDate date={new Date(order.createdAt)} className='text text_type_main-default text_color_inactive'/>
@@ -46,7 +45,6 @@ function OrdersCard({order}) {
                     <CurrencyIcon />
                 </div>
             </div>
-        {/* </div> */}
         </Link>
         
     )
