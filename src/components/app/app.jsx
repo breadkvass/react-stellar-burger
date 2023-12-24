@@ -53,6 +53,7 @@ function App() {
         <Route path="/reset-password" element={<ProtectedOnlyUnAuth component={<ResetPasswordPage />} />} />
         <Route path="/profile" element={<ProtectedOnlyAuth component={<ProfilePage />} />} />
         <Route path="/profile/orders" element={<ProtectedOnlyAuth component={<ProfileOrdersPage />} />} />
+        <Route path="/profile/orders/:id" element={<ProtectedOnlyAuth component={<OrderPage page={true} />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage page={true} />} />
       </Routes>
       {background && 
@@ -66,8 +67,15 @@ function App() {
             <Modal padding=" pt-5 pb-5 pl-10 pr-10" closeHandler={closeModal}>
               <OrderPage page={false} />
             </Modal>
-          } /> 
-        </Routes>
+          } />
+          <Route path="/profile/orders/:id" element={
+            <ProtectedOnlyAuth component={
+              <Modal padding=" pt-5 pb-5 pl-10 pr-10" closeHandler={closeModal}>
+              <OrderPage page={false} />
+            </Modal>
+            } />
+          } />
+        </Routes>  
       }
     </>
   )
