@@ -15,9 +15,10 @@ function ProfilePage() {
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
     const { nameUpd, emailUpd } = useSelector(state => state.profileInputs.userUpd);
     const { name, email } = useSelector(state => state.auth.user);
-    const { accessToken, expireInAccToken } = useSelector(state => state.auth);
+    const expireInAccToken = useSelector(state => state.auth.expireInAccToken);
 
     const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken = localStorage.getItem('accessToken');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,7 +49,6 @@ function ProfilePage() {
                         В этом разделе вы можете изменить свои персональные данные
                     </p>
                 </ProfileLeftColumn>
-                <div className={styles.right}>
                     <form className={styles.form + ' form-profile'} onSubmit={handleSubmit}>
                         <Input 
                             type={'text'}
@@ -103,7 +103,6 @@ function ProfilePage() {
                              </div>
                         : null }
                     </form>
-                </div>
             </TwoColumns>
         </MainLayout>
     )
