@@ -13,6 +13,7 @@ function BurgerConstructor() {
   const [totalPrice, setTotalPrice] = useState(0);
   const { bun, filling } = useSelector(state => state.burgerConstructor);
   const { ingredients, isLoading } = useSelector(state => state.ingredients);
+  const accessToken = localStorage.getItem('accessToken');
 
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ function BurgerConstructor() {
 
   const openModal = (e) => {
     e.stopPropagation();
-    dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun]));
+    dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun], accessToken));
     setIsShowModal(true);
   }
 

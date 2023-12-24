@@ -45,11 +45,12 @@ export const getIngredients = () => {
     }
 }
 
-const fetchPostOrder = (ingredients) => {
+const fetchPostOrder = (ingredients, token) => {
   return fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': token
       },
       body: JSON.stringify({
         ingredients: ingredients,
@@ -57,10 +58,21 @@ const fetchPostOrder = (ingredients) => {
   });
 }
 
-export const postOrder = (ingredients) => {
+export const fetchPostOrderWithRefresh = async (ingredients, token) => {
+  try {
+    return await fetchPostOrder(ingredients, token);
+  } catch (error) {
+    if (error.message === 'Token is invalid') {
+      updateToken(token);
+    }
+    return fetchPostOrder(ingredients, token);
+  }
+}
+
+export const postOrder = (ingredients, token) => {
     return (dispatch) => {
         dispatch(setLoadingOrderDetails());
-        fetchPostOrder(ingredients)
+        fetchPostOrderWithRefresh(ingredients, token)
             .then(checkRes)
             .then(data => dispatch(setDataOrderDetails(data)))
             .catch(err => {
@@ -69,23 +81,6 @@ export const postOrder = (ingredients) => {
             });
     }
 }
-
-// const fetchGetOrders = () => {
-//   return fetch('wss://norma.nomoreparties.space/orders/all')
-// }
-
-// export const getOrders = () => {
-//   return (dispatch) => {
-//     dispatch(setLoadingOrders());
-//     fetchGetOrders()
-//       .then(checkRes)
-//       .then(data => dispatch(setDataOrders(data)))
-//       .catch(err => {
-//           dispatch(setErrorOrders());
-//           console.log(err);
-//       });
-//   }
-// }
 
 export const fetchPostLogin = async ({email, password}) => {
   return await fetch(`${BASE_URL}/auth/login`, {
@@ -225,7 +220,7 @@ export const fetchGetUserWithRefresh = async (token) => {
   try {
     return await fetchGetUser(token);
   } catch (error) {
-    if (error.message === 'jwt expired') {
+    if (error.message === 'Token is invalid') {
       updateToken(token);
     }
     return fetchGetUser(token);
@@ -312,7 +307,7 @@ export const fetchPatchUpdateUserRefresh = async (name, email, token) => {
   try {
     return await fetchPatchUpdateUser(name, email, token);
   } catch (error) {
-    if (error.message === 'jwt expired') {
+    if (error.message === 'Token is invalid') {
       updateToken(token);
     }
     return fetchPatchUpdateUser(name, email, token);

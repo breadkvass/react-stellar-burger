@@ -48,7 +48,7 @@ export const socketMiddleware = wsConfig => store => {
                 let data = JSON.parse(e.data);
                 
                 if (data.message === 'Invalid or missing token') {
-                    fetchPostRefreshToken()
+                    fetchPostRefreshToken(localStorage.getItem('refreshToken'))
                         .then((res) => {
                             localStorage.setItem("refreshToken", res.refreshToken);
                             localStorage.setItem("accessToken", res.accessToken);
