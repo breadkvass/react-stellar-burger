@@ -17,12 +17,6 @@ import {
 import { setEmailUpd, setNameUpd } from '../slices/profileInputs';
 import { setDataOrder, setErrorOrder, setLoadingOrder } from '../slices/order';
 
-// import {
-//   setLoadingOrders,
-//   setDataOrders,
-//   setErrorOrders
-// } from '../slices/profile-orders';
-
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 const checkRes = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
@@ -62,7 +56,7 @@ export const fetchPostOrderWithRefresh = async (ingredients, token) => {
   try {
     return await fetchPostOrder(ingredients, token);
   } catch (error) {
-    if (error.message === 'Token is invalid') {
+    if (error.message === 'jwt expired') {
       updateToken(token);
     }
     return fetchPostOrder(ingredients, token);
@@ -220,7 +214,7 @@ export const fetchGetUserWithRefresh = async (token) => {
   try {
     return await fetchGetUser(token);
   } catch (error) {
-    if (error.message === 'Token is invalid') {
+    if (error.message === 'jwt expired') {
       updateToken(token);
     }
     return fetchGetUser(token);
@@ -307,7 +301,7 @@ export const fetchPatchUpdateUserRefresh = async (name, email, token) => {
   try {
     return await fetchPatchUpdateUser(name, email, token);
   } catch (error) {
-    if (error.message === 'Token is invalid') {
+    if (error.message === 'jwt expired') {
       updateToken(token);
     }
     return fetchPatchUpdateUser(name, email, token);

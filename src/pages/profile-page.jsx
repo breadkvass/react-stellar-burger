@@ -5,7 +5,7 @@ import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd,
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import ProfileLeftColumn from '../components/profile-left-column/profile-left-column';
-import { updateUser, updateToken } from '../utils/api';
+import { updateUser } from '../utils/api';
 import styles from './profile-page.module.css';
 
 
@@ -15,23 +15,12 @@ function ProfilePage() {
     const { nameInputDisabled, emailInputDisabled, passwordInputDisabled } = useSelector(state => state.profileInputs);
     const { nameUpd, emailUpd } = useSelector(state => state.profileInputs.userUpd);
     const { name, email } = useSelector(state => state.auth.user);
-    const expireInAccToken = useSelector(state => state.auth.expireInAccToken);
-
-    const refreshToken = localStorage.getItem('refreshToken');
     const accessToken = localStorage.getItem('accessToken');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const now = new Date().getTime();
-        if (expireInAccToken > now) {
-            
-            dispatch(updateUser(nameUpd, emailUpd, accessToken));
-            dispatch(setInputsDisabled());
-        } else {
-            dispatch(updateToken(refreshToken));
-            dispatch(updateUser(nameUpd, emailUpd, accessToken));
-            dispatch(setInputsDisabled());
-        }
+        dispatch(updateUser(nameUpd, emailUpd, accessToken));
+        dispatch(setInputsDisabled());
     }
 
     const handleReset = (e) => {
