@@ -12,7 +12,6 @@ function Stats() {
         <div className={styles.stats}>
             <div className={styles.columns}>
                 <StatsBoardColumn title='Готовы:' numbers={ordersReady} color='#00CCCC'/>
-                
                 <StatsBoardColumn title='В процессе:' numbers={ordersInProcess} color='white'/>
             </div>
             <Completed text='Выполнено за все время:' number='28 752' />
