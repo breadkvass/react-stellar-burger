@@ -5,8 +5,8 @@ import styles from './stats.module.css';
 
 function Stats() {
     const orders = useSelector(state => state.feed.orders);
-    const ordersReady = orders.filter(order => order.status === 'done').map(item => item.number).splice(0,5);
-    const ordersInProcess = orders.filter(order => order.status !== 'done').map(item => item.number).splice(0,5);
+    const ordersReady = orders.filter(order => order.status === 'done').map(item => item.number);
+    const ordersInProcess = orders.filter(order => order.status !== 'done').map(item => item.number);
 
     return (
         <div className={styles.stats}>

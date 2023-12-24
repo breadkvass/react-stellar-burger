@@ -5,7 +5,7 @@ function StatsBoardColumn({title, numbers, color}) {
         <div className={styles.column}>
             <h3 className='text text_type_main-medium'>{title}</h3>
             <ul className={styles.list}>
-                {numbers.map(item => <li key={item} className='text text_type_digits-default' style={{color: color}}>{item}</li>)}
+                {numbers.splice(0,20).map(item => <li key={item} className='text text_type_digits-default' style={{color: color}}>{item}</li>)}
             </ul>
         </div>
     )
