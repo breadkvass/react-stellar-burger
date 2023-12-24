@@ -17,8 +17,8 @@ import ProfileOrdersPage from '../../pages/profile-orders-page';
 import IngredientPage from "../../pages/ingredient-page";
 import Modal from "../modal/modal";
 import OrderPage from "../../pages/order-page";
-import { FEED_WS_CONNECTION_START } from '../../slices/actions';
-import { ProtectedOnlyAuth, ProtectedOnlyUnAuth } from '../protected-route';
+import { FEED_WS_CONNECTION_STOP, ORDERS_WS_CONNECTION_STOP } from "../../slices/actions";
+import { ProtectedOnlyAuth, ProtectedOnlyUnAuth, Protected } from '../protected-route';
 import { getIngredients } from "../../utils/api";
 
 function App() {
@@ -31,20 +31,18 @@ function App() {
     navigate(-1);
   }
 
-  useEffect(() => {
-    dispatch({
-        type: FEED_WS_CONNECTION_START,
-        payload: 'wss://norma.nomoreparties.space/orders/all'
-    });
-  }, []);
-
-  useEffect(() => 
-    dispatch(getIngredients()), []);
+  if(location.pathname !== '/feed') {
+    dispatch({type: FEED_WS_CONNECTION_STOP});
+  } else if (location.pathname !== '/profile/orders') {
+    dispatch({type: ORDERS_WS_CONNECTION_STOP});
+  };
+  
+  useEffect(() => dispatch(getIngredients()), []);
   
   return (
     <>
       <Routes location={background || location}>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<Protected component={<MainPage />} />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:id" element={<OrderPage page={true} />} />
         <Route path="/login" element={<ProtectedOnlyUnAuth component={<LoginPage />} />} />
