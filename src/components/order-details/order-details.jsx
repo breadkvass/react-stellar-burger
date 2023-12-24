@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Spinner from '../spinner/spinner';
 import DoneImage from "../../images/done.png";
-import { postOrder } from '../../utils/api';
 import styles from "./order-details.module.css";
 
 function OrderDetails() {

@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import MainLayout from '../components/main-layout/main-layout';
-import { useEffect } from 'react';
 import OrderInfo from '../components/order-info/order-info';
-import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../utils/api';
 
 function OrderPage({page}) {

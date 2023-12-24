@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { orderPropType } from '../../utils/prop-types';
 import styles from './order-info.module.css';
 
-function OrderInfo({order, style}) {
+function OrderInfo({order}) {
     const ingredients = useSelector(state => state.ingredients.ingredients);
     const getIngredientsById = (ingredients, id) => {
         return ingredients.find(ingredient => ingredient._id === id);
@@ -25,13 +26,13 @@ function OrderInfo({order, style}) {
     let status = null;
     let color = null;
 
-    if (order.status == 'done') {
+    if (order.status === 'done') {
         status = 'Выполнен';
         color = '#00CCCC';
-    } else if (order.status == 'pending') {
+    } else if (order.status === 'pending') {
         status = 'Готовится';
         color = 'white';
-    } else if (order.status == 'created') {
+    } else if (order.status === 'created') {
         status = 'Создан';
         color = 'white';
     }
@@ -67,6 +68,8 @@ function OrderInfo({order, style}) {
     )
 }
 
-// OrderInfo.propTypes = {ingredientPropType};
+OrderInfo.propTypes = {
+    order: orderPropType.isRequired
+}
 
 export default OrderInfo;

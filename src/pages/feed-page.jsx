@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import MainLayout from '../components/main-layout/main-layout';
 import Orders from '../components/orders/orders';
 import Stats from '../components/stats/stats';
 import styles from './feed-page.module.css';
 
 function FeedPage() {
-    
     return (
         <MainLayout>
             <div className={styles.feed}>

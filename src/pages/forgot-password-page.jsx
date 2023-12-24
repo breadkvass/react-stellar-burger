@@ -1,12 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Inputs from '../components/inputs/inputs';
 import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import { resetPassword } from '../utils/api';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { setResetPassword } from '../slices/profileInputs';
 
 function ForgotPasswordPage() {

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import styles from './profile-orders-page.module.css';
@@ -6,7 +7,6 @@ import ProfileLeftColumn from '../components/profile-left-column/profile-left-co
 import ProfileOrderCard from '../components/profle-orders-card/profle-orders-card';
 import { ORDERS_WS_CONNECTION_START } from '../slices/actions';
 import { updateToken } from '../utils/api';
-import { useDispatch, useSelector } from 'react-redux';
 
 function ProfileOrdersPage() {
     const dispatch = useDispatch();

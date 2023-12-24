@@ -8,7 +8,6 @@ const { actions, reducer } = createSlice({
             email:'',
             name: '',
         },
-        // accessToken: '',
         expireInAccToken: ''
     },
     reducers: {

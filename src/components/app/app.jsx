@@ -16,10 +16,10 @@ import FeedPage from "../../pages/feed-page";
 import ProfileOrdersPage from '../../pages/profile-orders-page';
 import IngredientPage from "../../pages/ingredient-page";
 import Modal from "../modal/modal";
+import OrderPage from "../../pages/order-page";
 import { FEED_WS_CONNECTION_START } from '../../slices/actions';
 import { ProtectedOnlyAuth, ProtectedOnlyUnAuth } from '../protected-route';
 import { getIngredients } from "../../utils/api";
-import OrderPage from "../../pages/order-page";
 
 function App() {
   let location = useLocation();

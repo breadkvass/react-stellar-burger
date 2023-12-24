@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsPrice from '../ingredients-price/ingredients-price';
-import PropTypes from 'prop-types';
 import { ingredientPropType } from "../../utils/prop-types";
 import styles from './ingredients-item.module.css';
-import { Link, useLocation } from 'react-router-dom';
 
 function IngredientsItem({ingredient}) {
     const location = useLocation();

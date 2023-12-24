@@ -7,7 +7,7 @@ function Orders() {
 
     return (
         <div className={styles.orders + ' custom-scroll'}>
-            {orders.map(item => (<OrdersCard key={item._id} order={item} />))};
+            {orders.map(item => (<OrdersCard key={item._id} order={item} />))}
         </div>
     )
     
