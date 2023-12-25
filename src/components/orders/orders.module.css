@@ -1,0 +1,8 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 600px;
+    overflow-y: scroll;
+    padding-right: 8px;
+}

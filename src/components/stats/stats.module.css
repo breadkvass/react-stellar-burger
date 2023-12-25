@@ -1,0 +1,12 @@
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding-bottom: 50px;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}

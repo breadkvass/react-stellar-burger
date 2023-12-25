@@ -1,0 +1,7 @@
+.columns {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    width: 1280px;
+    margin: 0 auto;
+}

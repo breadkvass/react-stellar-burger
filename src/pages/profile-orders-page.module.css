@@ -1,0 +1,28 @@
+.right {
+    margin-top: 36px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 900px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 80px;
+}
+
+.button {
+    text-decoration: none;
+    line-height: 64px;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    height: 64px;
+}

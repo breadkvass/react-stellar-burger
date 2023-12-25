@@ -1,0 +1,23 @@
+.form {
+    width: 480px;
+    margin-top: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 24px !important;
+}
+
+.addActions {
+    margin: 80px 0;
+    gap: 16px;
+}
+
+.form button {
+    width: min-content;
+}
