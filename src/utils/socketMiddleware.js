@@ -1,8 +1,7 @@
 import { fetchPostRefreshToken } from "./api";
+import { checkOrdersIngredients } from "./utils";
 
-function checkOrdersIngredients(arr) {
-    return arr.filter(item => item.ingredients.every(el => el));
-};
+const payload = 'wss://norma.nomoreparties.space/orders?token=';
 
 export const socketMiddleware = wsConfig => store => {
     let socket = null;
@@ -56,7 +55,7 @@ export const socketMiddleware = wsConfig => store => {
                         .then((res) => {
                             dispatch({
                             type: 'PROFILE_ORDERS_WS_CONNECTION_START', 
-                            payload: `wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken').split('Bearer ')[1]}`
+                            payload: `${payload}${localStorage.getItem('accessToken').split('Bearer ')[1]}`
                             });
                         })
                         .catch((err) => {
