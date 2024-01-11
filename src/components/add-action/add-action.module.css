@@ -1,0 +1,10 @@
+.action {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+}
+
+.action button {
+    padding: 0;
+}

@@ -1,9 +1,9 @@
-import { useEffect, useCallback } from 'react';
 import ReactDOM from "react-dom";
-import styles from "./modal.module.css"
 import PropTypes from 'prop-types';
+import { useEffect, useCallback } from 'react';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./modal.module.css";
 
 const modalRoot = document.getElementById("react-modals");
 
@@ -52,7 +52,8 @@ function Modal(props) {
 Modal.propTypes = {
     closeHandler: PropTypes.func,
     padding: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    children: PropTypes.object,
 }
 
 export default Modal;

@@ -1,0 +1,68 @@
+.order {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 40px;
+    background-color: rgba(28, 28, 33, 1);
+    width: 536px;
+    text-decoration: none;
+    color: white;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+.ingredient {
+    list-style: none;
+    position: relative;
+    width: 64px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100px;
+    border: 2px solid #801AB2;
+    background: var(--interface-bg, #131316);
+    background-position: center;
+    background-size: cover;
+}
+
+.ingredient:not(:first-child) {
+    margin-left: -16px;
+}
+
+.ingredient:last-child {
+    position: relative;
+    overflow: hidden;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    line-height: 64px !important;
+    width: 64px;
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.price svg{
+    width: 24px;
+    aspect-ratio: 1 / 1;
+}

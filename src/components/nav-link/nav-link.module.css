@@ -1,0 +1,12 @@
+.nav__link {
+    justify-self: start;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.link {
+    text-decoration: none;
+    
+}

@@ -1,0 +1,17 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 206px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column wrap;
+    height: 320px;
+    column-gap: 16px;
+    row-gap: 8px;
+}
