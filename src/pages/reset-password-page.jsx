@@ -7,7 +7,7 @@ import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import Inputs from '../components/inputs/inputs';
 import { newPassword } from '../utils/api';
-import { cancelResetPassword } from '../slices/profileInputs';
+import { cancelResetPassword } from '../slices/profile-inputs';
 
 function ResetPasswordPage() {
     const [ passwordValue, setPasswordValue ] = useState('');

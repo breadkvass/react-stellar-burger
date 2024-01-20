@@ -7,7 +7,7 @@ import Form from '../components/form/form';
 import AddAction from '../components/add-action/add-action';
 import MainLayout from '../components/main-layout/main-layout';
 import { resetPassword } from '../utils/api';
-import { setResetPassword } from '../slices/profileInputs';
+import { setResetPassword } from '../slices/profile-inputs';
 
 function ForgotPasswordPage() {
     const [ emailValue, setEmailValue ] = useState('');

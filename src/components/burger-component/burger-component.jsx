@@ -4,9 +4,12 @@ import { useDrag, useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeIngredient, moveIngredient, resetDraggingIndex, setDraggingIndex } from '../../slices/burgerConstructor';
+import { removeIngredient, moveIngredient, resetDraggingIndex, setDraggingIndex } from '../../slices/burger-constructor';
 
 const BurgerComponent = forwardRef((props, dragRef) => {
+// const BurgerComponent = forwardRef((props, dragRef): ReactElement | null => {
+    // const BurgerComponent = forwardRef((props: TBurgerComponent, dragRef: ForwardedRef<HTMLDivElement>) => {
+    
     const dispatch = useDispatch();
     const { ingredients, isLoading } = useSelector(state => state.ingredients);
     const { draggingIndex } = useSelector(state => state.burgerConstructor);

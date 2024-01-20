@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd, setEmailUpd } from '../slices/profileInputs';
+import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd, setEmailUpd } from '../slices/profile-inputs';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import ProfileLeftColumn from '../components/profile-left-column/profile-left-column';
