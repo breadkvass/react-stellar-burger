@@ -7,14 +7,14 @@ import {
   setDataOrderDetails,
   setLoadingOrderDetails,
   setErrorOrderDetails
-} from '../slices/orderDetails';
+} from '../slices/order-details';
 
 import {
   loginSuccess,
   logoutSuccess,
   expireAccessToken
 } from '../slices/auth';
-import { setEmailUpd, setNameUpd } from '../slices/profileInputs';
+import { setEmailUpd, setNameUpd } from '../slices/profile-inputs';
 import { setDataOrder, setErrorOrder, setLoadingOrder } from '../slices/order';
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
@@ -131,6 +131,7 @@ export const logout = (token) => {
       .then(checkRes)
       .then(() => {
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
         dispatch(logoutSuccess());
       })
       .catch(err => {
