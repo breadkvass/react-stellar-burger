@@ -1,8 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+type TIngredients = {
+    isLoading: boolean,
+    hasError: boolean,
+    ingredients: Array<object>
+}
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: {
+    initialState: <TIngredients>{
         isLoading: false,
         hasError: false,
         ingredients: []
@@ -11,7 +17,7 @@ const { actions, reducer } = createSlice({
         setLoadingIngredients: (state) => {
             state.isLoading = true;
         },
-        setDataIngredients: (state, action) => {
+        setDataIngredients: (state, action: PayloadAction<Array<object>>) => {
             state.isLoading = false;
             state.hasError = false;
             state.ingredients = action.payload;

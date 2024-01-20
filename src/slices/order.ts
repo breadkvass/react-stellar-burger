@@ -1,8 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+type TOrder = {
+    isLoading: boolean,
+    hasError: boolean,
+    order: [object] | []
+}
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: {
+    initialState: <TOrder>{
         isLoading: false,
         hasError: false,
         order: []
@@ -11,7 +17,7 @@ const { actions, reducer } = createSlice({
         setLoadingOrder: (state) => {
             state.isLoading = true;
         },
-        setDataOrder: (state, action) => {
+        setDataOrder: (state, action: PayloadAction<[object]>) => {
             state.isLoading = false;
             state.hasError = false;
             state.order = action.payload;

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { default as burgerConstructorReducer }  from './burgerConstructor';
+import { default as burgerConstructorReducer }  from './burger-constructor';
 import { default as ingredientsReducer } from './ingredients';
-import { default as orderDetailsReducer } from './orderDetails';
-import { default as ingredientDetailsReducer } from './ingredientDetails';
-import { default as profileInputsReducer } from './profileInputs';
+import { default as orderDetailsReducer } from './order-details';
+import { default as ingredientDetailsReducer } from './ingredient-details';
+import { default as profileInputsReducer } from './profile-inputs';
 import { default as ordersReducer } from './profile-orders';
 import { default as authReducer } from './auth';
 import { default as feedReducer } from './feed';

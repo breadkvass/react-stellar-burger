@@ -1,8 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type TAuth = {
+    isAuth: boolean,
+    user: TAuthUser,
+    expireInAccToken: string | number
+}
+
+type TAuthUser = {
+    email: string,
+    name: string,
+}
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: {
+    initialState:  <TAuth>{
         isAuth: false,
         user: {
             email:'',
@@ -11,7 +22,7 @@ const { actions, reducer } = createSlice({
         expireInAccToken: ''
     },
     reducers: {
-        loginSuccess: (state, action) => {
+        loginSuccess: (state, action: PayloadAction<TAuth>) => {
             state.isAuth = true;
             state.user = action.payload.user;
         },
@@ -20,11 +31,11 @@ const { actions, reducer } = createSlice({
             state.user.email = '';
             state.user.name = '';
         },
-        expireAccessToken:  state => {
+        expireAccessToken: state => {
             const now = new Date();
             state.expireInAccToken = now.setMinutes(now.getMinutes() + 20);
         },
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<TAuth>) => {
             state.user = action.payload.user;
         }
     }
