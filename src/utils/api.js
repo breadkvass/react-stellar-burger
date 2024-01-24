@@ -173,21 +173,21 @@ export const register = (email, password, name, onSuccessCallback) => {
   }
 }
 
-export const fetchPostRefreshToken = (token) => {
+export const fetchPostRefreshToken = (refreshToken) => {
   return fetch(`${BASE_URL}/auth/token`, {
     method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          token: token
+          token: refreshToken
       })
   });
 }
 
-export const updateToken = (token) => {
+export const updateToken = (refreshToken) => {
   return (dispatch) => {
-    fetchPostRefreshToken(token)
+    fetchPostRefreshToken(refreshToken)
       .then(checkRes)
       .then(data => {
         localStorage.removeItem('refreshToken');
@@ -202,29 +202,29 @@ export const updateToken = (token) => {
   }
 }
 
-export const fetchGetUser = (token) => {
+export const fetchGetUser = (accessToken) => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
       headers: {
-        'Authorization': token
+        'Authorization': accessToken
       },
   });
 }
 
-export const fetchGetUserWithRefresh = async (token) => {
+export const fetchGetUserWithRefresh = (accessToken) => {
   try {
-    return await fetchGetUser(token);
+    return fetchGetUser(accessToken);
   } catch (error) {
     if (error.message === 'jwt expired') {
-      updateToken(token);
+      updateToken(localStorage.getItem('refreshToken'));
     }
-    return fetchGetUser(token);
+    return fetchGetUser(accessToken);
   }
 }
 
-export const getUser = (token) => {
+export const getUser = (accessToken) => {
   return (dispatch) => {
-    fetchGetUserWithRefresh(token)
+    fetchGetUserWithRefresh(accessToken)
       .then(checkRes)
       .then(data => {
         dispatch(loginSuccess(data));
