@@ -46,8 +46,14 @@ export const Protected = ({ component }) => {
   const isAuth = useSelector(store => store.auth.isAuth);
   const refreshToken = localStorage.getItem('refreshToken');
   const accessToken = localStorage.getItem('accessToken');
+  const expireInAccToken = useSelector(store => store.auth.expireInAccToken);
+  
   if (isAuth === false && refreshToken) {
-    dispatch(getUser(accessToken));
+    if (new Date() > expireInAccToken) {
+      dispatch(updateToken(refreshToken));
+    } else {
+      dispatch(getUser(accessToken));
+    }
     return component;
   } else {
     return component;
