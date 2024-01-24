@@ -46,6 +46,11 @@ function BurgerConstructor() {
         </div>
         <Button onClick={openModal} disabled={!isAuth ? true : false} htmlType="button" type="primary" size="large">Оформить заказ</Button>
       </div>
+      { isShowModal &&
+      
+      <Modal closeHandler={closeModal} padding={' pt-10 pb-15 pl-10 pr-10'}>
+        <OrderDetails />
+      </Modal>}
     </div>
   )
 }
