@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import IngredientsSection from '../ingredients-section/ingredients-section';
 import styles from './ingredients-container.module.css';
 

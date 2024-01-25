@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/hooks';
 import { useDrop } from "react-dnd";
 import BurgerComponent, { DraggableBurgerComponent } from '../burger-component/burger-component';
 import { setBun, addIngredient } from '../../slices/burger-constructor';
