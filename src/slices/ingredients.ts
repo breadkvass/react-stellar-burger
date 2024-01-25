@@ -1,9 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+export type TIngredient = {
+    _id: string;
+    price: number;
+    name: string;
+    image: string;
+};
+
 type TIngredients = {
     isLoading: boolean,
     hasError: boolean,
-    ingredients: Array<object>
+    ingredients: TIngredient[]
 }
 
 const { actions, reducer } = createSlice({
@@ -17,7 +24,7 @@ const { actions, reducer } = createSlice({
         setLoadingIngredients: (state) => {
             state.isLoading = true;
         },
-        setDataIngredients: (state, action: PayloadAction<Array<object>>) => {
+        setDataIngredients: (state, action: PayloadAction<TIngredient[]>) => {
             state.isLoading = false;
             state.hasError = false;
             state.ingredients = action.payload;
