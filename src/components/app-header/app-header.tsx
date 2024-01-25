@@ -14,7 +14,7 @@ function AppHeader() {
                     <NavLink text='Конструктор' icon={BurgerIcon} link={'/'} />
                     <NavLink text='Лента заказов' icon={ListIcon} link={'/feed'}/>
                 </Navigation>
-                <Logo alt="Логотип" />
+                <Logo />
                 <Navigation side='right'>
                     <NavLink text='Личный кабинет' icon={ProfileIcon} link={'/profile'} />
                 </Navigation>

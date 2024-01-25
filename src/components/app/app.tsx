@@ -4,7 +4,7 @@ import {
   useLocation,
   useNavigate
 } from "react-router-dom";
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page';
@@ -21,8 +21,17 @@ import { FEED_WS_CONNECTION_STOP, ORDERS_WS_CONNECTION_STOP } from "../../slices
 import { ProtectedOnlyAuth, ProtectedOnlyUnAuth, Protected } from '../protected-route';
 import { getIngredients } from "../../utils/api";
 
-function App() {
-  let location = useLocation();
+type TBackground = {
+  background: string;
+}
+
+type TLocation = {
+  pathname: string;
+  state: TBackground;
+}
+
+function App(): ReactElement {
+  let location: TLocation = useLocation();
   const dispatch = useDispatch();
   let background = location.state && location.state.background;
   const navigate = useNavigate();
@@ -31,9 +40,11 @@ function App() {
     navigate(-1);
   }
 
-  if(location.pathname !== '/feed') {
+  if (location.pathname !== '/feed') {
     dispatch({type: FEED_WS_CONNECTION_STOP});
-  } else if (location.pathname !== '/profile/orders') {
+  };
+  
+  if (location.pathname !== '/profile/orders') {
     dispatch({type: ORDERS_WS_CONNECTION_STOP});
   };
   
