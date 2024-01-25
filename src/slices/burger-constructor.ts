@@ -1,16 +1,26 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from 'uuid';
 
-const filling = (ingredientId: string) => ({
-    id: ingredientId,
-    key: uuid()
-})
+type TFilling = {
+    id: string,
+    key: string
+}
+
+type TDraggingIndex = number | {
+    to: number,
+    from: number
+}
 
 type TBurgerConstructor = {
     bun: string,
-    filling: Array<object>,
-    draggingIndex: number | object
+    filling: Array<TFilling>,
+    draggingIndex: TDraggingIndex
 }
+
+const filling = (ingredientId: string): TFilling => ({
+    id: ingredientId,
+    key: uuid()
+})
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
