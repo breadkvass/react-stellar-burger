@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from '../hooks/hooks';
 import { Navigate, useLocation } from "react-router-dom";
 import { getUser, updateToken } from "../utils/api";
 
@@ -47,7 +47,7 @@ export const Protected = ({ component }) => {
   const refreshToken = localStorage.getItem('refreshToken');
   const accessToken = localStorage.getItem('accessToken');
   const expireInAccToken = useSelector(store => store.auth.expireInAccToken);
-  
+
   if (isAuth === false && refreshToken) {
     if (new Date() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
