@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { useDrag } from "react-dnd";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsPrice from '../ingredients-price/ingredients-price';
