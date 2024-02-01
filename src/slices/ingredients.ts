@@ -5,12 +5,13 @@ export type TIngredient = {
     price: number;
     name: string;
     image: string;
+    type: 'bun' | 'main' | 'sauce';
 };
 
 type TIngredients = {
-    isLoading: boolean,
-    hasError: boolean,
-    ingredients: TIngredient[]
+    isLoading: boolean;
+    hasError: boolean;
+    ingredients: TIngredient[];
 }
 
 const { actions, reducer } = createSlice({
