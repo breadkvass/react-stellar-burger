@@ -7,10 +7,21 @@ import IngredientsPrice from '../ingredients-price/ingredients-price';
 import { ingredientPropType } from "../../utils/prop-types";
 import styles from './ingredients-item.module.css';
 
-function IngredientsItem({ingredient}) {
+type TIngredient = {
+   _id: string;
+   price: number;
+   name: string;
+   image: string; 
+}
+
+type TIngredientsItem = {
+    ingredient: TIngredient;
+}
+
+function IngredientsItem({ingredient}: TIngredientsItem) {
     const location = useLocation();
     const {bun, filling} = useSelector(state => state.burgerConstructor);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState<number>(0);
     const [, dragRef] = useDrag({type: 'ingredient', item: ingredient});
 
     useEffect(()=> {
@@ -30,10 +41,6 @@ function IngredientsItem({ingredient}) {
         </Link>
         
     )
-}
-
-IngredientsItem.propTypes = {
-    ingredient: ingredientPropType.isRequired
 }
 
 export default IngredientsItem;

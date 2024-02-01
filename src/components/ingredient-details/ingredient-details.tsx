@@ -1,8 +1,16 @@
-import { ingredientPropType } from '../../utils/prop-types';
 import IngredientValue from '../ingredient-value/ingredient-value';
 import styles from "./ingredient-details.module.css";
 
-function IngredientDetails({image, name, calories, proteins, fat, carbohydrates}) {
+type TIngredientDetails = {
+    image: string;
+    name: string;
+    calories: number;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+}
+
+function IngredientDetails({image, name, calories, proteins, fat, carbohydrates}: TIngredientDetails) {
     return (
         <>
             <img className={styles.image} src={image} alt={name}/>
@@ -16,7 +24,5 @@ function IngredientDetails({image, name, calories, proteins, fat, carbohydrates}
         </>
     )
 }
-
-IngredientDetails.propTypes = {ingredientPropType};
 
 export default IngredientDetails;
