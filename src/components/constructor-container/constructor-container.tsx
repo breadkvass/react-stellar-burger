@@ -4,12 +4,17 @@ import BurgerComponent, { DraggableBurgerComponent } from '../burger-component/b
 import { setBun, addIngredient } from '../../slices/burger-constructor';
 import styles from './constructor-container.module.css';
 
+type TIngredient = {
+    type: string;
+    _id: string;
+}
+
 function ConstructorContainer() {
     const dispatch = useDispatch();
     const { bun, filling } = useSelector(state => state.burgerConstructor);
     const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(ingredient) {
+        drop(ingredient: TIngredient) {
             dropHandler(ingredient);
         },
         collect: monitor => ({
@@ -17,7 +22,7 @@ function ConstructorContainer() {
         })
     });
 
-    const dropHandler = (ingredient) => {
+    const dropHandler = (ingredient: TIngredient) => {
         if (ingredient.type === 'bun') {
             dispatch(setBun(ingredient._id));
         } else {

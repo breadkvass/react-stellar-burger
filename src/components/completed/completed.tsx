@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
 import styles from './completed.module.css';
 
-function Completed({text, number}) {
+type TCompleted = {
+    text: string;
+    number: number;
+}
+
+function Completed({text, number}: TCompleted) {
     return (
         <div className={styles.completed}>
             <p className={styles.text + ' text text_type_main-medium'}>{text}</p>
             <p className={styles.number + ' text text_type_digits-large'}>{number}</p>
         </div>
     )
-}
-
-Completed.propTypes = {
-    text: PropTypes.string,
-    number: PropTypes.string,
 }
 
 export default Completed;

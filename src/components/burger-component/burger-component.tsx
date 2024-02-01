@@ -7,11 +7,11 @@ import { removeIngredient, moveIngredient, resetDraggingIndex, setDraggingIndex 
 
 type TProps = {
     className: string;
-    type: 'top' | 'bottom';
+    type?: 'top' | 'bottom';
     isLocked: boolean;
     ingredientId: string;
-    index: number;
-    handlerId: Identifier | null;
+    index?: number;
+    handlerId?: Identifier | null;
 }
 
 type Identifier = string | symbol;
@@ -33,7 +33,9 @@ const BurgerComponent = forwardRef((props: TProps, dragRef: LegacyRef<HTMLDivEle
     }
 
     const deleteHandler = () => {
-        dispatch(removeIngredient(props.index));
+        if (props.index) {
+            dispatch(removeIngredient(props.index));
+        }
     }
 
     const opacity = draggingIndex === props.index ? 0 : 1;
@@ -60,7 +62,7 @@ const BurgerComponent = forwardRef((props: TProps, dragRef: LegacyRef<HTMLDivEle
 export default BurgerComponent;
 
 type TItem = {
-    index: number;
+    index?: number;
 }
 
 export const DraggableBurgerComponent = (props: TProps) => {
@@ -90,7 +92,9 @@ export const DraggableBurgerComponent = (props: TProps) => {
             const dragIndex = item.index;
             const hoverIndex = props.index;
 
-            dispatch(setDraggingIndex(item.index));
+            if (item.index) {
+                dispatch(setDraggingIndex(item.index));
+            }
 
             if (dragIndex === hoverIndex) {
                 return;
@@ -102,20 +106,20 @@ export const DraggableBurgerComponent = (props: TProps) => {
 
             const clientOffset: XYCoord | null = monitor.getClientOffset();
 
-           
-                const hoverClientY: number | null = clientOffset && clientOffset.y - hoverBoundingRect.top;
-            
-                if (hoverClientY) {
-                    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                        return
-                    }
+            const hoverClientY: number | null = clientOffset && clientOffset.y - hoverBoundingRect.top;
         
-                    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                        return
-                    }
+            if (hoverClientY && dragIndex  && hoverIndex) {
+                if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                    return
                 }
+    
+                if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                    return
+                }
+                    
+                dispatch(moveIngredient({from: dragIndex, to: hoverIndex}));
+            }
 
-            dispatch(moveIngredient({from: dragIndex, to: hoverIndex}));
             
             item.index = hoverIndex;
         },
