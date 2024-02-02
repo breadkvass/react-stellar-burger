@@ -13,9 +13,9 @@ function BurgerConstructor() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const bun = useSelector(state => state.burgerConstructor.bun);
   const filling = useSelector(state => state.burgerConstructor.filling);
+  const isAuth = useSelector(state => state.auth.isAuth);
   const { ingredients, isLoading } = useSelector(state => state.ingredients);
   const accessToken = localStorage.getItem('accessToken');
-  const isAuth = useSelector(state => state.auth.isAuth);
 
   const dispatch = useDispatch();
 
@@ -29,8 +29,12 @@ function BurgerConstructor() {
 
   const openModal = (e: SyntheticEvent<Element, Event>) => {
     e.stopPropagation();
-    dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun], accessToken));
-    setIsShowModal(true);
+    if (accessToken != null) {
+      dispatch(postOrder([bun, ...(filling.map(f => f.id)), bun], accessToken));
+      setIsShowModal(true)
+    } else {
+      console.log('Ошибка токена')
+    }
   }
 
   const closeModal = () => {

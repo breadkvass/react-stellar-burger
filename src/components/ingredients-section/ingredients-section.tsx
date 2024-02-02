@@ -1,6 +1,4 @@
 import { forwardRef, ReactElement, LegacyRef } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropType } from "../../utils/prop-types";
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import { TIngredient } from '../../slices/ingredients';
 import styles from './ingredients-section.module.css';
@@ -11,7 +9,6 @@ type TProps = {
 }
 
 const IngredientsSection = forwardRef((props: TProps, ref: LegacyRef<HTMLDivElement> ): ReactElement | null => {
-    console.log(props.data);
     return (
         <div ref={ref}>
             <h3 className="text text_type_main-medium">

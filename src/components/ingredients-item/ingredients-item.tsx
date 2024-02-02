@@ -4,7 +4,6 @@ import { useSelector } from '../../hooks/hooks';
 import { useDrag } from "react-dnd";
 import { Counter  } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsPrice from '../ingredients-price/ingredients-price';
-import { ingredientPropType } from "../../utils/prop-types";
 import styles from './ingredients-item.module.css';
 
 type TIngredient = {

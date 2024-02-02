@@ -4,7 +4,6 @@ import styles from './orders.module.css';
 
 function Orders() {
     const orders = useSelector(state => state.feed.orders);
-    console.log(orders);
     return (
         <div className={styles.orders + ' custom-scroll'}>
             {orders.map(item => (<OrdersCard key={item._id} order={item} />))}

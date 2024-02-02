@@ -1,16 +1,9 @@
-import { useState, createRef, RefObject, SyntheticEvent } from 'react';
-import TabGroup from '../tab-group/tab-group';
+import { useState, createRef, SyntheticEvent } from 'react';
+import TabGroup, { TCategory } from '../tab-group/tab-group';
+import { TIngredientType } from '../tab-group/ingredient-type';
 import IngredientsContainer from '../ingredients-container/ingredients-container';
 import styles from "./burger-ingredients.module.css";
 
-type TIngredientType = 'bun' | 'sauce' | 'main';
-
-type TCategory = {
-    type: TIngredientType;
-    name: string;
-    ref: RefObject<HTMLDivElement>;
-    offset: number;
-}
 
 const category = (type: TIngredientType, name: string): TCategory => ({
     type: type,

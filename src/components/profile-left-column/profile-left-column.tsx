@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import LeftColumnLink from '../left-column-link/left-column-link';
@@ -15,9 +15,13 @@ function ProfileLeftColumn({children}: TProfileLeftColumn) {
     const navigate = useNavigate();
     const refreshToken = localStorage.getItem('refreshToken');
 
-    const logoutHandler = () => {
-        dispatch(logout(refreshToken));
-        navigate('/login');
+    const logoutHandler: Function = () => {
+        if (refreshToken != null) {
+            dispatch(logout(refreshToken));
+            navigate('/login');
+        } else {
+        console.log('Ошибка токена')
+        }
     }
 
     return (

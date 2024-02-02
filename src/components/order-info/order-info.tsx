@@ -1,7 +1,6 @@
 import { useSelector } from '../../hooks/hooks';
 import { v4 as uuid } from 'uuid';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { orderPropType } from '../../utils/prop-types';
 import { TIngredient } from '../../slices/ingredients';
 import { isNonNil } from '../../utils/utils';
 import styles from './order-info.module.css';
@@ -84,10 +83,6 @@ function OrderInfo({order}: TOrderInfo) {
         </div>
         
     )
-}
-
-OrderInfo.propTypes = {
-    order: orderPropType.isRequired
 }
 
 export default OrderInfo;

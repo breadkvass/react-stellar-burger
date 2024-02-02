@@ -1,4 +1,4 @@
-import { ReactNode, FormEventHandler } from 'react';
+import { ReactNode, FormEventHandler, ReactElement } from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './form.module.css';
 
@@ -7,7 +7,7 @@ type TForm = {
     children: ReactNode; 
     button: string;
     handleSubmit: FormEventHandler<HTMLFormElement>;
-    addActions: HTMLDivElement;
+    addActions: ReactElement;
 }
 
 function Form({title, children, button, handleSubmit, addActions}: TForm) {
