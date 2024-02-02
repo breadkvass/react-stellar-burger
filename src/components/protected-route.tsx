@@ -18,7 +18,11 @@ export const ProtectedOnlyUnAuth = ({ component }: TProtected) => {
     if (Date.now() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
     } else {
-      dispatch(getUser(accessToken));
+      if (accessToken != null) {
+        dispatch(getUser(accessToken));
+      } else {
+      console.log('Ошибка токена')
+      }
     }
     return <Navigate to="/profile" state={{from: location} } />;
   } else if (isAuth === true) {
@@ -42,7 +46,11 @@ export const ProtectedOnlyAuth = ({ component }: TProtected) => {
     if (Date.now() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
     } else {
-      dispatch(getUser(accessToken));
+      if (accessToken != null) {
+        dispatch(getUser(accessToken));
+      } else {
+      console.log('Ошибка токена')
+      }
     }
     return component;
   } else {
@@ -61,7 +69,11 @@ export const Protected = ({ component }: TProtected) => {
     if (Date.now() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
     } else {
-      dispatch(getUser(accessToken));
+      if (accessToken != null) {
+        dispatch(getUser(accessToken));
+      } else {
+      console.log('Ошибка токена')
+      }
     }
     return component;
   } else {
