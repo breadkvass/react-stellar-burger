@@ -1,18 +1,36 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { Link, useLocation } from 'react-router-dom';
 import { orderPropType } from '../../utils/prop-types';
 import { v4 as uuid } from 'uuid';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TIngredient } from '../../slices/ingredients';
+import { isNonNil } from '../../utils/utils';
 import styles from './orders-card.module.css';
 
-function OrdersCard({order}) {
+type TOrdersCard = {
+    order: TOrder;
+}
+
+type TOrder = {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    owner: object;
+    price: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+}
+
+function OrdersCard({order}: TOrdersCard) {
     const location = useLocation();
     const ingredients = useSelector(state => state.ingredients.ingredients);
-    const getIngredientsById = (ingredients, id) => {
+    const getIngredientsById = (ingredients: TIngredient[], id: string) => {
         return ingredients.find(ingredient => ingredient._id === id);
     };
-    const orderIngredients = order.ingredients.map(item => getIngredientsById(ingredients, item));
+    const orderIngredients = order.ingredients.map(item => getIngredientsById(ingredients, item)).filter(isNonNil);
     const orderPrice = orderIngredients.map(item => item.price).reduce((a, b) => a + b);
 
     return (
@@ -43,7 +61,7 @@ function OrdersCard({order}) {
                 </ul>
                 <div className={styles.price}>
                     <p className="text text_type_digits-default">{orderPrice}</p>
-                    <CurrencyIcon />
+                    <CurrencyIcon type='primary' />
                 </div>
             </div>
         </Link>
