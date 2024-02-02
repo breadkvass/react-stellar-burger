@@ -16,21 +16,32 @@ import {
 } from '../slices/auth';
 import { setEmailUpd, setNameUpd } from '../slices/profile-inputs';
 import { setDataOrder, setErrorOrder, setLoadingOrder } from '../slices/order';
+import { ErrorResponse } from 'react-router-dom';
+import { Dispatch } from 'redux';
+
+type TToken = string;
+type TUser = {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+type TUserDetail = string;
+type TNumber = string;
+type TDispatch = Dispatch;
+
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
-
-const checkRes = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 const fetchGetIngredients = () => {
     return fetch(`${BASE_URL}/ingredients`);
 }
 
 export const getIngredients = () => {
-    return (dispatch) => {
+    return (dispatch: TDispatch) => {
       dispatch(setLoadingIngredients());
   
       fetchGetIngredients()
-          .then(checkRes)
+          .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
           .then(data => dispatch(setDataIngredients(data.data)))
           .catch(err => {
               dispatch(setErrorIngredients());
@@ -39,7 +50,7 @@ export const getIngredients = () => {
     }
 }
 
-const fetchPostOrder = (ingredients, token) => {
+const fetchPostOrder = (ingredients: string[], token: TToken) => {
   return fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       headers: {
@@ -52,22 +63,24 @@ const fetchPostOrder = (ingredients, token) => {
   });
 }
 
-export const fetchPostOrderWithRefresh = async (ingredients, token) => {
+export const fetchPostOrderWithRefresh = async (ingredients: string[], token: TToken) => {
   try {
     return await fetchPostOrder(ingredients, token);
   } catch (error) {
-    if (error.message === 'jwt expired') {
-      updateToken(token);
+    if (error instanceof Error) {
+      if (error.message === 'jwt expired') {
+        updateToken(token);
+      }
     }
     return fetchPostOrder(ingredients, token);
   }
 }
 
-export const postOrder = (ingredients, token) => {
-    return (dispatch) => {
+export const postOrder = (ingredients: string[], token: TToken) => {
+    return (dispatch: TDispatch) => {
         dispatch(setLoadingOrderDetails());
         fetchPostOrderWithRefresh(ingredients, token)
-            .then(checkRes)
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
             .then(data => dispatch(setDataOrderDetails(data)))
             .catch(err => {
                 dispatch(setErrorOrderDetails);
@@ -76,7 +89,7 @@ export const postOrder = (ingredients, token) => {
     }
 }
 
-export const fetchPostLogin = async ({email, password}) => {
+export const fetchPostLogin = async ({email, password}: TUser) => {
   return await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       mode: 'cors',
@@ -94,10 +107,10 @@ export const fetchPostLogin = async ({email, password}) => {
   });
 }
 
-export const login = (user, onSuccessCallback) => {
-  return (dispatch) => {
+export const login = (user: TUser, onSuccessCallback: Function) => {
+  return (dispatch: TDispatch) => {
     fetchPostLogin(user)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
         dispatch(loginSuccess(data));
         dispatch(setNameUpd(data.user.name));
@@ -113,7 +126,7 @@ export const login = (user, onSuccessCallback) => {
   }
 }
 
-export const fetchPostLogout = (token) => {
+export const fetchPostLogout = (token: TToken) => {
   return fetch(`${BASE_URL}/auth/logout`, {
     method: 'POST',
     headers: {
@@ -125,10 +138,10 @@ export const fetchPostLogout = (token) => {
 });
 }
 
-export const logout = (token) => {
-  return (dispatch) => {
+export const logout = (token: TToken) => {
+  return (dispatch: TDispatch) => {
     fetchPostLogout(token)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(() => {
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('accessToken');
@@ -140,7 +153,7 @@ export const logout = (token) => {
   }
 }
 
-export const fetchPostRegister = (email, password, name) => {
+export const fetchPostRegister = (email: TUserDetail, password: TUserDetail, name: TUserDetail) => {
   return fetch(`${BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -154,10 +167,10 @@ export const fetchPostRegister = (email, password, name) => {
   });
 }
 
-export const register = (email, password, name, onSuccessCallback) => {
-  return (dispatch) => {
+export const register = (email: TUserDetail, password: TUserDetail, name: TUserDetail, onSuccessCallback: Function) => {
+  return (dispatch: TDispatch) => {
     fetchPostRegister(email, password, name)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
         dispatch(loginSuccess(data));
         dispatch(setNameUpd(data.user.name));
@@ -173,7 +186,7 @@ export const register = (email, password, name, onSuccessCallback) => {
   }
 }
 
-export const fetchPostRefreshToken = (refreshToken) => {
+export const fetchPostRefreshToken = (refreshToken: TToken) => {
   return fetch(`${BASE_URL}/auth/token`, {
     method: 'POST',
       headers: {
@@ -185,10 +198,10 @@ export const fetchPostRefreshToken = (refreshToken) => {
   });
 }
 
-export const updateToken = (refreshToken) => {
-  return (dispatch) => {
+export const updateToken = (refreshToken: TToken) => {
+  return (dispatch: Function) => {
     fetchPostRefreshToken(refreshToken)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
         localStorage.removeItem('refreshToken');
         localStorage.setItem('refreshToken', data.refreshToken);
@@ -202,7 +215,7 @@ export const updateToken = (refreshToken) => {
   }
 }
 
-export const fetchGetUser = (accessToken) => {
+export const fetchGetUser = (accessToken: TToken) => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
       headers: {
@@ -211,21 +224,24 @@ export const fetchGetUser = (accessToken) => {
   });
 }
 
-export const fetchGetUserWithRefresh = (accessToken) => {
+export const fetchGetUserWithRefresh = (accessToken: TToken) => {
   try {
     return fetchGetUser(accessToken);
   } catch (error) {
-    if (error.message === 'jwt expired') {
-      updateToken(localStorage.getItem('refreshToken'));
+    if (error instanceof Error) {
+      if (error.message === 'jwt expired') {
+        const refreshToken = localStorage.getItem('refreshToken')
+        refreshToken ? updateToken(refreshToken) : console.log(error);
+      }
     }
     return fetchGetUser(accessToken);
   }
 }
 
-export const getUser = (accessToken) => {
-  return (dispatch) => {
+export const getUser = (accessToken: TToken) => {
+  return (dispatch: TDispatch) => {
     fetchGetUserWithRefresh(accessToken)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(data => {
         dispatch(loginSuccess(data));
         dispatch(setNameUpd(data.user.name));
@@ -237,7 +253,7 @@ export const getUser = (accessToken) => {
   }
 }
 
-export const fetchPostResetPassword = (email) => {
+export const fetchPostResetPassword = (email: TUserDetail) => {
   return fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',
       headers: {
@@ -249,10 +265,10 @@ export const fetchPostResetPassword = (email) => {
   });
 }
 
-export const resetPassword = (email, onSuccessCallback) => {
-  return (dispatch) => {
+export const resetPassword = (email: TUserDetail, onSuccessCallback: Function) => {
+  return (dispatch: TDispatch) => {
     fetchPostResetPassword(email)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(() => { onSuccessCallback(); })
       .catch(err => {
           console.log(err);
@@ -260,7 +276,7 @@ export const resetPassword = (email, onSuccessCallback) => {
   }
 }
 
-export const fetchPostNewPassword = (password, token) => {
+export const fetchPostNewPassword = (password: TUserDetail, token: TToken) => {
   return fetch(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
       headers: {
@@ -273,10 +289,10 @@ export const fetchPostNewPassword = (password, token) => {
   });
 }
 
-export const newPassword = (password, token, onSuccessCallback) => {
-  return (dispatch) => {
+export const newPassword = (password: TUserDetail, token: TToken, onSuccessCallback: Function) => {
+  return (dispatch: TDispatch) => {
     fetchPostNewPassword(password, token)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(() => { onSuccessCallback(); })
       .catch(err => {
           console.log(err);
@@ -284,7 +300,7 @@ export const newPassword = (password, token, onSuccessCallback) => {
   }
 }
 
-export const fetchPatchUpdateUser = (name, email, token) => {
+export const fetchPatchUpdateUser = (name: TUserDetail, email: TUserDetail, token: TToken) => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -298,21 +314,23 @@ export const fetchPatchUpdateUser = (name, email, token) => {
   });
 }
 
-export const fetchPatchUpdateUserRefresh = async (name, email, token) => {
+export const fetchPatchUpdateUserRefresh = async (name: TUserDetail, email: TUserDetail, token: TToken) => {
   try {
     return await fetchPatchUpdateUser(name, email, token);
   } catch (error) {
-    if (error.message === 'jwt expired') {
-      updateToken(token);
+    if (error instanceof Error) {
+      if (error.message  === 'jwt expired') {
+        updateToken(token);
+      }
     }
     return fetchPatchUpdateUser(name, email, token);
   }
 }
 
-export const updateUser = (name, email, token) => {
-  return (dispatch) => {
+export const updateUser = (name: TUserDetail, email: TUserDetail, token: TToken) => {
+  return (dispatch: Function) => {
     fetchPatchUpdateUserRefresh(name, email, token)
-      .then(checkRes)
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(() => {dispatch(getUser(token))})
       .catch(err => {
           console.log(err);
@@ -320,16 +338,16 @@ export const updateUser = (name, email, token) => {
   }
 }
 
-export const fetchGetOrder = (number) => {
+export const fetchGetOrder = (number: TNumber) => {
   return fetch(`${BASE_URL}/orders/${number}`);
 }
 
-export const getOrder = (number) => {
-  return (dispatch) => {
+export const getOrder = (number: TNumber) => {
+  return (dispatch: TDispatch) => {
     dispatch(setLoadingOrder());
 
     fetchGetOrder(number)
-        .then(checkRes)
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
         .then(data => dispatch(setDataOrder(data.orders)))
         .catch(err => {
             dispatch(setErrorOrder());
