@@ -4,8 +4,8 @@ import {
   useLocation,
   useNavigate
 } from "react-router-dom";
-import { ReactElement, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from "../../hooks/hooks";
 import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page';
 import RegistrationPage from '../../pages/registration-page';
