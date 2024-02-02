@@ -6,9 +6,9 @@ type TIngredientsDetails = {
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TIngredientsDetails>{
+    initialState: {
         details: {}
-    },
+    } as TIngredientsDetails,
     reducers: {
         setDetails: (state, action: PayloadAction<object>) => {
             if (state) {

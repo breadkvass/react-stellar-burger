@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type TAuth = {
     isAuth: boolean,
     user: TAuthUser,
-    expireInAccToken: string | number
+    expireInAccToken: number
 }
 
 type TAuthUser = {
@@ -13,14 +13,14 @@ type TAuthUser = {
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState:  <TAuth>{
+    initialState:  {
         isAuth: false,
         user: {
             email:'',
             name: '',
         },
-        expireInAccToken: ''
-    },
+        expireInAccToken: Date.now()
+    } as TAuth,
     reducers: {
         loginSuccess: (state, action: PayloadAction<TAuth>) => {
             state.isAuth = true;

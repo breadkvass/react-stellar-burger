@@ -1,5 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type TUserUpd = {
+    nameUpd: string;
+    emailUpd: string;
+}
+
+type TProfileInputs = {
+    nameInputDisabled: boolean;
+    emailInputDisabled: boolean;
+    passwordInputDisabled: boolean;
+    userUpd: TUserUpd;
+    resetPassword: boolean;
+}
+
 const { actions, reducer } = createSlice({
     name: 'reducer',
     initialState: {
@@ -11,7 +24,7 @@ const { actions, reducer } = createSlice({
             emailUpd: ''
         },
         resetPassword: false,
-    },
+    } as TProfileInputs,
     reducers: {
         toggleNameDisabled: state => {
             state.nameInputDisabled = !state.nameInputDisabled;

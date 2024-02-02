@@ -6,9 +6,14 @@ export type TIngredient = {
     name: string;
     image: string;
     type: 'bun' | 'main' | 'sauce';
+    image_mobile: string;
+    calories: number;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
 };
 
-type TIngredients = {
+export type TIngredients = {
     isLoading: boolean;
     hasError: boolean;
     ingredients: TIngredient[];
@@ -16,11 +21,11 @@ type TIngredients = {
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TIngredients>{
+    initialState: {
         isLoading: false,
         hasError: false,
         ingredients: []
-    },
+    } as TIngredients,
     reducers: {
         setLoadingIngredients: (state) => {
             state.isLoading = true;

@@ -3,9 +3,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const ordersWSStart: 'ORDERS_WS_CONNECTION_START' = 'ORDERS_WS_CONNECTION_START';
 export const ordersWSStop: 'ORDERS_WS_CONNECTION_STOP' = 'ORDERS_WS_CONNECTION_STOP';
 
+type TOrder = {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    owner: object;
+    price: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+}
+
 type TProfileOrders = {
     success: boolean,
-    orders: Array<object>,
+    orders: Array<TOrder>,
     total: string,
     totalToday: string,
     socketStatus: string,
@@ -13,13 +25,13 @@ type TProfileOrders = {
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TProfileOrders>{
+    initialState: {
         success: false,
         orders: [],
         total: '',
         totalToday: '',
         socketStatus: '',
-    },
+    } as TProfileOrders,
     reducers: {
         setOrders: (state, action: PayloadAction<TProfileOrders>) => {
             state.success = action.payload.success;

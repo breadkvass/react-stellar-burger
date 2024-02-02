@@ -24,7 +24,7 @@ const filling = (ingredientId: string): TFilling => ({
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TBurgerConstructor>{
+    initialState: {
         bun: '643d69a5c3f7b9001cfa093c',
         filling: [
             filling('643d69a5c3f7b9001cfa0944'),
@@ -34,7 +34,7 @@ const { actions, reducer } = createSlice({
             filling('643d69a5c3f7b9001cfa0946')
         ],
         draggingIndex: -1
-    },
+    } as TBurgerConstructor,
     reducers: {
         setBun: (state, action: PayloadAction<string>) => {
             state.bun = action.payload;

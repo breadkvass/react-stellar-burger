@@ -1,23 +1,31 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { TIngredient } from "./ingredients";
+
+type TOrder = {
+    ingredients?: TIngredient[];
+    _id?: string;
+    number?: number;
+    price?: number;
+}
 
 type TOrderDetails = {
-    isLoading: boolean,
-    hasError: boolean,
-    orderDetails: [] | object
+    isLoading: boolean;
+    hasError: boolean;
+    orderDetails: TOrder;
 }
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TOrderDetails>{
+    initialState: {
         isLoading: false,
         hasError: false,
-        orderDetails: []
-    },
+        orderDetails: {}
+    } as TOrderDetails,
     reducers: {
         setLoadingOrderDetails: state => {
             state.isLoading = true;
         },
-        setDataOrderDetails: (state, action: PayloadAction<object>) => {
+        setDataOrderDetails: (state, action: PayloadAction<TOrder>) => {
             state.isLoading = false;
             state.hasError = false;
             state.orderDetails = action.payload;
@@ -25,7 +33,7 @@ const { actions, reducer } = createSlice({
         setErrorOrderDetails: state => {
             state.isLoading = false;
             state.hasError = true;
-            state.orderDetails = [];
+            state.orderDetails = {};
         }
     }
 })

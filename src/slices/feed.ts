@@ -3,9 +3,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const feedWSStart: 'FEED_WS_CONNECTION_START' = 'FEED_WS_CONNECTION_START';
 export const feedWSStop: 'FEED_WS_CONNECTION_STOP' = 'FEED_WS_CONNECTION_STOP';
 
+type TOrder = {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    owner: object;
+    price: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+}
+
 type TFeed = {
     success: boolean,
-    orders: Array<object>,
+    orders: Array<TOrder>,
     total: string,
     totalToday: string,
     socketStatus: string,
@@ -13,13 +25,13 @@ type TFeed = {
 
 const { actions, reducer } = createSlice({
     name: 'reducer',
-    initialState: <TFeed>{
+    initialState: {
         success: false,
         orders: [],
         total: '',
         totalToday: '',
         socketStatus: '',
-    },
+    } as TFeed,
     reducers: {
         setFeed: (state, action: PayloadAction<TFeed>) => {
             state.success = action.payload.success;
