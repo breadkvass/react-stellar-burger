@@ -1,22 +1,39 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { Link, useLocation } from 'react-router-dom';
-import { orderPropType } from '../../utils/prop-types';
 import { v4 as uuid } from 'uuid';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TIngredient } from '../../slices/ingredients';
+import { isNonNil } from '../../utils/utils';
 import styles from './profle-orders-card.module.css';
 
-function ProfileOrderCard({order}) {
+type TOrder = {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    owner: object;
+    price: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+}
+
+type TProfileOrderCard = {
+    order: TOrder;
+}
+
+function ProfileOrderCard({order}: TProfileOrderCard) {
     const location = useLocation();
     const ingredients = useSelector(state => state.ingredients.ingredients);
-    const getIngredientsById = (ingredients, id) => {
+    const getIngredientsById = (ingredients: TIngredient[], id: string) => {
         return ingredients.find(ingredient => ingredient._id === id);
     };
-    const orderIngredients = order.ingredients.map(item => getIngredientsById(ingredients, item));
+    const orderIngredients = order.ingredients.map(item => getIngredientsById(ingredients, item)).filter(isNonNil);
     const orderPrice = orderIngredients.map(item => item.price).reduce((a, b) => a + b);
 
-    let status = null;
-    let color = null;
+    let status = '';
+    let color = '';
 
     if (order.status === 'done') {
         status = 'Выполнен';
@@ -58,16 +75,12 @@ function ProfileOrderCard({order}) {
                 </ul>
                 <div className={styles.price}>
                     <p className="text text_type_digits-default">{orderPrice}</p>
-                    <CurrencyIcon />
+                    <CurrencyIcon type='primary'/>
                 </div>
             </div>
         </Link>
         
     )
-}
-
-ProfileOrderCard.propTypes = {
-    order: orderPropType.isRequired
 }
 
 export default ProfileOrderCard;
