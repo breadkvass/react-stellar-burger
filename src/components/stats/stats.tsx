@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import Completed from '../completed/completed';
 import StatsBoardColumn from '../stats-board-column/stats-board-column';
 import styles from './stats.module.css';
