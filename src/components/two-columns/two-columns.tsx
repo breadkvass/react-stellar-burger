@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import styles from './two-columns.module.css';
 
-function TwoColumns({children}) {
+type TTwoColumns = {
+    children: ReactNode;
+}
+
+function TwoColumns({children}: TTwoColumns) {
     return (
         <div className={styles.columns}>
             {children}
         </div>
     )
-}
-
-TwoColumns.propTypes = {
-    children: PropTypes.node,
 }
 
 export default TwoColumns;

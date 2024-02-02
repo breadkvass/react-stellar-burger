@@ -1,12 +1,16 @@
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import LeftColumnLink from '../left-column-link/left-column-link';
 import { logout } from '../../utils/api';
 import styles from './profile-left-column.module.css';
+import { ReactNode } from 'react';
 
-function ProfileLeftColumn({children}) {
+type TProfileLeftColumn = {
+    children: ReactNode;
+}
+
+function ProfileLeftColumn({children}: TProfileLeftColumn) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const refreshToken = localStorage.getItem('refreshToken');
@@ -34,10 +38,6 @@ function ProfileLeftColumn({children}) {
             {children}
         </div>
     )
-}
-
-ProfileLeftColumn.propTypes = {
-    children: PropTypes.object,
 }
 
 export default ProfileLeftColumn;
