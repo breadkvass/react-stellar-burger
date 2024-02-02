@@ -2,7 +2,7 @@ import styles from './completed.module.css';
 
 type TCompleted = {
     text: string;
-    number: number;
+    number: string;
 }
 
 function Completed({text, number}: TCompleted) {
