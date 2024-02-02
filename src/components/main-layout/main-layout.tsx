@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
+import { ReactNode } from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./main-layout.module.css";
 
-function MainLayout({ children }) {
+type TChildren = {
+    children: ReactNode;
+}
+
+function MainLayout({ children }: TChildren) {
     return (
         <div className={styles.page}>
             <AppHeader />
@@ -10,9 +14,5 @@ function MainLayout({ children }) {
         </div>
     )
 }
-
-MainLayout.propTypes = {
-    children: PropTypes.node,
-} 
 
 export default MainLayout;
