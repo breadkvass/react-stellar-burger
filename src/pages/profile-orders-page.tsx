@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../hooks/hooks';
 import MainLayout from '../components/main-layout/main-layout';
 import TwoColumns from '../components/two-columns/two-columns';
 import styles from './profile-orders-page.module.css';
@@ -11,7 +11,7 @@ function ProfileOrdersPage() {
     const dispatch = useDispatch();
     const orders = useSelector(state => state.orders.orders);
     const accessToken = localStorage.getItem('accessToken');
-    const payload = `wss://norma.nomoreparties.space/orders?token=${accessToken.split('Bearer ')[1]}`;
+    const payload = `wss://norma.nomoreparties.space/orders?token=${accessToken?.split('Bearer ')[1]}`;
 
     useEffect(() => {
         dispatch({

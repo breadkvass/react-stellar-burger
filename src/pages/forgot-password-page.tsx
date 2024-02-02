@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../hooks/hooks';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Inputs from '../components/inputs/inputs';
 import Form from '../components/form/form';
@@ -10,7 +10,7 @@ import { resetPassword } from '../utils/api';
 import { setResetPassword } from '../slices/profile-inputs';
 
 function ForgotPasswordPage() {
-    const [ emailValue, setEmailValue ] = useState('');
+    const [ emailValue, setEmailValue ] = useState<string>('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 

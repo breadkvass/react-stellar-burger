@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { SyntheticEvent, useState } from 'react';
+import { useDispatch } from "../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
@@ -12,12 +12,11 @@ function LoginPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [ emailValue, setEmailValue ] = useState('');
-    const [ passwordValue, setPasswordValue ] = useState('');
-
-    const [ passwordShown, setPasswordShown ] = useState(true);
+    const [ emailValue, setEmailValue ] = useState<string>('');
+    const [ passwordValue, setPasswordValue ] = useState<string>('');
+    const [ passwordShown, setPasswordShown ] = useState<boolean>(true);
     
-    function submit(e) {
+    function submit(e: SyntheticEvent) {
         e.preventDefault();
         dispatch(login(
             {email: emailValue, password: passwordValue},

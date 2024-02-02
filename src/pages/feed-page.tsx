@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../hooks/hooks';
 import MainLayout from '../components/main-layout/main-layout';
 import Orders from '../components/orders/orders';
 import Stats from '../components/stats/stats';

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
@@ -11,11 +11,10 @@ import { register } from '../utils/api';
 function RegistrationPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ nameValue, setNameValue ] = useState('');
-    const [ emailValue, setEmailValue ] = useState('');
-    const [ passwordValue, setPasswordValue ] = useState('');
-
-    const [passwordShown, setPasswordShown] = useState(true);
+    const [ nameValue, setNameValue ] = useState<string>('');
+    const [ emailValue, setEmailValue ] = useState<string>('');
+    const [ passwordValue, setPasswordValue ] = useState<string>('');
+    const [passwordShown, setPasswordShown] = useState<boolean>(true);
 
     return (
         <MainLayout>

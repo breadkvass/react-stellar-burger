@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../hooks/hooks';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { toggleNameDisabled, toggleEmailDisabled, setInputsDisabled, setNameUpd, setEmailUpd } from '../slices/profile-inputs';
@@ -7,6 +7,7 @@ import TwoColumns from '../components/two-columns/two-columns';
 import ProfileLeftColumn from '../components/profile-left-column/profile-left-column';
 import { updateUser } from '../utils/api';
 import styles from './profile-page.module.css';
+import { SyntheticEvent } from 'react';
 
 
 function ProfilePage() {
@@ -17,13 +18,17 @@ function ProfilePage() {
     const { name, email } = useSelector(state => state.auth.user);
     const accessToken = localStorage.getItem('accessToken');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
-        dispatch(updateUser(nameUpd, emailUpd, accessToken));
-        dispatch(setInputsDisabled());
+        if (accessToken != null) {
+            dispatch(updateUser(nameUpd, emailUpd, accessToken));
+            dispatch(setInputsDisabled());
+        } else {
+            console.log('Ошибка токена')
+        }
     }
 
-    const handleReset = (e) => {
+    const handleReset = (e: SyntheticEvent) => {
         e.preventDefault();
         dispatch(setNameUpd(name));
         dispatch(setEmailUpd(email));

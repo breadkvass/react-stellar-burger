@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
@@ -10,13 +10,15 @@ import { newPassword } from '../utils/api';
 import { cancelResetPassword } from '../slices/profile-inputs';
 
 function ResetPasswordPage() {
-    const [ passwordValue, setPasswordValue ] = useState('');
-    const [ codeValue, setCodeValue ] = useState('');
+    const [ passwordValue, setPasswordValue ] = useState<string>('');
+    const [ codeValue, setCodeValue ] = useState<string>('');
+    const [passwordShown, setPasswordShown] = useState<boolean>(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const resetPassword = useSelector(state => state.profileInputs.resetPassword);
 
-    const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
       };

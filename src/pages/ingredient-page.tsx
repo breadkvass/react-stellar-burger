@@ -1,11 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../hooks/hooks';
 import { useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MainLayout from '../components/main-layout/main-layout';
 import IngredientDetails from '../components/ingredient-details/ingredient-details';
+import { isNonNil } from '../utils/utils';
 import styles from "./ingredient-page.module.css";
 
-function IngredientPage({page}) {
+type IngredientPage = {
+    page: boolean;
+}
+
+function IngredientPage({page}: IngredientPage) {
     let { id } = useParams();
     const { ingredients } = useSelector(state => state.ingredients);
     const details = ingredients.find(ingredient => ingredient._id === id);
