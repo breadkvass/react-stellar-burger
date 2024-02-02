@@ -1,16 +1,22 @@
 import ReactDOM from "react-dom";
-import PropTypes from 'prop-types';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, SyntheticEvent, MouseEventHandler, ReactNode } from 'react';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 
-const modalRoot = document.getElementById("react-modals");
+type TProps = {
+    padding?: string;
+    title?: string;
+    children: ReactNode;
+    closeHandler: Function;
+}
 
-const stopPropagation = e => e.stopPropagation();
+const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
-function Modal(props) {
-    const escHandler = useCallback((e) => {
+const stopPropagation = (e: SyntheticEvent<Element, Event>) => e.stopPropagation();
+
+function Modal(props: TProps) {
+    const escHandler = useCallback((e: KeyboardEvent) => {
         if (e.key === "Escape") {
             e.stopPropagation();
             props.closeHandler();
@@ -26,8 +32,7 @@ function Modal(props) {
 
     }, [escHandler]);
     
-    const onClickHandler = (e) => {
-        e.stopPropagation();
+    const onClickHandler = () => {
         props.closeHandler();
     }
 
@@ -47,13 +52,6 @@ function Modal(props) {
         ), 
             modalRoot
     );
-}
-
-Modal.propTypes = {
-    closeHandler: PropTypes.func,
-    padding: PropTypes.string,
-    title: PropTypes.string,
-    children: PropTypes.object,
 }
 
 export default Modal;
