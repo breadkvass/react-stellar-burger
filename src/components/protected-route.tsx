@@ -2,15 +2,24 @@ import { useSelector, useDispatch } from '../hooks/hooks';
 import { Navigate, useLocation } from "react-router-dom";
 import { getUser, updateToken } from "../utils/api";
 
-export const ProtectedOnlyUnAuth = ({ component }) => {
+type TProtected = {
+  component: JSX.Element;
+}
+
+export const ProtectedOnlyUnAuth = ({ component }: TProtected) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(store => store.auth.isAuth);
   const location = useLocation();
   const refreshToken = localStorage.getItem('refreshToken');
   const accessToken = localStorage.getItem('accessToken');
+  const expireInAccToken = useSelector(store => store.auth.expireInAccToken);
   
   if (isAuth === false && refreshToken) {
-    dispatch(getUser(accessToken));
+    if (Date.now() > expireInAccToken) {
+      dispatch(updateToken(refreshToken));
+    } else {
+      dispatch(getUser(accessToken));
+    }
     return <Navigate to="/profile" state={{from: location} } />;
   } else if (isAuth === true) {
     return <Navigate to="/profile" state={{from: location} } />;
@@ -19,7 +28,7 @@ export const ProtectedOnlyUnAuth = ({ component }) => {
   }
 }
 
-export const ProtectedOnlyAuth = ({ component }) => {
+export const ProtectedOnlyAuth = ({ component }: TProtected) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(store => store.auth.isAuth);
   const location = useLocation();
@@ -30,18 +39,18 @@ export const ProtectedOnlyAuth = ({ component }) => {
   if (isAuth === true) {
     return component;
   } else if (isAuth === false && refreshToken) {
-    if (new Date() > expireInAccToken) {
+    if (Date.now() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
     } else {
       dispatch(getUser(accessToken));
     }
     return component;
-  } else if (isAuth === false && !refreshToken) {
+  } else {
     return <Navigate to="/login" state={{from: location} } />;
   }
 }
 
-export const Protected = ({ component }) => {
+export const Protected = ({ component }: TProtected) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(store => store.auth.isAuth);
   const refreshToken = localStorage.getItem('refreshToken');
@@ -49,7 +58,7 @@ export const Protected = ({ component }) => {
   const expireInAccToken = useSelector(store => store.auth.expireInAccToken);
 
   if (isAuth === false && refreshToken) {
-    if (new Date() > expireInAccToken) {
+    if (Date.now() > expireInAccToken) {
       dispatch(updateToken(refreshToken));
     } else {
       dispatch(getUser(accessToken));

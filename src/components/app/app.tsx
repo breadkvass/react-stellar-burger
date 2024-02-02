@@ -30,7 +30,7 @@ type TLocation = {
   state: TBackground;
 }
 
-function App(): ReactElement {
+function App() {
   let location: TLocation = useLocation();
   const dispatch = useDispatch();
   let background = location.state && location.state.background;
