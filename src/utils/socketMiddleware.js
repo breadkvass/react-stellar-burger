@@ -1,7 +1,4 @@
 import { fetchPostRefreshToken } from "./api";
-import { checkOrdersIngredients } from "./utils";
-
-const payload = 'wss://norma.nomoreparties.space/orders?token=';
 
 export const socketMiddleware = wsConfig => store => {
     let socket = null;
@@ -74,3 +71,7 @@ export const socketMiddleware = wsConfig => store => {
         return next(action);
     }
 }
+
+function checkOrdersIngredients(arr) {
+    return arr.filter(item => item.ingredients.every(el => el));
+};
