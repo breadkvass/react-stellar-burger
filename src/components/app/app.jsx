@@ -1,46 +1,20 @@
-import { useEffect, useState } from 'react';
-
-import styles from "./app.module.css";
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-
-import { IngredientsContext } from "../../services/ingredients-context";
+import { getIngredients } from '../../services/actions/ingredients';
+import styles from "./app.module.css";
 
 function App() {
-  const [state, setState] = useState({
-    isLoading: true,
-    hasError: false,
-    data: []
-  });
-
-  const url = 'https://norma.nomoreparties.space/api/ingredients';
+  const { ingredients, isLoading, hasError } = useSelector(state => state.ingredients);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(url)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(data => setState({
-        isLoading: false,
-        hasError: false,
-        data: data.data
-      }))
-      .catch(err => {
-        setState({
-          isLoading: false,
-          hasError: true,
-          data: []
-        });
-        console.log(err);
-      });
+    dispatch(getIngredients());
   }, []);
-  
-  const { data, isLoading, hasError } = state;
 
   return (
     <div className={styles.app}>
@@ -48,11 +22,11 @@ function App() {
       <main className={styles.main}>
         {isLoading && 'Загрузка...'}
         {hasError && 'Произошла ошибка'}
-        {!isLoading && !hasError && data.length &&
-          <IngredientsContext.Provider value={{ data, isLoading }}>
+        {!isLoading && !hasError && ingredients.length &&
+          <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </IngredientsContext.Provider>
+          </DndProvider>
         }
       </main>
     </div>

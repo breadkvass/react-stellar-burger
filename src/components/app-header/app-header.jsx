@@ -1,12 +1,10 @@
-import style from "./app-header.module.css";
-
-import Navigation from "../navigation/navigation";
-import NavLink from "../nav-link/nav-link";
-
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import Navigation from "../navigation/navigation";
+import NavLink from "../nav-link/nav-link";
+import style from "./app-header.module.css";
 
 function AppHeader() {
     return (
